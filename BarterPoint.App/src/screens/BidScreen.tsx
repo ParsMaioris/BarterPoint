@@ -14,11 +14,11 @@ import
 import {useSelector, useDispatch} from 'react-redux'
 import {MaterialIcons} from '@expo/vector-icons'
 import {RootState, AppDispatch} from '../redux/Store'
-import {buttonStyles} from './ButtonStyles'
+import {buttonStyles} from '../styles/common/ButtonStyles'
 import {selectAllProducts} from '../redux/Selectors'
 import {removeBid, fetchAllBids} from '../api/ApiService'
 import {Product} from '../models/Product'
-import CategoryFilter from './CategoryFilter'
+import CategoryFilter from '../components/CategoryFilter'
 import {ProductCategory} from '../models/ProductCategory'
 import {Bid} from '../models/Bid'
 

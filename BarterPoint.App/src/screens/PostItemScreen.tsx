@@ -13,12 +13,12 @@ import
   ToastAndroid,
   Alert,
 } from "react-native"
-import {buttonStyles} from "./ButtonStyles"
+import {buttonStyles} from "../styles/common/ButtonStyles"
 import {useNavigation} from "@react-navigation/native"
 import {LandingPageScreenScreenNavigationProp} from "../navigation/navigationTypes"
 import {ProductCategory} from "../models/ProductCategory"
 import {AddProductRequest} from "../api/models/AddProductRequest"
-import {ProductCategoryUtil} from "./ProductCategoryUtil"
+import {ProductCategoryUtil} from "../utils/ProductCategoryUtil"
 import {RootState} from "../redux/Store"
 
 const PostItemScreen: React.FC = () =>

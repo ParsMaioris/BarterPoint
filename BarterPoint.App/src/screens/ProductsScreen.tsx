@@ -1,7 +1,7 @@
 import React, {useState} from "react"
 import {View, Text, StyleSheet, TouchableOpacity, Modal} from "react-native"
 import {Ionicons} from '@expo/vector-icons'
-import {buttonStyles} from "./ButtonStyles"
+import {buttonStyles} from "../styles/common/ButtonStyles"
 import {useNavigation} from "@react-navigation/native"
 import {StackNavigationProp} from "@react-navigation/stack"
 import {RootStackParamList} from "../navigation/navigationTypes"

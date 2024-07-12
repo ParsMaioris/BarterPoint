@@ -11,14 +11,14 @@ import
   Alert,
 } from "react-native"
 import {RouteProp, useNavigation} from "@react-navigation/native"
-import {buttonStyles} from "./ButtonStyles"
+import {buttonStyles} from "../styles/common/ButtonStyles"
 import {useSelector, useDispatch} from "react-redux"
 import {RootState, AppDispatch} from "../redux/Store"
 import {addBid, fetchAllBids} from "../api/ApiService"
 import {RootStackParamList} from "../navigation/navigationTypes"
 import {StackNavigationProp} from "@react-navigation/stack"
 import {Product} from "../models/Product"
-import {ProductDetailScreenStyles} from "./ProductDetailScreenStyles"
+import {ProductDetailScreenStyles} from "../styles/specific/ProductDetailScreenStyles"
 
 type ProductDetailScreenRouteProp = RouteProp<RootStackParamList, "ProductDetailScreen">
 

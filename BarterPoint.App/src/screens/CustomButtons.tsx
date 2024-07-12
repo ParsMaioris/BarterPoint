@@ -3,7 +3,7 @@ import {View, Text, TouchableOpacity, StyleSheet} from "react-native"
 import {useNavigation} from "@react-navigation/native"
 
 import {LandingPageScreenScreenNavigationProp} from "../navigation/navigationTypes"
-import {buttonStyles} from "./ButtonStyles"
+import {buttonStyles} from "../styles/common/ButtonStyles"
 
 const CustomButtons: React.FC = () =>
 {
