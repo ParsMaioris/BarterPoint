@@ -1,6 +1,5 @@
 import {createSlice, PayloadAction, createAsyncThunk} from '@reduxjs/toolkit'
 import {User} from '../../models/User'
-import {mockCurrentUser} from '../../mocks/Mock'
 import {registerUser, signInUser} from '../../api/ApiService'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
@@ -14,7 +13,7 @@ interface UserState
 }
 
 const initialState: UserState = {
-    currentUser: mockCurrentUser,
+    currentUser: {id: ''},
     users: [],
     status: 'idle',
     error: null,
