@@ -4,7 +4,7 @@ import {useDispatch} from 'react-redux'
 import {useNavigation} from '@react-navigation/native'
 import {signInUser} from './Data/Api/ApiService'
 import {AppDispatch} from './Data/Store'
-import {RootStackParamList} from '../models/navigationTypes'
+import {RootStackParamList} from '../navigation/navigationTypes'
 import {StackNavigationProp} from '@react-navigation/stack'
 
 type ProductListNavigationProp = StackNavigationProp<RootStackParamList, 'CreateAccount'>

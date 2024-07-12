@@ -11,9 +11,9 @@ import
 import {useSelector} from "react-redux"
 import useProductList from "./useProductList"
 import {RootState} from "./Data/Store"
-import {Product} from "./Data/Models/Product"
+import {Product} from "../models/Product"
 import CategoryFilter from "./CategoryFilter"
-import {ProductCategory} from "./Data/Models/ProductCategory"
+import {ProductCategory} from "../models/ProductCategory"
 
 interface ProductListProps
 {

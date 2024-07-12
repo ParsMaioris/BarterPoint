@@ -1,26 +1,26 @@
 import React, {useState} from 'react'
 import
-    {
-        View,
-        Text,
-        FlatList,
-        StyleSheet,
-        Image,
-        TouchableOpacity,
-        Modal,
-        ScrollView,
-        Alert,
-    } from 'react-native'
+{
+    View,
+    Text,
+    FlatList,
+    StyleSheet,
+    Image,
+    TouchableOpacity,
+    Modal,
+    ScrollView,
+    Alert,
+} from 'react-native'
 import {useSelector, useDispatch} from 'react-redux'
 import {MaterialIcons} from '@expo/vector-icons'
 import {RootState, AppDispatch} from './Data/Store'
 import {buttonStyles} from './ButtonStyles'
 import {selectAllProducts} from './Data/Selectors'
 import {removeBid, fetchAllBids} from './Data/Api/ApiService'
-import {Product} from './Data/Models/Product'
+import {Product} from '../models/Product'
 import CategoryFilter from './CategoryFilter'
-import {ProductCategory} from './Data/Models/ProductCategory'
-import {Bid} from './Data/Models/Bid'
+import {ProductCategory} from '../models/ProductCategory'
+import {Bid} from '../models/Bid'
 
 const BidScreen: React.FC = () =>
 {

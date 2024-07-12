@@ -1,7 +1,7 @@
 import {Bid} from "./Data/BidSlice"
-import {Product} from "./Data/Models/Product"
-import {ProductCategory} from "./Data/Models/ProductCategory"
-import {User} from "./Data/Models/User"
+import {Product} from "../models/Product"
+import {ProductCategory} from "../models/ProductCategory"
+import {User} from "../models/User"
 
 export const mockUserProducts: Product[] = [
   {

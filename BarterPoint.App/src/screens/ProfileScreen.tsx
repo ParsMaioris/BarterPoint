@@ -8,7 +8,7 @@ import MyProducts from './MyProducts'
 import {useNavigation} from '@react-navigation/native'
 import {mockProfileImage} from './Mock'
 import {StackNavigationProp} from '@react-navigation/stack'
-import {RootStackParamList} from '../models/navigationTypes'
+import {RootStackParamList} from '../navigation/navigationTypes'
 
 type ProductListNavigationProp = StackNavigationProp<RootStackParamList, 'SignIn'>
 

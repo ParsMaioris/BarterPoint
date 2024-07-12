@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction, createAsyncThunk} from '@reduxjs/toolkit'
-import {User} from './Models/User'
+import {User} from '../../models/User'
 import {mockCurrentUser} from '../Mock'
 import {registerUser, signInUser} from './Api/ApiService'
 import AsyncStorage from '@react-native-async-storage/async-storage'

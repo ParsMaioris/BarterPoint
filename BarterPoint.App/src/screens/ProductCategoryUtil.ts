@@ -1,4 +1,4 @@
-import {ProductCategory} from "./Data/Models/ProductCategory"
+import {ProductCategory} from "../models/ProductCategory"
 
 export class ProductCategoryUtil
 {

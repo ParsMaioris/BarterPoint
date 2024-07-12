@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit"
 import {mockBids} from "../Mock"
-import {Bid} from "./Models/Bid"
+import {Bid} from "../../models/Bid"
 import {addBid, fetchAllBids, removeBid} from "./Api/ApiService"
 
 interface BidState

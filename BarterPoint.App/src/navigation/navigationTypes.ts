@@ -1,6 +1,6 @@
 import {RouteProp} from "@react-navigation/native"
 import {StackNavigationProp} from "@react-navigation/stack"
-import {Product} from "../screens/Data/Models/Product"
+import {Product} from "../models/Product"
 
 export interface Offer
 {

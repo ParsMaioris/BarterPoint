@@ -12,7 +12,7 @@ import
 } from "react-native"
 import {FontAwesome} from "@expo/vector-icons"
 import {RootState, AppDispatch} from "./Data/Store"
-import {Product} from "./Data/Models/Product"
+import {Product} from "../models/Product"
 import {removeProduct, fetchProductsByOwner} from "./Data/Api/ApiService"
 import {RemoveProductRequest} from "./Data/Api/RemoveProductRequest"
 

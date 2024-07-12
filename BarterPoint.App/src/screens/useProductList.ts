@@ -1,5 +1,5 @@
 import {StackNavigationProp} from "@react-navigation/stack"
-import {Product} from "./Data/Models/Product"
+import {Product} from "../models/Product"
 import {useNavigation} from "@react-navigation/native"
 import {RootStackParamList} from "models/navigationTypes"
 

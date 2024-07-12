@@ -5,7 +5,7 @@ import {useNavigation} from '@react-navigation/native'
 import {AppDispatch} from './Data/Store'
 import {registerUser} from './Data/Api/ApiService'
 import {StackNavigationProp} from '@react-navigation/stack'
-import {RootStackParamList} from '../models/navigationTypes'
+import {RootStackParamList} from '../navigation/navigationTypes'
 
 type ProductListNavigationProp = StackNavigationProp<RootStackParamList, 'SignIn'>
 

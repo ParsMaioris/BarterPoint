@@ -6,7 +6,7 @@ import ProductList from "./ProductList"
 import MyProducts from "./MyProducts"
 import {useNavigation} from "@react-navigation/native"
 import {StackNavigationProp} from "@react-navigation/stack"
-import {RootStackParamList} from "../models/navigationTypes"
+import {RootStackParamList} from "../navigation/navigationTypes"
 
 const ProductsPage: React.FC = () =>
 {
