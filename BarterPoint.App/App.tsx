@@ -1,20 +1,65 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {useEffect, useState} from 'react'
+import {NavigationContainer} from '@react-navigation/native'
+import {createNativeStackNavigator} from '@react-navigation/native-stack'
+import {Provider} from 'react-redux'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import SignInScreen from './src/screens/SignInScreen'
+import ProfileScreen from './src/screens/ProfileScreen'
+import LandingPage from './src/screens/LandingPage'
+import PostItem from './src/screens/PostItem'
+import ProductList from './src/screens/ProductList'
+import ProductDetail from './src/screens/ProductDetail'
+import store from './src/screens/Data/Store'
+import BidScreen from './src/screens/BidScreen'
+import {setUserId} from './src/screens/Data/UserSlice'
+import CreateAccountScreen from './src/screens/CreateAccountScreen'
+import ProductsPage from './src/screens/ProductsPage'
 
-export default function App() {
+const Stack = createNativeStackNavigator()
+
+const App = () =>
+{
+  const [initialRouteName, setInitialRouteName] = useState('SignIn')
+  const [isTokenChecked, setIsTokenChecked] = useState(false)
+
+  useEffect(() =>
+  {
+    const checkLoginState = async () =>
+    {
+      const userId = await AsyncStorage.getItem('userId')
+      if (userId)
+      {
+        store.dispatch(setUserId(userId))
+        setInitialRouteName('LandingPage')
+      }
+      setIsTokenChecked(true)
+    }
+
+    checkLoginState()
+  }, [])
+
+  if (!isTokenChecked)
+  {
+    return null
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName={initialRouteName}>
+          <Stack.Screen name="SignIn" component={SignInScreen} options={{title: 'Welcome Back!'}} />
+          <Stack.Screen name="CreateAccount" component={CreateAccountScreen} options={{title: 'Create Account'}} />
+          <Stack.Screen name="LandingPage" component={LandingPage} options={{title: 'Welcome to BarterApp'}} />
+          <Stack.Screen name="PostItem" component={PostItem} options={{title: 'Post a New Item'}} />
+          <Stack.Screen name="Profile" component={ProfileScreen} options={{title: 'Your Profile'}} />
+          <Stack.Screen name="ProductList" component={ProductList} options={{title: 'Product Listings'}} />
+          <Stack.Screen name="ProductDetail" component={ProductDetail} options={{title: 'Product Detail'}} />
+          <Stack.Screen name="ProductsPage" component={ProductsPage} options={{title: 'Products'}} />
+          <Stack.Screen name="BidScreen" component={BidScreen} options={{title: 'Bids'}} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App
