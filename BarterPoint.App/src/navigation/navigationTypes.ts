@@ -13,7 +13,7 @@ export type RouteParams = {
 }
 
 export type RootStackParamList = {
-  ProductDetail: {product: Product}
+  ProductDetailScreen: {product: Product}
   ProductListScreen: undefined
   SignIn: undefined
   CreateAccount: undefined
@@ -54,14 +54,14 @@ export type ProfileScreenNavigationProp = StackNavigationProp<
   "Profile"
 >
 
-export type ProductDetailScreenNavigationProp = StackNavigationProp<
+export type ProductDetailScreenScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
-  "ProductDetail"
+  "ProductDetailScreen"
 >
 
-export type ProductDetailScreenRouteProp = RouteProp<
+export type ProductDetailScreenScreenRouteProp = RouteProp<
   RootStackParamList,
-  "ProductDetail"
+  "ProductDetailScreen"
 >
 
 export type BidsScreenNavigationProp = StackNavigationProp<

@@ -3,7 +3,7 @@ import {Product} from "../models/Product"
 import {useNavigation} from "@react-navigation/native"
 import {RootStackParamList} from "../navigation/navigationTypes"
 
-type ProductListScreenNavigationProp = StackNavigationProp<RootStackParamList, 'ProductDetail'>
+type ProductListScreenNavigationProp = StackNavigationProp<RootStackParamList, 'ProductDetailScreen'>
 
 const useProductListScreen = () =>
 {
@@ -11,7 +11,7 @@ const useProductListScreen = () =>
 
   const handlePress = (item: Product) =>
   {
-    navigation.navigate("ProductDetail", {product: item})
+    navigation.navigate("ProductDetailScreen", {product: item})
   }
 
   return {

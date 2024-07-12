@@ -18,18 +18,18 @@ import {addBid, fetchAllBids} from "../api/ApiService"
 import {RootStackParamList} from "../navigation/navigationTypes"
 import {StackNavigationProp} from "@react-navigation/stack"
 import {Product} from "../models/Product"
-import {productDetailStyles} from "./ProductDetailStyles"
+import {ProductDetailScreenStyles} from "./ProductDetailScreenStyles"
 
-type ProductDetailRouteProp = RouteProp<RootStackParamList, "ProductDetail">
+type ProductDetailScreenRouteProp = RouteProp<RootStackParamList, "ProductDetailScreen">
 
-interface ProductDetailProps
+interface ProductDetailScreenProps
 {
-  route: ProductDetailRouteProp
+  route: ProductDetailScreenRouteProp
 }
 
-const ProductDetail: React.FC<ProductDetailProps> = ({route}) =>
+const ProductDetailScreen: React.FC<ProductDetailScreenProps> = ({route}) =>
 {
-  const styles = productDetailStyles
+  const styles = ProductDetailScreenStyles
   const userProducts = useSelector(
     (state: RootState) => state.products.userProducts
   ) as Product[]
@@ -117,4 +117,4 @@ const ProductDetail: React.FC<ProductDetailProps> = ({route}) =>
   )
 }
 
-export default ProductDetail
+export default ProductDetailScreen

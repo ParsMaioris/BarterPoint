@@ -72,14 +72,14 @@ const BidScreen: React.FC = () =>
             <View style={styles.bidItem}>
                 <TouchableOpacity style={styles.productContainer} onPress={() => handleProductPress(product1)}>
                     <Image source={{uri: product1.image}} style={styles.productImage} />
-                    <View style={styles.productDetails}>
+                    <View style={styles.ProductDetailScreens}>
                         <Text style={styles.productName}>{product1.name}</Text>
                     </View>
                 </TouchableOpacity>
                 <MaterialIcons name="swap-horiz" size={24} color="black" style={styles.bidIcon} />
                 <TouchableOpacity style={styles.productContainer} onPress={() => handleProductPress(product2)}>
                     <Image source={{uri: product2.image}} style={styles.productImage} />
-                    <View style={styles.productDetails}>
+                    <View style={styles.ProductDetailScreens}>
                         <Text style={styles.productName}>{product2.name}</Text>
                     </View>
                 </TouchableOpacity>
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         marginRight: 16,
     },
-    productDetails: {
+    ProductDetailScreens: {
         flex: 1,
     },
     productName: {
