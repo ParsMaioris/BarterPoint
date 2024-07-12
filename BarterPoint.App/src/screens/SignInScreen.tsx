@@ -28,7 +28,7 @@ const SignInScreen: React.FC = () =>
       if (signInUser.fulfilled.match(resultAction))
       {
         Alert.alert('Success', 'Signed in successfully')
-        navigation.navigate('LandingPage')
+        navigation.navigate('LandingPageScreen')
       } else
       {
         Alert.alert('Error', resultAction.payload || 'Failed to sign in')

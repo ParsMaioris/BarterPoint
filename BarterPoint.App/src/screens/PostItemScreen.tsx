@@ -15,7 +15,7 @@ import
 } from "react-native"
 import {buttonStyles} from "./ButtonStyles"
 import {useNavigation} from "@react-navigation/native"
-import {LandingPageScreenNavigationProp} from "../navigation/navigationTypes"
+import {LandingPageScreenScreenNavigationProp} from "../navigation/navigationTypes"
 import {ProductCategory} from "../models/ProductCategory"
 import {AddProductRequest} from "../api/models/AddProductRequest"
 import {ProductCategoryUtil} from "./ProductCategoryUtil"
@@ -23,7 +23,7 @@ import {RootState} from "../redux/Store"
 
 const PostItemScreen: React.FC = () =>
 {
-  const navigation = useNavigation<LandingPageScreenNavigationProp>()
+  const navigation = useNavigation<LandingPageScreenScreenNavigationProp>()
   const dispatch = useDispatch<any>()
   const [name, setName] = useState<string>("")
   const [description, setDescription] = useState<string>("")
@@ -70,7 +70,7 @@ const PostItemScreen: React.FC = () =>
       {
         Alert.alert("Success", "Item posted successfully!")
       }
-      navigation.navigate("LandingPage")
+      navigation.navigate("LandingPageScreen")
     } else
     {
       const errorMessage = (resultAction.payload as string) || "Failed to post item."

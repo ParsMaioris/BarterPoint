@@ -17,7 +17,7 @@ export type RootStackParamList = {
   ProductListScreen: undefined
   SignIn: undefined
   CreateAccount: undefined
-  LandingPage: undefined
+  LandingPageScreen: undefined
   PostItemScreen: undefined
   Profile: undefined
   UploadSightingImageForm: {
@@ -35,9 +35,9 @@ export type SignUpScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   "CreateAccount"
 >
-export type LandingPageScreenNavigationProp = StackNavigationProp<
+export type LandingPageScreenScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
-  "LandingPage"
+  "LandingPageScreen"
 >
 export type PostItemScreenScreenNavigationProp = StackNavigationProp<
   RootStackParamList,

@@ -61,7 +61,7 @@ const ProductDetailScreen: React.FC<ProductDetailScreenProps> = ({route}) =>
           Alert.alert("Success", "Trade offer made successfully!")
         }
 
-        navigation.navigate("LandingPage")
+        navigation.navigate("LandingPageScreen")
       } else
       {
         const errorMessage = (resultAction.payload as string) || 'Failed to make trade offer.'

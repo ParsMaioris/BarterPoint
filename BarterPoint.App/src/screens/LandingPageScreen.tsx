@@ -1,13 +1,13 @@
 import React, {useEffect} from "react"
 import {View, Text, Image, StyleSheet} from "react-native"
 import CustomButtons from "./CustomButtons"
-import ProductListScreen from "./ProductListScreen"
 import {mockAppLogo} from "./Mock"
 import {useDispatch, useSelector} from "react-redux"
 import {AppDispatch, RootState} from "../redux/Store"
 import {fetchProductsNotOwnedByUser, fetchProductsByOwner, fetchAllBids} from "../api/ApiService"
+import ProductListScreen from "./ProductListScreen"
 
-const LandingPage: React.FC = () =>
+const LandingPageScreen: React.FC = () =>
 {
   const dispatch = useDispatch<AppDispatch>()
   const status = useSelector((state: RootState) => state.products.status)
@@ -107,4 +107,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default LandingPage
+export default LandingPageScreen

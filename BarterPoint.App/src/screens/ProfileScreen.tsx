@@ -4,11 +4,11 @@ import {useDispatch, useSelector} from 'react-redux'
 import {RootState, AppDispatch} from '../redux/Store'
 import {clearCurrentUser} from '../redux/slices/UserSlice'
 import {buttonStyles} from './ButtonStyles'
-import MyProductsScreen from './MyProductsScreen'
 import {useNavigation} from '@react-navigation/native'
 import {mockProfileImage} from './Mock'
 import {StackNavigationProp} from '@react-navigation/stack'
 import {RootStackParamList} from '../navigation/navigationTypes'
+import MyProductsScreen from './MyProductsScreen'
 
 type ProductListScreenNavigationProp = StackNavigationProp<RootStackParamList, 'SignIn'>
 

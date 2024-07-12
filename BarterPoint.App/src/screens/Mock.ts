@@ -1,4 +1,3 @@
-import {Bid} from "../redux/slices/BidSlice"
 import {Product} from "../models/Product"
 import {ProductCategory} from "../models/ProductCategory"
 import {User} from "../models/User"
@@ -334,13 +333,6 @@ export const mockPostProducts: Product[] = [
     dimensions: {width: 7, height: 10, depth: 7, weight: 2},
     dateListed: new Date('2023-07-06').toISOString(),
   }
-]
-
-export const mockBids: Bid[] = [
-  {product1Id: '5', product2Id: '6'}, // Smartphone <-> Headphones
-  {product1Id: '7', product2Id: '8'}, // Backpack <-> Water Bottle
-  {product1Id: '10', product2Id: '11'}, // Gaming Console <-> E-Reader
-  {product1Id: '12', product2Id: '14'}, // Desk Lamp <-> Bluetooth Speaker
 ]
 
 export const mockAppLogo = "https://images.pexels.com/photos/247929/pexels-photo-247929.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"

@@ -2,12 +2,12 @@ import React from "react"
 import {View, Text, TouchableOpacity, StyleSheet} from "react-native"
 import {useNavigation} from "@react-navigation/native"
 
-import {LandingPageScreenNavigationProp} from "../navigation/navigationTypes"
+import {LandingPageScreenScreenNavigationProp} from "../navigation/navigationTypes"
 import {buttonStyles} from "./ButtonStyles"
 
 const CustomButtons: React.FC = () =>
 {
-  const navigation = useNavigation<LandingPageScreenNavigationProp>()
+  const navigation = useNavigation<LandingPageScreenScreenNavigationProp>()
 
   const goToProfile = () => navigation.navigate("Profile")
   const goToBids = () => navigation.navigate("BidScreen")

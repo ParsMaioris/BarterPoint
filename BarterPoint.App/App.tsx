@@ -5,7 +5,7 @@ import {Provider} from 'react-redux'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import SignInScreen from './src/screens/SignInScreen'
 import ProfileScreen from './src/screens/ProfileScreen'
-import LandingPage from './src/screens/LandingPage'
+import LandingPageScreen from './src/screens/LandingPageScreen'
 import PostItemScreen from './src/screens/PostItemScreen'
 import ProductListScreen from './src/screens/ProductListScreen'
 import ProductDetailScreen from './src/screens/ProductDetailScreen'
@@ -30,7 +30,7 @@ const App = () =>
       if (userId)
       {
         store.dispatch(setUserId(userId))
-        setInitialRouteName('LandingPage')
+        setInitialRouteName('LandingPageScreen')
       }
       setIsTokenChecked(true)
     }
@@ -49,7 +49,7 @@ const App = () =>
         <Stack.Navigator initialRouteName={initialRouteName}>
           <Stack.Screen name="SignIn" component={SignInScreen} options={{title: 'Welcome Back!'}} />
           <Stack.Screen name="CreateAccount" component={CreateAccountScreen} options={{title: 'Create Account'}} />
-          <Stack.Screen name="LandingPage" component={LandingPage} options={{title: 'Welcome to BarterApp'}} />
+          <Stack.Screen name="LandingPageScreen" component={LandingPageScreen} options={{title: 'Welcome to BarterApp'}} />
           <Stack.Screen name="PostItemScreen" component={PostItemScreen} options={{title: 'Post a New Item'}} />
           <Stack.Screen name="Profile" component={ProfileScreen} options={{title: 'Your Profile'}} />
           <Stack.Screen name="ProductListScreen" component={ProductListScreen} options={{title: 'Product Listings'}} />
