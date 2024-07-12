@@ -43,7 +43,7 @@ const ProfileScreen: React.FC = () =>
         <Image source={{uri: mockProfileImage}} style={styles.profileImage} />
       </TouchableOpacity>
       <Text style={styles.title}>
-        Welcome{currentUser?.id ? `, ${currentUser.id}` : ''}
+        Welcome to your Profile
       </Text>
     </View>
   )
