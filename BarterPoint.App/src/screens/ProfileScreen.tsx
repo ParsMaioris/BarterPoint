@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {RootState, AppDispatch} from '../redux/Store'
 import {clearCurrentUser} from '../redux/slices/UserSlice'
 import {buttonStyles} from './ButtonStyles'
-import MyProducts from './MyProducts'
+import MyProductsScreen from './MyProductsScreen'
 import {useNavigation} from '@react-navigation/native'
 import {mockProfileImage} from './Mock'
 import {StackNavigationProp} from '@react-navigation/stack'
@@ -57,7 +57,7 @@ const ProfileScreen: React.FC = () =>
       </View>
 
       <View style={styles.productsContainer}>
-        <MyProducts />
+        <MyProductsScreen />
       </View>
 
       <View style={styles.buttonContainer}>

@@ -16,7 +16,7 @@ import {Product} from "../models/Product"
 import {removeProduct, fetchProductsByOwner} from "../api/ApiService"
 import {RemoveProductRequest} from "../api/models/RemoveProductRequest"
 
-const MyProducts: React.FC = () =>
+const MyProductsScreen: React.FC = () =>
 {
   const userProducts = useSelector((state: RootState) => state.products.userProducts) as Product[]
   const dispatch = useDispatch<AppDispatch>()
@@ -115,4 +115,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default MyProducts
+export default MyProductsScreen

@@ -3,14 +3,14 @@ import {View, Text, StyleSheet, TouchableOpacity, Modal} from "react-native"
 import {Ionicons} from '@expo/vector-icons'
 import {buttonStyles} from "./ButtonStyles"
 import ProductListScreen from "./ProductListScreen"
-import MyProducts from "./MyProducts"
+import MyProductsScreen from "./MyProductsScreen"
 import {useNavigation} from "@react-navigation/native"
 import {StackNavigationProp} from "@react-navigation/stack"
 import {RootStackParamList} from "../navigation/navigationTypes"
 
 const ProductsScreen: React.FC = () =>
 {
-    const [isMyProductsModalVisible, setMyProductsModalVisible] = useState(false)
+    const [isMyProductsScreenModalVisible, setMyProductsScreenModalVisible] = useState(false)
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>()
 
     return (
@@ -20,15 +20,15 @@ const ProductsScreen: React.FC = () =>
             </View>
             <TouchableOpacity
                 style={[buttonStyles.button]}
-                onPress={() => setMyProductsModalVisible(true)}
+                onPress={() => setMyProductsScreenModalVisible(true)}
             >
                 <Text style={[buttonStyles.buttonText]}>My Products</Text>
             </TouchableOpacity>
 
             <Modal
-                visible={isMyProductsModalVisible}
+                visible={isMyProductsScreenModalVisible}
                 animationType="slide"
-                onRequestClose={() => setMyProductsModalVisible(false)}
+                onRequestClose={() => setMyProductsScreenModalVisible(false)}
             >
                 <View style={styles.modalContainer}>
                     <View style={styles.sectionHeader}>
@@ -37,10 +37,10 @@ const ProductsScreen: React.FC = () =>
                             <Ionicons name="add-circle-outline" size={24} color="#8B4513" />
                         </TouchableOpacity>
                     </View>
-                    <MyProducts />
+                    <MyProductsScreen />
                     <TouchableOpacity
                         style={[buttonStyles.button]}
-                        onPress={() => setMyProductsModalVisible(false)}
+                        onPress={() => setMyProductsScreenModalVisible(false)}
                     >
                         <Text style={[buttonStyles.buttonText]}>Close</Text>
                     </TouchableOpacity>
