@@ -1,0 +1,1 @@
+CREATE LOGIN [dev_user] WITH PASSWORD = '';
