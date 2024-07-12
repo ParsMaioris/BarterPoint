@@ -1,6 +1,6 @@
 import React, {useEffect} from "react"
 import {View, Text, Image, StyleSheet} from "react-native"
-import CustomButtons from "./CustomButtons"
+import LandingPageButtons from "./LandingPageButtons"
 import {mockAppLogo} from "./Mock"
 import {useDispatch, useSelector} from "react-redux"
 import {AppDispatch, RootState} from "../redux/Store"
@@ -53,7 +53,7 @@ const LandingPageScreen: React.FC = () =>
       </View>
       <ProductListScreen />
       <View style={styles.buttonContainer}>
-        <CustomButtons />
+        <LandingPageButtons />
       </View>
     </View>
   )

@@ -5,7 +5,7 @@ import {useNavigation} from "@react-navigation/native"
 import {LandingPageScreenScreenNavigationProp} from "../navigation/navigationTypes"
 import {buttonStyles} from "../styles/common/ButtonStyles"
 
-const CustomButtons: React.FC = () =>
+const LandingPageButtons: React.FC = () =>
 {
   const navigation = useNavigation<LandingPageScreenScreenNavigationProp>()
 
@@ -36,4 +36,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default CustomButtons
+export default LandingPageButtons
