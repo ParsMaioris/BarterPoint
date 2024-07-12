@@ -2,8 +2,8 @@ import React from "react"
 import {View, Text, TouchableOpacity, StyleSheet} from "react-native"
 import {useNavigation} from "@react-navigation/native"
 
-import {LandingPageScreenNavigationProp} from "models/navigationTypes"
-import {buttonStyles} from "../ButtonStyles"
+import {LandingPageScreenNavigationProp} from "../navigation/navigationTypes"
+import {buttonStyles} from "./ButtonStyles"
 
 const CustomButtons: React.FC = () =>
 {

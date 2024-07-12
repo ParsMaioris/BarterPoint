@@ -1,6 +1,6 @@
 import React, {useEffect} from "react"
 import {View, Text, Image, StyleSheet} from "react-native"
-import CustomButtons from "./LandingPage/CustomButtons"
+import CustomButtons from "./CustomButtons"
 import ProductList from "./ProductList"
 import {mockAppLogo} from "./Mock"
 import {useDispatch, useSelector} from "react-redux"
