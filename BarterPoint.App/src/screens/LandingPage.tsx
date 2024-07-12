@@ -5,7 +5,7 @@ import ProductList from "./ProductList"
 import {mockAppLogo} from "./Mock"
 import {useDispatch, useSelector} from "react-redux"
 import {AppDispatch, RootState} from "./Data/Store"
-import {fetchProductsNotOwnedByUser, fetchProductsByOwner, fetchAllBids} from "./Data/Api/ApiService"
+import {fetchProductsNotOwnedByUser, fetchProductsByOwner, fetchAllBids} from "../api/ApiService"
 
 const LandingPage: React.FC = () =>
 {

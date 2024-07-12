@@ -1,6 +1,6 @@
 import React, {useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
-import {addProduct, fetchProductsByOwner} from "./Data/Api/ApiService"
+import {addProduct, fetchProductsByOwner} from "../api/ApiService"
 import {mockPostProducts} from "./Mock"
 import
 {
@@ -17,7 +17,7 @@ import {buttonStyles} from "./ButtonStyles"
 import {useNavigation} from "@react-navigation/native"
 import {LandingPageScreenNavigationProp} from "../navigation/navigationTypes"
 import {ProductCategory} from "../models/ProductCategory"
-import {AddProductRequest} from "./Data/Api/AddProductRequest"
+import {AddProductRequest} from "../api/models/AddProductRequest"
 import {ProductCategoryUtil} from "./ProductCategoryUtil"
 import {RootState} from "./Data/Store"
 

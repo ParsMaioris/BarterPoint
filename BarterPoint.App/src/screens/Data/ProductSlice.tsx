@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {fetchProductsByOwner, fetchProductsNotOwnedByUser} from './Api/ApiService'
-import {addProduct, removeProduct} from './Api/ApiService'
+import {fetchProductsByOwner, fetchProductsNotOwnedByUser} from '../../api/ApiService'
+import {addProduct, removeProduct} from '../../api/ApiService'
 import {mockUserProducts} from '../Mock'
 import {Product} from '../../models/Product'
 

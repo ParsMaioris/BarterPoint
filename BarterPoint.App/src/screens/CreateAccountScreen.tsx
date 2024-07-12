@@ -3,7 +3,7 @@ import {View, Text, TextInput, TouchableOpacity, StyleSheet, Alert} from 'react-
 import {useDispatch} from 'react-redux'
 import {useNavigation} from '@react-navigation/native'
 import {AppDispatch} from './Data/Store'
-import {registerUser} from './Data/Api/ApiService'
+import {registerUser} from '../api/ApiService'
 import {StackNavigationProp} from '@react-navigation/stack'
 import {RootStackParamList} from '../navigation/navigationTypes'
 

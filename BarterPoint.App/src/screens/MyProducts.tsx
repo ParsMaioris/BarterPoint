@@ -13,8 +13,8 @@ import
 import {FontAwesome} from "@expo/vector-icons"
 import {RootState, AppDispatch} from "./Data/Store"
 import {Product} from "../models/Product"
-import {removeProduct, fetchProductsByOwner} from "./Data/Api/ApiService"
-import {RemoveProductRequest} from "./Data/Api/RemoveProductRequest"
+import {removeProduct, fetchProductsByOwner} from "../api/ApiService"
+import {RemoveProductRequest} from "../api/models/RemoveProductRequest"
 
 const MyProducts: React.FC = () =>
 {
