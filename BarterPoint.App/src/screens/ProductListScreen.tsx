@@ -9,22 +9,22 @@ import
   TouchableOpacity,
 } from "react-native"
 import {useSelector} from "react-redux"
-import useProductList from "./useProductList"
 import {RootState} from "../redux/Store"
 import {Product} from "../models/Product"
 import CategoryFilter from "./CategoryFilter"
 import {ProductCategory} from "../models/ProductCategory"
+import useProductListScreen from "./useProductListScreen"
 
-interface ProductListProps
+interface ProductListScreenProps
 {
   showCategoryFilter?: boolean
   allowNavigation?: boolean
 }
 
-const ProductList: React.FC<ProductListProps> = ({showCategoryFilter = false, allowNavigation = true}) =>
+const ProductListScreen: React.FC<ProductListScreenProps> = ({showCategoryFilter = false, allowNavigation = true}) =>
 {
   const products = useSelector((state: RootState) => state.products.products) as Product[]
-  const {handlePress} = useProductList()
+  const {handlePress} = useProductListScreen()
   const [selectedCategory, setSelectedCategory] = useState<ProductCategory | null>(null)
 
   const filteredProducts = selectedCategory === null
@@ -92,4 +92,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default ProductList
+export default ProductListScreen

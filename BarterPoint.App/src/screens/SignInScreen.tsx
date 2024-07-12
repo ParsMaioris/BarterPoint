@@ -7,14 +7,14 @@ import {AppDispatch} from '../redux/Store'
 import {RootStackParamList} from '../navigation/navigationTypes'
 import {StackNavigationProp} from '@react-navigation/stack'
 
-type ProductListNavigationProp = StackNavigationProp<RootStackParamList, 'CreateAccount'>
+type ProductListScreenNavigationProp = StackNavigationProp<RootStackParamList, 'CreateAccount'>
 
 const SignInScreen: React.FC = () =>
 {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const dispatch = useDispatch<AppDispatch>()
-  const navigation = useNavigation<ProductListNavigationProp>()
+  const navigation = useNavigation<ProductListScreenNavigationProp>()
 
   const handleSignIn = async () =>
   {

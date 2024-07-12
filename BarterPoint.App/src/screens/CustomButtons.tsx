@@ -11,14 +11,14 @@ const CustomButtons: React.FC = () =>
 
   const goToProfile = () => navigation.navigate("Profile")
   const goToBids = () => navigation.navigate("BidScreen")
-  const goToProductList = () => navigation.navigate("ProductsScreen")
+  const goToProductListScreen = () => navigation.navigate("ProductsScreen")
 
   return (
     <View style={styles.buttonContainer}>
       <TouchableOpacity style={buttonStyles.button} onPress={goToProfile}>
         <Text style={buttonStyles.buttonText}>Profile</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={buttonStyles.button} onPress={goToProductList}>
+      <TouchableOpacity style={buttonStyles.button} onPress={goToProductListScreen}>
         <Text style={buttonStyles.buttonText}>Products</Text>
       </TouchableOpacity>
       <TouchableOpacity style={buttonStyles.button} onPress={goToBids}>

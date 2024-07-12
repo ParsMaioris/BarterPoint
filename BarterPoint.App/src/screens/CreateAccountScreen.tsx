@@ -7,7 +7,7 @@ import {registerUser} from '../api/ApiService'
 import {StackNavigationProp} from '@react-navigation/stack'
 import {RootStackParamList} from '../navigation/navigationTypes'
 
-type ProductListNavigationProp = StackNavigationProp<RootStackParamList, 'SignIn'>
+type ProductListScreenNavigationProp = StackNavigationProp<RootStackParamList, 'SignIn'>
 
 const CreateAccountScreen: React.FC = () =>
 {
@@ -17,7 +17,7 @@ const CreateAccountScreen: React.FC = () =>
     const [name, setName] = useState('')
     const [location, setLocation] = useState('')
     const dispatch = useDispatch<AppDispatch>()
-    const navigation = useNavigation<ProductListNavigationProp>()
+    const navigation = useNavigation<ProductListScreenNavigationProp>()
 
     const handleSignUp = async () =>
     {

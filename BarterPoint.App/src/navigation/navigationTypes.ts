@@ -14,7 +14,7 @@ export type RouteParams = {
 
 export type RootStackParamList = {
   ProductDetail: {product: Product}
-  ProductList: undefined
+  ProductListScreen: undefined
   SignIn: undefined
   CreateAccount: undefined
   LandingPage: undefined

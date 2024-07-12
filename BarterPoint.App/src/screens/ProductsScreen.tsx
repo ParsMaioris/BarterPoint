@@ -2,7 +2,7 @@ import React, {useState} from "react"
 import {View, Text, StyleSheet, TouchableOpacity, Modal} from "react-native"
 import {Ionicons} from '@expo/vector-icons'
 import {buttonStyles} from "./ButtonStyles"
-import ProductList from "./ProductList"
+import ProductListScreen from "./ProductListScreen"
 import MyProducts from "./MyProducts"
 import {useNavigation} from "@react-navigation/native"
 import {StackNavigationProp} from "@react-navigation/stack"
@@ -16,7 +16,7 @@ const ProductsScreen: React.FC = () =>
     return (
         <View style={styles.container}>
             <View style={styles.section}>
-                <ProductList showCategoryFilter={true} />
+                <ProductListScreen showCategoryFilter={true} />
             </View>
             <TouchableOpacity
                 style={[buttonStyles.button]}

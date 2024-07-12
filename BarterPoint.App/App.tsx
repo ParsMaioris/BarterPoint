@@ -7,7 +7,7 @@ import SignInScreen from './src/screens/SignInScreen'
 import ProfileScreen from './src/screens/ProfileScreen'
 import LandingPage from './src/screens/LandingPage'
 import PostItem from './src/screens/PostItem'
-import ProductList from './src/screens/ProductList'
+import ProductListScreen from './src/screens/ProductListScreen'
 import ProductDetail from './src/screens/ProductDetail'
 import BidScreen from './src/screens/BidScreen'
 import CreateAccountScreen from './src/screens/CreateAccountScreen'
@@ -52,7 +52,7 @@ const App = () =>
           <Stack.Screen name="LandingPage" component={LandingPage} options={{title: 'Welcome to BarterApp'}} />
           <Stack.Screen name="PostItem" component={PostItem} options={{title: 'Post a New Item'}} />
           <Stack.Screen name="Profile" component={ProfileScreen} options={{title: 'Your Profile'}} />
-          <Stack.Screen name="ProductList" component={ProductList} options={{title: 'Product Listings'}} />
+          <Stack.Screen name="ProductListScreen" component={ProductListScreen} options={{title: 'Product Listings'}} />
           <Stack.Screen name="ProductDetail" component={ProductDetail} options={{title: 'Product Detail'}} />
           <Stack.Screen name="ProductsScreen" component={ProductsScreen} options={{title: 'Products'}} />
           <Stack.Screen name="BidScreen" component={BidScreen} options={{title: 'Bids'}} />
