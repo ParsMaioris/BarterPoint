@@ -33,7 +33,7 @@ const ProductsScreen: React.FC = () =>
                 <View style={styles.modalContainer}>
                     <View style={styles.sectionHeader}>
                         <Text style={styles.sectionTitle}>My Products</Text>
-                        <TouchableOpacity onPress={() => navigation.navigate("PostItem")}>
+                        <TouchableOpacity onPress={() => navigation.navigate("PostItemScreen")}>
                             <Ionicons name="add-circle-outline" size={24} color="#8B4513" />
                         </TouchableOpacity>
                     </View>

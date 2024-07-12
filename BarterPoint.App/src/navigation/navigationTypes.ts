@@ -18,7 +18,7 @@ export type RootStackParamList = {
   SignIn: undefined
   CreateAccount: undefined
   LandingPage: undefined
-  PostItem: undefined
+  PostItemScreen: undefined
   Profile: undefined
   UploadSightingImageForm: {
     photoUri: string
@@ -39,9 +39,9 @@ export type LandingPageScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   "LandingPage"
 >
-export type PostItemScreenNavigationProp = StackNavigationProp<
+export type PostItemScreenScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
-  "PostItem"
+  "PostItemScreen"
 >
 
 export type UploadSightingImageFormNavigationProp = StackNavigationProp<

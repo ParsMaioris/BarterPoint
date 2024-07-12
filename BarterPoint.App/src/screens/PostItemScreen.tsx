@@ -21,7 +21,7 @@ import {AddProductRequest} from "../api/models/AddProductRequest"
 import {ProductCategoryUtil} from "./ProductCategoryUtil"
 import {RootState} from "../redux/Store"
 
-const PostItem: React.FC = () =>
+const PostItemScreen: React.FC = () =>
 {
   const navigation = useNavigation<LandingPageScreenNavigationProp>()
   const dispatch = useDispatch<any>()
@@ -173,4 +173,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default PostItem
+export default PostItemScreen

@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import SignInScreen from './src/screens/SignInScreen'
 import ProfileScreen from './src/screens/ProfileScreen'
 import LandingPage from './src/screens/LandingPage'
-import PostItem from './src/screens/PostItem'
+import PostItemScreen from './src/screens/PostItemScreen'
 import ProductListScreen from './src/screens/ProductListScreen'
 import ProductDetailScreen from './src/screens/ProductDetailScreen'
 import BidScreen from './src/screens/BidScreen'
@@ -50,7 +50,7 @@ const App = () =>
           <Stack.Screen name="SignIn" component={SignInScreen} options={{title: 'Welcome Back!'}} />
           <Stack.Screen name="CreateAccount" component={CreateAccountScreen} options={{title: 'Create Account'}} />
           <Stack.Screen name="LandingPage" component={LandingPage} options={{title: 'Welcome to BarterApp'}} />
-          <Stack.Screen name="PostItem" component={PostItem} options={{title: 'Post a New Item'}} />
+          <Stack.Screen name="PostItemScreen" component={PostItemScreen} options={{title: 'Post a New Item'}} />
           <Stack.Screen name="Profile" component={ProfileScreen} options={{title: 'Your Profile'}} />
           <Stack.Screen name="ProductListScreen" component={ProductListScreen} options={{title: 'Product Listings'}} />
           <Stack.Screen name="ProductDetailScreen" component={ProductDetailScreen} options={{title: 'Product Detail'}} />
