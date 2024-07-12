@@ -1,7 +1,7 @@
 import React, {useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {addProduct, fetchProductsByOwner} from "../api/ApiService"
-import {mockPostProducts} from "./Mock"
+import {mockPostProducts} from "../mocks/Mock"
 import
 {
   TextInput,

@@ -18,7 +18,7 @@ import {buttonStyles} from '../styles/common/ButtonStyles'
 import {selectAllProducts} from '../redux/Selectors'
 import {removeBid, fetchAllBids} from '../api/ApiService'
 import {Product} from '../models/Product'
-import CategoryFilter from '../components/CategoryFilter'
+import CategoryFilter from '../components/common/CategoryFilter'
 import {ProductCategory} from '../models/ProductCategory'
 import {Bid} from '../models/Bid'
 

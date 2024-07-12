@@ -2,8 +2,8 @@ import React from "react"
 import {View, Text, TouchableOpacity, StyleSheet} from "react-native"
 import {useNavigation} from "@react-navigation/native"
 
-import {LandingPageScreenScreenNavigationProp} from "../navigation/navigationTypes"
-import {buttonStyles} from "../styles/common/ButtonStyles"
+import {LandingPageScreenScreenNavigationProp} from "../../navigation/navigationTypes"
+import {buttonStyles} from "../../styles/common/ButtonStyles"
 
 const LandingPageButtons: React.FC = () =>
 {

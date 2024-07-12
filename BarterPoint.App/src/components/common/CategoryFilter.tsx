@@ -8,8 +8,8 @@ import
     ScrollView,
     StyleSheet,
 } from "react-native"
-import {ProductCategory} from "../models/ProductCategory"
-import {buttonStyles} from "../styles/common/ButtonStyles"
+import {ProductCategory} from "../../models/ProductCategory"
+import {buttonStyles} from "../../styles/common/ButtonStyles"
 import {Ionicons} from '@expo/vector-icons'
 
 interface CategoryFilterProps

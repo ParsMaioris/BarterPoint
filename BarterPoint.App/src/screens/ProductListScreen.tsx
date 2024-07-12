@@ -11,7 +11,7 @@ import
 import {useSelector} from "react-redux"
 import {RootState} from "../redux/Store"
 import {Product} from "../models/Product"
-import CategoryFilter from "../components/CategoryFilter"
+import CategoryFilter from "../components/common/CategoryFilter"
 import {ProductCategory} from "../models/ProductCategory"
 import useProductListScreen from "../hooks/useProductListScreen"
 
