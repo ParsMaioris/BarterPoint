@@ -1,0 +1,267 @@
+# dependencies
+/node_modules/
+
+# Expo
+.expo/
+dist/
+web-build/
+
+# Distribution directory
+dist/
+
+# Build directory
+build/
+
+# Native
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.keystore
+*.pem
+
+# Metro
+.metro/
+.metro-health-check*
+
+# Debug logs
+npm-debug.*
+
+# macOS
+.DS_Store
+
+# Local env files
+.env*.local
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# TypeScript
+*.tsbuildinfo
+
+# Jest
+/coverage/
+
+# Misc
+*.log
+*.tmp
+*.tmp.*
+*.swp
+*.swo
+*.swn
+
+# IDE / Editor
+.vscode/
+.idea/
+*.iml
+
+# Keystore files (if not included in the above)
+**/keystore.properties
+
+# Production builds
+/android/app/src/main/assets/*
+!/android/app/src/main/assets/shell-app.bundle
+!/android/app/src/main/assets/shell-app-manifest.json
+/ios/build/
+/android/build/
+/android/app/build/
+
+
+# Amplify configuration
+amplify/\#current-cloud-backend
+amplify/.config/local-*
+amplify/logs
+amplify/mock-data
+amplify/backend/amplify-meta.json
+amplify/backend/awscloudformation
+amplify/backend/.temp
+amplify/backend/build
+amplify/team-provider-info.json
+amplify/.config
+# Amplify
+amplify/\#current-cloud-backend
+amplify/.config
+amplify/backend/awscloudformation
+amplify/backend/**/*.json
+amplify/backend/**/*.yml
+amplify/backend/**/*.yaml
+amplify/backend/**/*.md
+amplify/backend/api/**/resolvers
+amplify/backend/api/**/build
+amplify/backend/api/**/stacks
+amplify/team-provider-info.json
+
+# Include GraphQL schema and TypeScript definitions
+!amplify/backend/api/**/schema.graphql
+!amplify/backend/types/amplify-dependent-resources-ref.d.ts
+
+# Include CLI configuration and hooks documentation
+!amplify/cli.json
+!amplify/hooks/README.md
+!amplify/README.md
+
+# eslint config
+.eslintrc.js
+.eslintignore
+
+# Ignore graphql config
+.graphqlconfig.yml
+
+#amplify-do-not-edit-begin
+amplify/\#current-cloud-backend
+amplify/.config/local-*
+amplify/logs
+amplify/mock-data
+amplify/mock-api-resources
+amplify/backend/amplify-meta.json
+amplify/backend/.temp
+build/
+dist/
+node_modules/
+aws-exports.js
+awsconfiguration.json
+amplifyconfiguration.json
+amplifyconfiguration.dart
+amplify-build-config.json
+amplify-gradle-config.json
+amplifytools.xcconfig
+.secret-*
+**.sample
+#amplify-do-not-edit-end
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+bin/
+obj/
+
+# Rider
+.idea/
+*.sln.iml
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Auto-generated files
+*.nupkg
+*.snupkg
+*.nuspec
+*.psmdcp
+*.pidb
+*.svclog
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Azure Pipelines
+*.azure-pipelines.yml
+.ionide
+
+# Local History
+.localhistory/
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Node.js
+node_modules/
+
+# Logs
+logs/
+*.log
+
+# npm package lock file
+package-lock.json
+
+# Yarn Integrity file
+.yarn-integrity
+
+# ASP.NET Core Secrets
+**/secrets.json
+
+# Azure Functions
+local.settings.json
+
+# Entity Framework
+**/*.edmx.diagram
+**/*.edmx.sql
+**/*.edmx
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# JetBrains Rider
+.idea/
+.idea/*
+
+# Include if you have a .dotsettings user file in your project directory
+*.dotsettings.user
+
+# VS Code
+.vscode/
+.vscode/*
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env
+
+# Python virtualenv
+.venv
+
+publish/
