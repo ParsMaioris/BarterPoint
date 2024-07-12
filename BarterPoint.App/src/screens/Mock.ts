@@ -1,4 +1,4 @@
-import {Bid} from "./Data/BidSlice"
+import {Bid} from "../redux/slices/BidSlice"
 import {Product} from "../models/Product"
 import {ProductCategory} from "../models/ProductCategory"
 import {User} from "../models/User"

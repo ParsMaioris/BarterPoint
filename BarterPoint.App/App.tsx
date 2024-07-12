@@ -9,11 +9,11 @@ import LandingPage from './src/screens/LandingPage'
 import PostItem from './src/screens/PostItem'
 import ProductList from './src/screens/ProductList'
 import ProductDetail from './src/screens/ProductDetail'
-import store from './src/screens/Data/Store'
 import BidScreen from './src/screens/BidScreen'
-import {setUserId} from './src/screens/Data/UserSlice'
 import CreateAccountScreen from './src/screens/CreateAccountScreen'
 import ProductsPage from './src/screens/ProductsPage'
+import store from './src/redux/Store'
+import {setUserId} from './src/redux/slices/UserSlice'
 
 const Stack = createNativeStackNavigator()
 

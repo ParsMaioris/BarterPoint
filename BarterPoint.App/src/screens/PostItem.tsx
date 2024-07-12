@@ -19,7 +19,7 @@ import {LandingPageScreenNavigationProp} from "../navigation/navigationTypes"
 import {ProductCategory} from "../models/ProductCategory"
 import {AddProductRequest} from "../api/models/AddProductRequest"
 import {ProductCategoryUtil} from "./ProductCategoryUtil"
-import {RootState} from "./Data/Store"
+import {RootState} from "../redux/Store"
 
 const PostItem: React.FC = () =>
 {

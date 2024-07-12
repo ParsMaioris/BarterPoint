@@ -11,7 +11,7 @@ import
   Alert,
 } from "react-native"
 import {FontAwesome} from "@expo/vector-icons"
-import {RootState, AppDispatch} from "./Data/Store"
+import {RootState, AppDispatch} from "../redux/Store"
 import {Product} from "../models/Product"
 import {removeProduct, fetchProductsByOwner} from "../api/ApiService"
 import {RemoveProductRequest} from "../api/models/RemoveProductRequest"

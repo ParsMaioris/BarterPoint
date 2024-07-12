@@ -4,7 +4,7 @@ import CustomButtons from "./CustomButtons"
 import ProductList from "./ProductList"
 import {mockAppLogo} from "./Mock"
 import {useDispatch, useSelector} from "react-redux"
-import {AppDispatch, RootState} from "./Data/Store"
+import {AppDispatch, RootState} from "../redux/Store"
 import {fetchProductsNotOwnedByUser, fetchProductsByOwner, fetchAllBids} from "../api/ApiService"
 
 const LandingPage: React.FC = () =>

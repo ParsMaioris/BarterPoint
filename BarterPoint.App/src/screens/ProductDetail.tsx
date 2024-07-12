@@ -13,7 +13,7 @@ import
 import {RouteProp, useNavigation} from "@react-navigation/native"
 import {buttonStyles} from "./ButtonStyles"
 import {useSelector, useDispatch} from "react-redux"
-import {RootState, AppDispatch} from "./Data/Store"
+import {RootState, AppDispatch} from "../redux/Store"
 import {addBid, fetchAllBids} from "../api/ApiService"
 import {RootStackParamList} from "../navigation/navigationTypes"
 import {StackNavigationProp} from "@react-navigation/stack"

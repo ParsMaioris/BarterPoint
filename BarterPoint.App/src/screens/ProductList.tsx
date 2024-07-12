@@ -10,7 +10,7 @@ import
 } from "react-native"
 import {useSelector} from "react-redux"
 import useProductList from "./useProductList"
-import {RootState} from "./Data/Store"
+import {RootState} from "../redux/Store"
 import {Product} from "../models/Product"
 import CategoryFilter from "./CategoryFilter"
 import {ProductCategory} from "../models/ProductCategory"
