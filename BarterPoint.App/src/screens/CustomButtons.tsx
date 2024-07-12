@@ -11,7 +11,7 @@ const CustomButtons: React.FC = () =>
 
   const goToProfile = () => navigation.navigate("Profile")
   const goToBids = () => navigation.navigate("BidScreen")
-  const goToProductList = () => navigation.navigate("ProductsPage")
+  const goToProductList = () => navigation.navigate("ProductsScreen")
 
   return (
     <View style={styles.buttonContainer}>

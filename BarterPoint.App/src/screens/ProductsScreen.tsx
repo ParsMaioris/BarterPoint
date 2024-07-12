@@ -8,7 +8,7 @@ import {useNavigation} from "@react-navigation/native"
 import {StackNavigationProp} from "@react-navigation/stack"
 import {RootStackParamList} from "../navigation/navigationTypes"
 
-const ProductsPage: React.FC = () =>
+const ProductsScreen: React.FC = () =>
 {
     const [isMyProductsModalVisible, setMyProductsModalVisible] = useState(false)
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>()
@@ -90,4 +90,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default ProductsPage
+export default ProductsScreen

@@ -11,7 +11,7 @@ import ProductList from './src/screens/ProductList'
 import ProductDetail from './src/screens/ProductDetail'
 import BidScreen from './src/screens/BidScreen'
 import CreateAccountScreen from './src/screens/CreateAccountScreen'
-import ProductsPage from './src/screens/ProductsPage'
+import ProductsScreen from './src/screens/ProductsScreen'
 import store from './src/redux/Store'
 import {setUserId} from './src/redux/slices/UserSlice'
 
@@ -54,7 +54,7 @@ const App = () =>
           <Stack.Screen name="Profile" component={ProfileScreen} options={{title: 'Your Profile'}} />
           <Stack.Screen name="ProductList" component={ProductList} options={{title: 'Product Listings'}} />
           <Stack.Screen name="ProductDetail" component={ProductDetail} options={{title: 'Product Detail'}} />
-          <Stack.Screen name="ProductsPage" component={ProductsPage} options={{title: 'Products'}} />
+          <Stack.Screen name="ProductsScreen" component={ProductsScreen} options={{title: 'Products'}} />
           <Stack.Screen name="BidScreen" component={BidScreen} options={{title: 'Bids'}} />
         </Stack.Navigator>
       </NavigationContainer>

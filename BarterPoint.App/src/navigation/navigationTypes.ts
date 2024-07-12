@@ -23,7 +23,7 @@ export type RootStackParamList = {
   UploadSightingImageForm: {
     photoUri: string
   }
-  ProductsPage: undefined
+  ProductsScreen: undefined
   BidScreen: undefined
 }
 
