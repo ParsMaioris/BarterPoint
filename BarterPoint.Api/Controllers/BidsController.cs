@@ -5,16 +5,18 @@
 public class BidsController : ControllerBase
 {
     private readonly IDatabaseService _databaseService;
+    private readonly IBidService _bidService;
 
-    public BidsController(IDatabaseService databaseService)
+    public BidsController(IDatabaseService databaseService, IBidService bidService)
     {
         _databaseService = databaseService;
+        _bidService = bidService;
     }
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<BidDTO>>> GetAllBids()
     {
-        var bids = await _databaseService.GetAllBidsAsync();
+        var bids = await _bidService.GetBidsWithPendingStatusesAsync();
         return Ok(bids);
     }
 

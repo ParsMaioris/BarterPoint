@@ -235,4 +235,29 @@ public class DatabaseService : IDatabaseService
 
         return result;
     }
+
+    public async Task<IEnumerable<BidStatus>> GetAllBidStatusesAsync()
+    {
+        var result = new List<BidStatus>();
+
+        using (var connection = new SqlConnection(_connectionString))
+        {
+            await connection.OpenAsync();
+            using (var command = new SqlCommand("GetAllBidStatuses", connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+
+                using (var reader = await command.ExecuteReaderAsync())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        var bidStatus = reader.MapTo<BidStatus>();
+                        result.Add(bidStatus);
+                    }
+                }
+            }
+        }
+
+        return result;
+    }
 }

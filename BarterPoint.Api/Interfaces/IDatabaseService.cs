@@ -9,4 +9,5 @@ public interface IDatabaseService
     Task RemoveProductAsync(string productId);
     Task<string> RegisterUserAsync(RegisterUserRequest request);
     Task<SignInResult> SignInUserAsync(SignInRequest request);
+    Task<IEnumerable<BidStatus>> GetAllBidStatusesAsync();
 }
