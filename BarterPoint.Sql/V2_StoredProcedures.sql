@@ -234,3 +234,16 @@ BEGIN
     END
 END;
 GO;
+
+CREATE OR ALTER PROCEDURE GetAllBidStatuses
+AS
+BEGIN
+    SELECT 
+        id,
+        bidId,
+        status,
+        dateUpdated
+    FROM 
+        BidStatus;
+END;
+GO;
