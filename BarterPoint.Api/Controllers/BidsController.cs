@@ -28,7 +28,7 @@ public class BidsController : ControllerBase
             return BadRequest("Invalid bid request.");
         }
 
-        var bidId = await _databaseService.AddBidAsync(request.Product1Id, request.Product2Id);
+        var bidId = await _bidService.AddBidAsync(request.Product1Id, request.Product2Id);
         return Ok(bidId);
     }
 

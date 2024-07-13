@@ -260,4 +260,21 @@ public class DatabaseService : IDatabaseService
 
         return result;
     }
+
+    public async Task AddBidStatusAsync(int bidId, string status, DateTime dateUpdated)
+    {
+        using (var connection = new SqlConnection(_connectionString))
+        {
+            await connection.OpenAsync();
+            using (var command = new SqlCommand("AddBidStatus", connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@BidId", bidId);
+                command.Parameters.AddWithValue("@Status", status);
+                command.Parameters.AddWithValue("@DateUpdated", dateUpdated);
+
+                await command.ExecuteNonQueryAsync();
+            }
+        }
+    }
 }

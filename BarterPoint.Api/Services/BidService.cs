@@ -21,4 +21,11 @@ public class BidService : IBidService
 
         return bidsWithPendingStatuses;
     }
+
+    public async Task<int> AddBidAsync(string product1Id, string product2Id)
+    {
+        var bidId = await _databaseService.AddBidAsync(product1Id, product2Id);
+        await _databaseService.AddBidStatusAsync(bidId, "Pending", DateTime.UtcNow);
+        return bidId;
+    }
 }

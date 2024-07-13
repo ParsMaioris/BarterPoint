@@ -247,3 +247,14 @@ BEGIN
         BidStatus;
 END;
 GO;
+
+CREATE OR ALTER PROCEDURE AddBidStatus
+    @BidId INT,
+    @Status VARCHAR(50),
+    @DateUpdated DATE
+AS
+BEGIN
+    INSERT INTO BidStatus (bidId, status, dateUpdated)
+    VALUES (@BidId, @Status, @DateUpdated);
+END;
+GO
