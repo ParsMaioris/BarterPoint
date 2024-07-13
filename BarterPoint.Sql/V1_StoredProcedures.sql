@@ -21,7 +21,6 @@ BEGIN
     INNER JOIN ProductCategories pc ON p.categoryId = pc.id
     WHERE p.ownerId = @OwnerId;
 END;
-GO;
 
 CREATE OR ALTER PROCEDURE GetAllProductCategories
 AS
