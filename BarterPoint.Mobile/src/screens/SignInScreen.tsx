@@ -6,7 +6,7 @@ import {signInUser} from '../api/ApiService'
 import {AppDispatch} from '../redux/Store'
 import {RootStackParamList} from '../navigation/navigationTypes'
 import {StackNavigationProp} from '@react-navigation/stack'
-
+import CryptoJS from 'crypto-js'
 type ProductListScreenNavigationProp = StackNavigationProp<RootStackParamList, 'CreateAccount'>
 
 const SignInScreen: React.FC = () =>
@@ -18,7 +18,8 @@ const SignInScreen: React.FC = () =>
 
   const handleSignIn = async () =>
   {
-    const payload = {username, passwordHash: password}
+    const passwordHash = CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex)
+    const payload = {username, passwordHash: passwordHash}
 
     try
     {

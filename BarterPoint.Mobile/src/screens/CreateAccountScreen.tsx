@@ -6,6 +6,8 @@ import {AppDispatch} from '../redux/Store'
 import {registerUser} from '../api/ApiService'
 import {StackNavigationProp} from '@react-navigation/stack'
 import {RootStackParamList} from '../navigation/navigationTypes'
+import CryptoJS from 'crypto-js'
+
 
 type ProductListScreenNavigationProp = StackNavigationProp<RootStackParamList, 'SignIn'>
 
@@ -22,10 +24,12 @@ const CreateAccountScreen: React.FC = () =>
     const handleSignUp = async () =>
     {
         const dateJoined = new Date().toISOString().split('T')[0]
-        const payload = {username, passwordHash: password, email, name, location, dateJoined}
 
         try
         {
+            const passwordHash = CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex)
+            const payload = {username, passwordHash, email, name, location, dateJoined}
+
             const resultAction = await dispatch(registerUser(payload))
             if (registerUser.fulfilled.match(resultAction))
             {
