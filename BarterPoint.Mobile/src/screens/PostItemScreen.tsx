@@ -38,7 +38,7 @@ const PostItemScreen: React.FC = () =>
     depth: 0,
     weight: 0,
   })
-  const ownerId = useSelector((state: RootState) => state.users.currentUser)?.id as string
+  const ownerId = useSelector((state: RootState) => state.users.userId) as string
 
   const handleAddItem = async () =>
   {
