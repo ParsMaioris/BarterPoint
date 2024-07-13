@@ -12,17 +12,17 @@ const LandingPageScreen: React.FC = () =>
   const dispatch = useDispatch<AppDispatch>()
   const status = useSelector((state: RootState) => state.products.status)
   const error = useSelector((state: RootState) => state.products.error)
-  const currentUser = useSelector((state: RootState) => state.users.currentUser)
+  const userId = useSelector((state: RootState) => state.users.userId)
 
   useEffect(() =>
   {
-    if (currentUser?.id)
+    if (userId)
     {
-      dispatch(fetchProductsNotOwnedByUser(currentUser.id))
-      dispatch(fetchProductsByOwner(currentUser.id))
+      dispatch(fetchProductsNotOwnedByUser(userId))
+      dispatch(fetchProductsByOwner(userId))
       dispatch(fetchAllBids())
     }
-  }, [dispatch, currentUser])
+  }, [dispatch, userId])
 
   if (status === "loading")
   {
