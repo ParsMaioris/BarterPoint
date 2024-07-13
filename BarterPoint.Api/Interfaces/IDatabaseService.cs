@@ -11,4 +11,5 @@ public interface IDatabaseService
     Task<SignInResult> SignInUserAsync(SignInRequest request);
     Task<IEnumerable<BidStatus>> GetAllBidStatusesAsync();
     Task AddBidStatusAsync(int bidId, string status, DateTime dateUpdated);
+    Task UpdateBidStatusAsync(int bidId, string status, DateTime dateUpdated);
 }

@@ -4,12 +4,10 @@
 [ApiController]
 public class BidsController : ControllerBase
 {
-    private readonly IDatabaseService _databaseService;
     private readonly IBidService _bidService;
 
-    public BidsController(IDatabaseService databaseService, IBidService bidService)
+    public BidsController(IBidService bidService)
     {
-        _databaseService = databaseService;
         _bidService = bidService;
     }
 
@@ -35,7 +33,7 @@ public class BidsController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> RemoveBid(int id)
     {
-        await _databaseService.RemoveBidAsync(id);
+        await _bidService.UpdateBidStatusToRejectedAsync(id);
         return NoContent();
     }
 }

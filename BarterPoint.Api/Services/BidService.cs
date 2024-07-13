@@ -28,4 +28,9 @@ public class BidService : IBidService
         await _databaseService.AddBidStatusAsync(bidId, "Pending", DateTime.UtcNow);
         return bidId;
     }
+
+    public async Task UpdateBidStatusToRejectedAsync(int bidId)
+    {
+        await _databaseService.UpdateBidStatusAsync(bidId, "Rejected", DateTime.UtcNow);
+    }
 }

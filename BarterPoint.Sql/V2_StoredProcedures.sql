@@ -258,3 +258,15 @@ BEGIN
     VALUES (@BidId, @Status, @DateUpdated);
 END;
 GO
+
+CREATE OR ALTER PROCEDURE UpdateBidStatus
+    @BidId INT,
+    @Status VARCHAR(50),
+    @DateUpdated DATE
+AS
+BEGIN
+    UPDATE BidStatus
+    SET status = @Status, dateUpdated = @DateUpdated
+    WHERE bidId = @BidId;
+END;
+GO;

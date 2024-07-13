@@ -277,4 +277,21 @@ public class DatabaseService : IDatabaseService
             }
         }
     }
+
+    public async Task UpdateBidStatusAsync(int bidId, string status, DateTime dateUpdated)
+    {
+        using (var connection = new SqlConnection(_connectionString))
+        {
+            await connection.OpenAsync();
+            using (var command = new SqlCommand("UpdateBidStatus", connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@BidId", bidId);
+                command.Parameters.AddWithValue("@Status", status);
+                command.Parameters.AddWithValue("@DateUpdated", dateUpdated);
+
+                await command.ExecuteNonQueryAsync();
+            }
+        }
+    }
 }
