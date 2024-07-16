@@ -400,3 +400,54 @@ BEGIN
         [dbo].[TransactionHistory];
 END;
 GO;
+
+CREATE OR ALTER PROCEDURE GetUserTransactions
+    @UserId VARCHAR(255)
+AS
+BEGIN
+    SELECT 
+        th.id AS TransactionId,
+        th.productId,
+        p.name AS ProductName,
+        th.buyerId,
+        ub.username AS BuyerUsername,
+        th.sellerId,
+        us.username AS SellerUsername,
+        th.dateCompleted
+    FROM 
+        TransactionHistory th
+    JOIN 
+        Products p ON th.productId = p.id
+    JOIN 
+        Users ub ON th.buyerId = ub.id
+    JOIN 
+        Users us ON th.sellerId = us.id
+    WHERE 
+        th.buyerId = @UserId OR th.sellerId = @UserId;
+END;
+GO;
+
+CREATE OR ALTER PROCEDURE RateUser
+    @RaterId VARCHAR(255),
+    @RateeId VARCHAR(255),
+    @Rating INT,
+    @Review TEXT,
+    @DateRated DATE
+AS
+BEGIN
+    IF EXISTS (
+        SELECT 1
+        FROM TransactionHistory th
+        WHERE (th.buyerId = @RaterId AND th.sellerId = @RateeId)
+           OR (th.buyerId = @RateeId AND th.sellerId = @RaterId)
+    )
+    BEGIN
+        INSERT INTO UserRatings (raterId, rateeId, rating, review, dateRated)
+        VALUES (@RaterId, @RateeId, @Rating, @Review, @DateRated);
+    END
+    ELSE
+    BEGIN
+        RAISERROR('Rating not allowed. No transaction exists between these users.', 16, 1);
+    END
+END;
+GO;

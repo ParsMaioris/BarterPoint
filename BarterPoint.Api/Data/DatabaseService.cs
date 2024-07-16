@@ -325,4 +325,71 @@ public class DatabaseService : IDatabaseService
 
         return transactionHistories;
     }
+
+    public async Task<IEnumerable<UserTransactionDto>> GetUserTransactionsAsync(string userId)
+    {
+        var transactions = new List<UserTransactionDto>();
+        using (var connection = new SqlConnection(_connectionString))
+        {
+            await connection.OpenAsync();
+            using (var command = new SqlCommand("GetUserTransactions", connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@UserId", userId);
+                using (var reader = await command.ExecuteReaderAsync())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        transactions.Add(new UserTransactionDto
+                        {
+                            TransactionId = reader.GetInt32(0),
+                            ProductId = reader.GetString(1),
+                            ProductName = reader.GetString(2),
+                            BuyerId = reader.GetString(3),
+                            BuyerUsername = reader.GetString(4),
+                            SellerId = reader.GetString(5),
+                            SellerUsername = reader.GetString(6),
+                            DateCompleted = reader.GetDateTime(7)
+                        });
+                    }
+                }
+            }
+        }
+        return transactions;
+    }
+
+    public async Task RateUserAsync(RateUserRequest rating)
+    {
+        using (var connection = new SqlConnection(_connectionString))
+        {
+            await connection.OpenAsync();
+            using (var command = new SqlCommand("RateUser", connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@RaterId", rating.RaterId);
+                command.Parameters.AddWithValue("@RateeId", rating.RateeId);
+                command.Parameters.AddWithValue("@Rating", rating.Rating);
+                command.Parameters.AddWithValue("@Review", rating.Review);
+                command.Parameters.AddWithValue("@DateRated", rating.DateRated);
+                await command.ExecuteNonQueryAsync();
+            }
+        }
+    }
+
+    public async Task InsertTransactionAsync(TransactionHistory transaction)
+    {
+        using (var connection = new SqlConnection(_connectionString))
+        {
+            await connection.OpenAsync();
+            using (var command = new SqlCommand("InsertTransaction", connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@ProductId", transaction.ProductId);
+                command.Parameters.AddWithValue("@BuyerId", transaction.BuyerId);
+                command.Parameters.AddWithValue("@SellerId", transaction.SellerId);
+                command.Parameters.AddWithValue("@DateCompleted", transaction.DateCompleted);
+                await command.ExecuteNonQueryAsync();
+            }
+        }
+    }
 }
