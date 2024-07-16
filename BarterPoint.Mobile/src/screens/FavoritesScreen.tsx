@@ -1,9 +1,10 @@
 import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {FlatList, StyleSheet, Text, View, Image} from 'react-native'
+import {FlatList, StyleSheet, Text, View, Image, TouchableOpacity, Platform, ToastAndroid, Alert} from 'react-native'
+import {Ionicons} from '@expo/vector-icons'
 import {AppDispatch, RootState} from '../redux/Store'
 import {selectFavoriteProducts} from '../redux/Selectors'
-import {getUserFavorites} from '../api/ApiService'
+import {getUserFavorites, removeFavorite} from '../api/ApiService'
 
 const FavoritesScreen: React.FC = () =>
 {
@@ -20,6 +21,35 @@ const FavoritesScreen: React.FC = () =>
             dispatch(getUserFavorites(userId))
         }
     }, [dispatch, userId])
+
+    const handleRemoveFavorite = async (productId: string) =>
+    {
+        if (userId)
+        {
+            const resultAction = await dispatch(removeFavorite({userId, productId}))
+
+            if (removeFavorite.fulfilled.match(resultAction))
+            {
+                if (Platform.OS === 'android')
+                {
+                    ToastAndroid.show('Product removed from favorites!', ToastAndroid.SHORT)
+                } else
+                {
+                    Alert.alert('Success', 'Product removed from favorites!')
+                }
+            } else
+            {
+                const errorMessage = (resultAction.payload as string) || 'Failed to remove product from favorites.'
+                if (Platform.OS === 'android')
+                {
+                    ToastAndroid.show(errorMessage, ToastAndroid.SHORT)
+                } else
+                {
+                    Alert.alert('Error', errorMessage)
+                }
+            }
+        }
+    }
 
     if (loading === 'loading')
     {
@@ -51,6 +81,9 @@ const FavoritesScreen: React.FC = () =>
                             <Text style={styles.favoriteInfo}><Text style={styles.bold}>Condition:</Text> {item.condition}</Text>
                             <Text style={styles.favoriteInfo}><Text style={styles.bold}>Location:</Text> {item.location}</Text>
                         </View>
+                        <TouchableOpacity style={styles.removeButton} onPress={() => handleRemoveFavorite(item.productId)}>
+                            <Ionicons name="trash-outline" size={24} color="#7F7F7F" style={styles.removeIcon} />
+                        </TouchableOpacity>
                     </View>
                 )}
                 contentContainerStyle={styles.flatListContent}
@@ -112,6 +145,16 @@ const styles = StyleSheet.create({
     },
     bold: {
         fontWeight: 'bold',
+    },
+    removeButton: {
+        position: 'absolute',
+        top: 10,
+        right: 10,
+    },
+    removeIcon: {
+        textShadowColor: '#000',
+        textShadowOffset: {width: 1, height: 1},
+        textShadowRadius: 1,
     },
 })
 
