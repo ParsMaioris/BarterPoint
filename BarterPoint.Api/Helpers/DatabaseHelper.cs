@@ -50,12 +50,12 @@ public class DatabaseHelper
         return results;
     }
 
-    private IDbConnection GetConnection()
+    public SqlConnection GetConnection()
     {
         return new SqlConnection(_connectionString);
     }
 
-    private IDbCommand CreateCommand(IDbConnection connection, string procedureName, params SqlParameter[] parameters)
+    public SqlCommand CreateCommand(SqlConnection connection, string procedureName, params SqlParameter[] parameters)
     {
         var command = connection.CreateCommand();
         command.CommandType = CommandType.StoredProcedure;
@@ -70,5 +70,34 @@ public class DatabaseHelper
         }
 
         return command;
+    }
+
+    public void ExecuteNonQuery(SqlTransaction transaction, string procedureName, params SqlParameter[] parameters)
+    {
+        var command = CreateCommand(transaction.Connection, procedureName, parameters);
+        command.Transaction = transaction;
+        command.ExecuteNonQuery();
+    }
+
+    public T ExecuteScalar<T>(SqlTransaction transaction, string procedureName, params SqlParameter[] parameters)
+    {
+        var command = CreateCommand(transaction.Connection, procedureName, parameters);
+        command.Transaction = transaction;
+        return (T)command.ExecuteScalar();
+    }
+
+    public List<T> ExecuteReader<T>(SqlTransaction transaction, string procedureName, Func<IDataReader, T> map, params SqlParameter[] parameters)
+    {
+        var results = new List<T>();
+        var command = CreateCommand(transaction.Connection, procedureName, parameters);
+        command.Transaction = transaction;
+        using (var reader = command.ExecuteReader())
+        {
+            while (reader.Read())
+            {
+                results.Add(map(reader));
+            }
+        }
+        return results;
     }
 }

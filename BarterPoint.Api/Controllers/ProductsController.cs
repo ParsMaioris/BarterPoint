@@ -4,24 +4,24 @@ using Microsoft.AspNetCore.Mvc;
 [ApiController]
 public class ProductsController : ControllerBase
 {
-    private readonly IDatabaseService _databaseService;
+    private readonly IProductService _productService;
 
-    public ProductsController(IDatabaseService databaseService)
+    public ProductsController(IProductService productService)
     {
-        _databaseService = databaseService;
+        _productService = productService;
     }
 
     [HttpGet("ByOwner/{ownerId}")]
     public async Task<ActionResult<IEnumerable<ProductDTO>>> GetProductsByOwner(string ownerId)
     {
-        var products = await _databaseService.GetProductsByOwner(ownerId);
+        var products = await _productService.GetAvailableProductsByOwnerAsync(ownerId);
         return Ok(products);
     }
 
     [HttpGet("NotOwnedByUser/{ownerId}")]
     public async Task<ActionResult<IEnumerable<ProductDTO>>> GetProductsNotOwnedByUser(string ownerId)
     {
-        var products = await _databaseService.GetProductsNotOwnedByUser(ownerId);
+        var products = await _productService.GetAvailableProductsNotOwnedByUserAsync(ownerId);
         return Ok(products);
     }
 
@@ -33,14 +33,14 @@ public class ProductsController : ControllerBase
             return BadRequest("Product cannot be null.");
         }
 
-        var newProductId = await _databaseService.AddProductAsync(product);
+        var newProductId = await _productService.AddProductAsync(product);
         return Ok(newProductId);
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> RemoveProduct(string id)
     {
-        await _databaseService.RemoveProductAsync(id);
+        await _productService.RemoveProductAsync(id);
         return NoContent();
     }
 }

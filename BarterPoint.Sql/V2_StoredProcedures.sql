@@ -326,3 +326,77 @@ BEGIN
     END;
 END;
 GO;
+
+CREATE OR ALTER PROCEDURE ApproveBidStatus
+    @BidId INT
+AS
+BEGIN
+    UPDATE BidStatus
+    SET status = 'Approved', dateUpdated = GETDATE()
+    WHERE bidId = @BidId;
+END;
+GO;
+
+CREATE OR ALTER PROCEDURE RejectOtherBids
+    @Product1Id VARCHAR(255),
+    @Product2Id VARCHAR(255),
+    @BidId INT
+AS
+BEGIN
+    UPDATE BidStatus
+    SET status = 'Rejected', dateUpdated = GETDATE()
+    WHERE bidId IN (
+        SELECT id
+        FROM Bids
+        WHERE (product1Id = @Product1Id OR product2Id = @Product1Id OR
+               product1Id = @Product2Id OR product2Id = @Product2Id)
+          AND id <> @BidId
+    );
+END;
+GO;
+
+CREATE OR ALTER PROCEDURE AddTransactionHistory
+    @Product1Id VARCHAR(255),
+    @Product2Id VARCHAR(255)
+AS
+BEGIN
+    DECLARE @SellerId1 VARCHAR(255);
+    DECLARE @SellerId2 VARCHAR(255);
+    DECLARE @BuyerId1 VARCHAR(255);
+    DECLARE @BuyerId2 VARCHAR(255);
+
+    SELECT @SellerId1 = ownerId FROM Products WHERE id = @Product1Id;
+    SELECT @SellerId2 = ownerId FROM Products WHERE id = @Product2Id;
+
+    SET @BuyerId1 = @SellerId2;
+    SET @BuyerId2 = @SellerId1;
+
+    INSERT INTO TransactionHistory (productId, buyerId, sellerId, dateCompleted)
+    VALUES (@Product1Id, @BuyerId1, @SellerId1, GETDATE()),
+           (@Product2Id, @BuyerId2, @SellerId2, GETDATE());
+END;
+GO;
+
+CREATE OR ALTER PROCEDURE GetProductsByBidId
+    @BidId INT
+AS
+BEGIN
+    SELECT product1Id, product2Id
+    FROM Bids
+    WHERE id = @BidId;
+END;
+GO;
+
+CREATE OR ALTER PROCEDURE GetAllTransactionHistory
+AS
+BEGIN
+    SELECT 
+        [id],
+        [productId],
+        [buyerId],
+        [sellerId],
+        [dateCompleted]
+    FROM 
+        [dbo].[TransactionHistory];
+END;
+GO;

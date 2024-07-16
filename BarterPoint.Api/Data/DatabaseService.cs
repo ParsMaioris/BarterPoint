@@ -294,4 +294,35 @@ public class DatabaseService : IDatabaseService
             }
         }
     }
+
+    public async Task<List<TransactionHistory>> GetAllTransactionHistoryAsync()
+    {
+        var transactionHistories = new List<TransactionHistory>();
+
+        using (var conn = new SqlConnection(_connectionString))
+        {
+            await conn.OpenAsync();
+            using (var cmd = new SqlCommand("GetAllTransactionHistory", conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                using (var reader = await cmd.ExecuteReaderAsync())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        transactionHistories.Add(new TransactionHistory
+                        {
+                            Id = reader.GetInt32(0),
+                            ProductId = reader.GetString(1),
+                            BuyerId = reader.GetString(2),
+                            SellerId = reader.GetString(3),
+                            DateCompleted = reader.GetDateTime(4)
+                        });
+                    }
+                }
+            }
+        }
+
+        return transactionHistories;
+    }
 }

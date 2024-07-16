@@ -36,4 +36,18 @@ public class BidsController : ControllerBase
         await _bidService.UpdateBidStatusToRejectedAsync(id);
         return NoContent();
     }
+
+    [HttpPost("approve/{bidId}")]
+    public IActionResult ApproveBid(int bidId)
+    {
+        try
+        {
+            _bidService.ApproveBid(bidId);
+            return Ok(new { message = "Bid approved successfully." });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { message = "An error occurred while approving the bid.", error = ex.Message });
+        }
+    }
 }

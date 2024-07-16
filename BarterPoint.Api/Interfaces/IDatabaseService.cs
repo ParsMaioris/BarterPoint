@@ -12,4 +12,5 @@ public interface IDatabaseService
     Task<IEnumerable<BidStatus>> GetAllBidStatusesAsync();
     Task AddBidStatusAsync(int bidId, string status, DateTime dateUpdated);
     Task UpdateBidStatusAsync(int bidId, string status, DateTime dateUpdated);
+    Task<List<TransactionHistory>> GetAllTransactionHistoryAsync();
 }
