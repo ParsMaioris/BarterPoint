@@ -11,8 +11,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddTransient<DatabaseHelper>();
 builder.Services.AddScoped<IDatabaseService, DatabaseService>();
 builder.Services.AddScoped<IBidService, BidService>();
+builder.Services.AddScoped<IFavoritesService, FavoritesService>();
 
 var app = builder.Build();
 

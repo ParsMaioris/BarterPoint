@@ -270,3 +270,59 @@ BEGIN
     WHERE bidId = @BidId;
 END;
 GO;
+
+CREATE OR ALTER PROCEDURE AddUserFavorite
+    @userId VARCHAR(255),
+    @productId VARCHAR(255)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO Favorites (userId, productId, dateAdded)
+    VALUES (@userId, @productId, GETDATE());
+END;
+GO;
+
+CREATE OR ALTER PROCEDURE GetUserFavorites
+    @userId VARCHAR(255)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT f.id, f.userId, f.productId, f.dateAdded, p.name
+    FROM Favorites f
+    JOIN Products p ON f.productId = p.id
+    WHERE f.userId = @userId
+    ORDER BY f.dateAdded DESC;
+END;
+GO;
+
+CREATE OR ALTER PROCEDURE RemoveUserFavorite
+    @userId VARCHAR(255),
+    @productId VARCHAR(255)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DELETE FROM Favorites
+    WHERE userId = @userId AND productId = @productId;
+END;
+GO;
+
+CREATE OR ALTER PROCEDURE IsFavorite
+    @userId VARCHAR(255),
+    @productId VARCHAR(255)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF EXISTS (SELECT 1 FROM Favorites WHERE userId = @userId AND productId = @productId)
+    BEGIN
+        SELECT 1 AS IsFavorite;
+    END
+    ELSE
+    BEGIN
+        SELECT 0 AS IsFavorite;
+    END;
+END;
+GO;
