@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit"
 import {Bid} from "../../models/Bid"
-import {addBid, fetchAllBids, removeBid} from "../../api/ApiService"
+import {addBid, fetchAllBids, removeBid, approveBid} from "../../api/ApiService"
 
 interface BidState
 {
@@ -42,7 +42,7 @@ const bidSlice = createSlice({
                 state.loading = true
                 state.error = null
             })
-            .addCase(addBid.fulfilled, (state, action: PayloadAction<number>) =>
+            .addCase(addBid.fulfilled, (state) =>
             {
                 state.loading = false
             })
@@ -62,6 +62,25 @@ const bidSlice = createSlice({
                 state.loading = false
             })
             .addCase(removeBid.rejected, (state, action) =>
+            {
+                state.loading = false
+                state.error = action.payload as string
+            })
+            .addCase(approveBid.pending, (state) =>
+            {
+                state.loading = true
+                state.error = null
+            })
+            .addCase(approveBid.fulfilled, (state, action: PayloadAction<number>) =>
+            {
+                const bidIndex = state.bids.findIndex(bid => bid.id === action.payload)
+                if (bidIndex !== -1)
+                {
+                    state.bids = state.bids.filter(bid => bid.id !== action.payload)
+                }
+                state.loading = false
+            })
+            .addCase(approveBid.rejected, (state, action) =>
             {
                 state.loading = false
                 state.error = action.payload as string

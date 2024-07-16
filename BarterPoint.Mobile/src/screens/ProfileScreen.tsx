@@ -1,7 +1,7 @@
 import React from 'react'
 import {View, Text, StyleSheet, Image, TouchableOpacity, Alert} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
-import {RootState, AppDispatch} from '../redux/Store'
+import {AppDispatch} from '../redux/Store'
 import {clearCurrentUser} from '../redux/slices/UserSlice'
 import {buttonStyles} from '../styles/common/ButtonStyles'
 import {useNavigation} from '@react-navigation/native'
@@ -17,7 +17,6 @@ const ProfileScreen: React.FC = () =>
 {
   const dispatch = useDispatch<AppDispatch>()
   const navigation = useNavigation<ProductListScreenNavigationProp>()
-  const currentUser = useSelector((state: RootState) => state.users.currentUser)
 
   const handleLogout = async () =>
   {

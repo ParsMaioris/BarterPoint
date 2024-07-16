@@ -201,3 +201,18 @@ export const removeFavorite = createAsyncThunk<RemoveFavoriteRequest, RemoveFavo
         }
     }
 )
+
+export const approveBid = createAsyncThunk<number, number, {rejectValue: string}>(
+    'bids/approveBid',
+    async (bidId, thunkAPI) =>
+    {
+        try
+        {
+            await axios.post(`${BASE_URL}/Bids/approve/${bidId}`)
+            return bidId
+        } catch (error)
+        {
+            return thunkAPI.rejectWithValue('Failed to approve bid')
+        }
+    }
+)
