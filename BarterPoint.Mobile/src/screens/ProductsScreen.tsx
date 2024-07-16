@@ -7,10 +7,12 @@ import {StackNavigationProp} from "@react-navigation/stack"
 import {RootStackParamList} from "../navigation/navigationTypes"
 import ProductListScreen from "./ProductListScreen"
 import MyProductsScreen from "./MyProductsScreen"
+import FavoritesScreen from "./FavoritesScreen"
 
 const ProductsScreen: React.FC = () =>
 {
     const [isMyProductsScreenModalVisible, setMyProductsScreenModalVisible] = useState(false)
+    const [isFavoritesScreenModalVisible, setFavoritesScreenModalVisible] = useState(false)
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>()
 
     return (
@@ -18,12 +20,20 @@ const ProductsScreen: React.FC = () =>
             <View style={styles.section}>
                 <ProductListScreen showCategoryFilter={true} />
             </View>
-            <TouchableOpacity
-                style={[buttonStyles.button]}
-                onPress={() => setMyProductsScreenModalVisible(true)}
-            >
-                <Text style={[buttonStyles.buttonText]}>My Products</Text>
-            </TouchableOpacity>
+            <View style={styles.buttonContainer}>
+                <TouchableOpacity
+                    style={[buttonStyles.button, styles.buttonSpacing]}
+                    onPress={() => setMyProductsScreenModalVisible(true)}
+                >
+                    <Text style={[buttonStyles.buttonText]}>My Products</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={[buttonStyles.button, styles.buttonSpacing]}
+                    onPress={() => setFavoritesScreenModalVisible(true)}
+                >
+                    <Text style={[buttonStyles.buttonText]}>My Favorites</Text>
+                </TouchableOpacity>
+            </View>
 
             <Modal
                 visible={isMyProductsScreenModalVisible}
@@ -41,6 +51,25 @@ const ProductsScreen: React.FC = () =>
                     <TouchableOpacity
                         style={[buttonStyles.button]}
                         onPress={() => setMyProductsScreenModalVisible(false)}
+                    >
+                        <Text style={[buttonStyles.buttonText]}>Close</Text>
+                    </TouchableOpacity>
+                </View>
+            </Modal>
+
+            <Modal
+                visible={isFavoritesScreenModalVisible}
+                animationType="slide"
+                onRequestClose={() => setFavoritesScreenModalVisible(false)}
+            >
+                <View style={styles.modalContainer}>
+                    <View style={styles.sectionHeader}>
+                        <Text style={styles.sectionTitle}>My Favorites</Text>
+                    </View>
+                    <FavoritesScreen />
+                    <TouchableOpacity
+                        style={[buttonStyles.button]}
+                        onPress={() => setFavoritesScreenModalVisible(false)}
                     >
                         <Text style={[buttonStyles.buttonText]}>Close</Text>
                     </TouchableOpacity>
@@ -71,6 +100,15 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
         elevation: 5,
     },
+    buttonContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        marginBottom: 20,
+    },
+    buttonSpacing: {
+        flex: 1,
+        marginHorizontal: 5,
+    },
     sectionHeader: {
         flexDirection: "row",
         alignItems: "center",
@@ -85,7 +123,6 @@ const styles = StyleSheet.create({
     modalContainer: {
         flex: 1,
         padding: 20,
-        justifyContent: "center",
         backgroundColor: "#FFFFFF",
     },
 })

@@ -157,3 +157,47 @@ export const signInUser = createAsyncThunk<SignInResponse, SignInRequest, {rejec
         }
     }
 )
+
+export const addFavorite = createAsyncThunk<void, AddFavoriteRequest, {rejectValue: string}>(
+    'favorites/addFavorite',
+    async (request, thunkAPI) =>
+    {
+        try
+        {
+            await axios.post(`${BASE_URL}/Favorites`, request)
+        } catch (error)
+        {
+            return thunkAPI.rejectWithValue('Failed to add favorite')
+        }
+    }
+)
+
+export const getUserFavorites = createAsyncThunk<Favorite[], string, {rejectValue: string}>(
+    'users/getUserFavorites',
+    async (userId, thunkAPI) =>
+    {
+        try
+        {
+            const response = await axios.get<Favorite[]>(`${BASE_URL}/Favorites/${userId}`)
+            return response.data
+        } catch (error)
+        {
+            return thunkAPI.rejectWithValue('Failed to fetch user favorites')
+        }
+    }
+)
+
+export const removeFavorite = createAsyncThunk<RemoveFavoriteRequest, RemoveFavoriteRequest, {rejectValue: string}>(
+    'favorites/removeFavorite',
+    async (request, thunkAPI) =>
+    {
+        try
+        {
+            await axios.delete(`${BASE_URL}/Favorites`, {data: request})
+            return request
+        } catch (error)
+        {
+            return thunkAPI.rejectWithValue('Failed to remove favorite')
+        }
+    }
+)

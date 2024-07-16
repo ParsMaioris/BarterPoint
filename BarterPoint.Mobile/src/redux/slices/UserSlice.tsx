@@ -1,6 +1,6 @@
-import {createSlice, PayloadAction, createAsyncThunk} from '@reduxjs/toolkit'
+import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {User} from '../../models/User'
-import {registerUser, signInUser} from '../../api/ApiService'
+import {getUserFavorites, registerUser, removeFavorite, signInUser} from '../../api/ApiService'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 interface UserState
@@ -10,6 +10,7 @@ interface UserState
     status: 'idle' | 'loading' | 'succeeded' | 'failed'
     error: string | null
     userId: string | null
+    favorites: Favorite[]
 }
 
 const initialState: UserState = {
@@ -18,6 +19,7 @@ const initialState: UserState = {
     status: 'idle',
     error: null,
     userId: null,
+    favorites: [],
 }
 
 const userSlice = createSlice({
@@ -85,6 +87,37 @@ const userSlice = createSlice({
             {
                 state.status = 'failed'
                 state.error = action.payload || 'Failed to sign in user'
+            })
+            .addCase(getUserFavorites.pending, (state) =>
+            {
+                state.status = 'loading'
+                state.error = null
+            })
+            .addCase(getUserFavorites.fulfilled, (state, action: PayloadAction<Favorite[]>) =>
+            {
+                state.status = 'succeeded'
+                state.favorites = action.payload
+            })
+            .addCase(getUserFavorites.rejected, (state, action) =>
+            {
+                state.status = 'failed'
+                state.error = action.payload as string
+            })
+            .addCase(removeFavorite.pending, (state) =>
+            {
+                state.status = 'loading'
+                state.error = null
+            })
+            .addCase(removeFavorite.fulfilled, (state, action: PayloadAction<RemoveFavoriteRequest>) =>
+            {
+                state.status = 'succeeded'
+                state.favorites = state.favorites.filter(
+                    (favorite) => !(favorite.userId === action.payload.userId && favorite.productId === action.payload.productId)
+                )
+            }).addCase(removeFavorite.rejected, (state, action) =>
+            {
+                state.status = 'failed'
+                state.error = action.payload as string
             })
     }
 })
