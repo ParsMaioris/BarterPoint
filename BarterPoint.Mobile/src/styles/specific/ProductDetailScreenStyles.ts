@@ -67,4 +67,10 @@ export const ProductDetailScreenStyles = StyleSheet.create({
         fontSize: 16,
         fontWeight: "600",
     },
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 20,
+    },
 })
