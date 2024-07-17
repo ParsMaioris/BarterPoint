@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {TransactionHistory} from '../../models/TransactionHistory'
-import {getAllTransactions, getUserTransactions, rateUser} from '../../api/ApiService'
+import {getAllTransactions, getUserTransactions} from '../../api/ApiService'
 
 interface TransactionState
 {
@@ -50,20 +50,6 @@ const transactionSlice = createSlice({
                 state.user = action.payload
             })
             .addCase(getUserTransactions.rejected, (state, action) =>
-            {
-                state.loading = false
-                state.error = action.payload as string
-            })
-            .addCase(rateUser.pending, (state) =>
-            {
-                state.loading = true
-                state.error = null
-            })
-            .addCase(rateUser.fulfilled, (state) =>
-            {
-                state.loading = false
-            })
-            .addCase(rateUser.rejected, (state, action) =>
             {
                 state.loading = false
                 state.error = action.payload as string

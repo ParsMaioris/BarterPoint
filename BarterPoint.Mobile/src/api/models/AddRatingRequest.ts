@@ -1,4 +1,4 @@
-export interface UserRatingRequest
+export interface AddRatingRequest
 {
     raterId: string
     rateeId: string

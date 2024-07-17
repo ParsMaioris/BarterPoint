@@ -10,7 +10,8 @@ import {SignInResponse} from './models/SignInResponse'
 import {SignInRequest} from './models/SignInRequest'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {TransactionHistory} from '../models/TransactionHistory'
-import {UserRatingRequest} from './models/UserRatingRequest'
+import {AddRatingRequest} from './models/AddRatingRequest'
+import {UserRating} from '../models/UserRating'
 
 const BASE_URL = 'https://barterapi.azurewebsites.net/api'
 
@@ -249,16 +250,25 @@ export const getUserTransactions = createAsyncThunk<TransactionHistory[], string
     }
 )
 
-export const rateUser = createAsyncThunk<void, UserRatingRequest, {rejectValue: string}>(
-    'transactions/rateUser',
-    async (ratingRequest, thunkAPI) =>
+export const addRating = async (ratingRequest: AddRatingRequest): Promise<void> =>
+{
+    try
     {
-        try
-        {
-            await axios.post(`${BASE_URL}/Transactions/rate`, ratingRequest)
-        } catch (error)
-        {
-            return thunkAPI.rejectWithValue('Failed to rate user')
-        }
+        await axios.post(`${BASE_URL}/ratings`, ratingRequest)
+    } catch (error)
+    {
+        throw new Error('Failed to add rating')
     }
-)
+}
+
+export const getUserRating = async (userId: string): Promise<UserRating> =>
+{
+    try
+    {
+        const response = await axios.get<UserRating>(`${BASE_URL}/ratings/user/${userId}`)
+        return response.data
+    } catch (error)
+    {
+        throw new Error('Failed to fetch user rating')
+    }
+}
