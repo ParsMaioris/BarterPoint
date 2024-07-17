@@ -77,10 +77,13 @@ For a deeper understanding of BarterPoint and its backend integration, explore o
 
 While BarterPoint is a functional MVP, several features and improvements are planned for future releases:
 
-- **Enhanced security measures**: Advanced authentication and authorization mechanisms.
-- **User reviews and ratings**: User ratings and reviews to build trust within the community.
-- **Geolocation services**: Location-based features to facilitate local trades.
-- **Push notifications**: Notifications about trade offers and updates.
+- **Microservices Architecture**: Gradually refactor services into microservices for better scalability and maintainability.
+- **Push Notifications**: Implement notifications to alert users about trade offers and updates.
+- **Caching**: Introduce caching in the web API to enhance performance and efficiency.
+- **Comprehensive Logging**: Implement logging on both the client side (mobile application) and the web API side for better monitoring and troubleshooting.
+- **Queuing Mechanisms**: Explore the use of queuing for efficient handling of asynchronous tasks.
+- **Enhanced Security Measures**: Implement advanced authentication and authorization mechanisms.
+- **Geolocation Services**: Add location-based features to facilitate local trades.
 
 ## Contributing
 
