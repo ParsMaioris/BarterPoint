@@ -1,5 +1,4 @@
 using System.Data;
-using System.Data.Common;
 using System.Data.SqlClient;
 
 public class DatabaseHelper
@@ -100,25 +99,5 @@ public class DatabaseHelper
             }
         }
         return results;
-    }
-
-    internal async Task ExecuteNonQueryAsync(DbTransaction transaction, string v, SqlParameter sqlParameter1, SqlParameter sqlParameter2, SqlParameter sqlParameter3)
-    {
-        throw new NotImplementedException();
-    }
-
-    internal async Task ExecuteNonQueryAsync(DbTransaction transaction, string v, SqlParameter sqlParameter1, SqlParameter sqlParameter2)
-    {
-        throw new NotImplementedException();
-    }
-
-    internal async Task ExecuteNonQueryAsync(string v1, DbTransaction transaction, string v, SqlParameter sqlParameter)
-    {
-        throw new NotImplementedException();
-    }
-
-    internal async Task<IEnumerable<dynamic>> ExecuteReaderAsync(string v, Func<object, object> value, SqlParameter[] parameters)
-    {
-        throw new NotImplementedException();
     }
 }
