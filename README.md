@@ -49,9 +49,29 @@ BarterPoint can be set up either in the cloud or locally:
 
 ## Usage
 
-Once the application is up and running, users can register, list items they want to barter, browse items from other users, and initiate trades. The app provides an interface for managing bartering activities and tracking transaction history.
+Once the application is operational, users can:
 
-For a video demonstration of how to use BarterPoint, including adding a product, placing a bid, and rejecting a bid, please watch the [YouTube Demo Video](https://youtu.be/zPqRwxAFm4k?si=HMBVvn4WwxGtXvWt).
+- **Register:** Create an account to start bartering.
+- **List Items:** Offer items for trade.
+- **Browse:** Explore items listed by other users.
+- **Initiate Trades:** Propose and manage trades with other users.
+- **Manage Activities:** Oversee bartering activities and track transaction history.
+
+### Video Demonstrations
+
+For a deeper understanding of BarterPoint and its backend integration, explore our video tutorials:
+
+- **Azure SQL Integration: Adding a Product, Placing a Bid, and Rejecting a Bid**  
+  <a href="https://youtu.be/zPqRwxAFm4k?si=HMBVvn4WwxGtXvWt">
+    <img src="https://img.youtube.com/vi/zPqRwxAFm4k/0.jpg" alt="Azure SQL Integration" width="300"/>
+  </a>  
+  *Watch on YouTube: [Azure SQL Integration](https://youtu.be/zPqRwxAFm4k?si=HMBVvn4WwxGtXvWt)*
+
+- **User Features: Rating a User, Viewing Transaction History, Approving a Bid, and User Favorites**  
+  <a href="https://youtu.be/UssjjZkvYl0">
+    <img src="https://img.youtube.com/vi/UssjjZkvYl0/0.jpg" alt="Mobile App Features" width="300"/>
+  </a>  
+  *Watch on YouTube: [Mobile App Features](https://youtu.be/UssjjZkvYl0)*
 
 ## Future Enhancements
 
