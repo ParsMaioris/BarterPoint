@@ -1,6 +1,6 @@
 import React from 'react'
 import {View, Text, StyleSheet, Image, TouchableOpacity, Alert} from 'react-native'
-import {useDispatch, useSelector} from 'react-redux'
+import {useDispatch} from 'react-redux'
 import {AppDispatch} from '../redux/Store'
 import {clearCurrentUser} from '../redux/slices/UserSlice'
 import {buttonStyles} from '../styles/common/ButtonStyles'
@@ -8,15 +8,14 @@ import {useNavigation} from '@react-navigation/native'
 import {mockProfileImage} from '../mocks/Mock'
 import {StackNavigationProp} from '@react-navigation/stack'
 import {RootStackParamList} from '../navigation/navigationTypes'
-import MyProductsScreen from './MyProductsScreen'
+import MyTransactionsScreen from './MyTransactionsScreen'
 
-type ProductListScreenNavigationProp = StackNavigationProp<RootStackParamList, 'SignIn'>
-
+type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'SignIn'>
 
 const ProfileScreen: React.FC = () =>
 {
   const dispatch = useDispatch<AppDispatch>()
-  const navigation = useNavigation<ProductListScreenNavigationProp>()
+  const navigation = useNavigation<ProfileScreenNavigationProp>()
 
   const handleLogout = async () =>
   {
@@ -41,9 +40,7 @@ const ProfileScreen: React.FC = () =>
       <TouchableOpacity onLongPress={handleProfileImage}>
         <Image source={{uri: mockProfileImage}} style={styles.profileImage} />
       </TouchableOpacity>
-      <Text style={styles.title}>
-        Welcome to your Profile
-      </Text>
+      <Text style={styles.title}>Welcome to your Profile</Text>
     </View>
   )
 
@@ -51,12 +48,12 @@ const ProfileScreen: React.FC = () =>
     <View style={styles.container}>
       {renderHeader()}
 
-      <View style={styles.productsHeader}>
-        <Text style={styles.productsTitle}>Your Products</Text>
+      <View style={styles.transactionsHeader}>
+        <Text style={styles.transactionsTitle}>Your Transactions</Text>
       </View>
 
-      <View style={styles.productsContainer}>
-        <MyProductsScreen />
+      <View style={styles.transactionsContainer}>
+        <MyTransactionsScreen />
       </View>
 
       <View style={styles.buttonContainer}>
@@ -95,7 +92,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#333333',
   },
-  productsHeader: {
+  transactionsHeader: {
     paddingVertical: 15,
     paddingHorizontal: 20,
     backgroundColor: '#FFFFFF',
@@ -103,12 +100,12 @@ const styles = StyleSheet.create({
     borderBottomColor: '#DDD',
     alignItems: 'center',
   },
-  productsTitle: {
+  transactionsTitle: {
     fontSize: 22,
     fontWeight: 'bold',
     color: '#333333',
   },
-  productsContainer: {
+  transactionsContainer: {
     flex: 1,
     padding: 10,
   },

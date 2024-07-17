@@ -9,6 +9,8 @@ import {RegisterUserResponse} from './models/RegisterUserResponse'
 import {SignInResponse} from './models/SignInResponse'
 import {SignInRequest} from './models/SignInRequest'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import {TransactionHistory} from '../models/TransactionHistory'
+import {UserRatingRequest} from './models/UserRatingRequest'
 
 const BASE_URL = 'https://barterapi.azurewebsites.net/api'
 
@@ -213,6 +215,50 @@ export const approveBid = createAsyncThunk<number, number, {rejectValue: string}
         } catch (error)
         {
             return thunkAPI.rejectWithValue('Failed to approve bid')
+        }
+    }
+)
+
+export const getAllTransactions = createAsyncThunk<TransactionHistory[], void, {rejectValue: string}>(
+    'transactions/getAllTransactions',
+    async (_, thunkAPI) =>
+    {
+        try
+        {
+            const response = await axios.get<TransactionHistory[]>(`${BASE_URL}/Transactions/all`)
+            return response.data
+        } catch (error)
+        {
+            return thunkAPI.rejectWithValue('Failed to fetch all transactions')
+        }
+    }
+)
+
+export const getUserTransactions = createAsyncThunk<TransactionHistory[], string, {rejectValue: string}>(
+    'transactions/getUserTransactions',
+    async (userId, thunkAPI) =>
+    {
+        try
+        {
+            const response = await axios.get<TransactionHistory[]>(`${BASE_URL}/Transactions/${userId}`)
+            return response.data
+        } catch (error)
+        {
+            return thunkAPI.rejectWithValue('Failed to fetch user transactions')
+        }
+    }
+)
+
+export const rateUser = createAsyncThunk<void, UserRatingRequest, {rejectValue: string}>(
+    'transactions/rateUser',
+    async (ratingRequest, thunkAPI) =>
+    {
+        try
+        {
+            await axios.post(`${BASE_URL}/Transactions/rate`, ratingRequest)
+        } catch (error)
+        {
+            return thunkAPI.rejectWithValue('Failed to rate user')
         }
     }
 )
