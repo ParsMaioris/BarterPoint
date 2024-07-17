@@ -24,11 +24,4 @@ public class TransactionsController : ControllerBase
         var transactions = await _transactionService.GetUserTransactionsAsync(userId);
         return Ok(transactions);
     }
-
-    [HttpPost("rate")]
-    public async Task<IActionResult> RateUser([FromBody] RateUserRequest rating)
-    {
-        await _transactionService.RateUserAsync(rating);
-        return Ok();
-    }
 }

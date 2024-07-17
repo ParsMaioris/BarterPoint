@@ -16,9 +16,4 @@ public class TransactionService : ITransactionService
     {
         return _databaseService.GetUserTransactionsAsync(userId);
     }
-
-    public Task RateUserAsync(RateUserRequest rating)
-    {
-        return _databaseService.RateUserAsync(rating);
-    }
 }

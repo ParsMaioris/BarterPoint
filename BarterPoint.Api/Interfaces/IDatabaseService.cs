@@ -15,5 +15,6 @@ public interface IDatabaseService
     Task<List<TransactionHistory>> GetAllTransactionHistoryAsync();
     Task<IEnumerable<UserTransactionDto>> GetUserTransactionsAsync(string userId);
     Task RateUserAsync(RateUserRequest rating);
-    Task InsertTransactionAsync(TransactionHistory transaction);
+    Task<double> GetUserAverageRatingAsync(string userId);
+
 }

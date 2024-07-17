@@ -401,7 +401,7 @@ BEGIN
 END;
 GO;
 
-CREATE OR ALTER PROCEDURE GetUserTransactions
+CREATE OR ALTER PROCEDURE [dbo].[GetUserTransactions]
     @UserId VARCHAR(255)
 AS
 BEGIN
@@ -409,6 +409,8 @@ BEGIN
         th.id AS TransactionId,
         th.productId,
         p.name AS ProductName,
+        p.image AS ProductImage,
+        p.description AS ProductDescription,
         th.buyerId,
         ub.username AS BuyerUsername,
         th.sellerId,
@@ -449,5 +451,18 @@ BEGIN
     BEGIN
         RAISERROR('Rating not allowed. No transaction exists between these users.', 16, 1);
     END
+END;
+GO;
+
+CREATE OR ALTER PROCEDURE [dbo].[GetUserRatings]
+    @UserId VARCHAR(255)
+AS
+BEGIN
+    SELECT 
+        AVG(CAST(ur.rating AS FLOAT)) AS AverageRating
+    FROM 
+        UserRatings ur
+    WHERE 
+        ur.rateeId = @UserId;
 END;
 GO;

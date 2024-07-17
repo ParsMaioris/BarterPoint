@@ -326,6 +326,7 @@ public class DatabaseService : IDatabaseService
         return transactionHistories;
     }
 
+
     public async Task<IEnumerable<UserTransactionDto>> GetUserTransactionsAsync(string userId)
     {
         var transactions = new List<UserTransactionDto>();
@@ -345,11 +346,13 @@ public class DatabaseService : IDatabaseService
                             TransactionId = reader.GetInt32(0),
                             ProductId = reader.GetString(1),
                             ProductName = reader.GetString(2),
-                            BuyerId = reader.GetString(3),
-                            BuyerUsername = reader.GetString(4),
-                            SellerId = reader.GetString(5),
-                            SellerUsername = reader.GetString(6),
-                            DateCompleted = reader.GetDateTime(7)
+                            ProductImage = reader.GetString(3),
+                            ProductDescription = reader.GetString(4),
+                            BuyerId = reader.GetString(5),
+                            BuyerUsername = reader.GetString(6),
+                            SellerId = reader.GetString(7),
+                            SellerUsername = reader.GetString(8),
+                            DateCompleted = reader.GetDateTime(9)
                         });
                     }
                 }
@@ -376,19 +379,18 @@ public class DatabaseService : IDatabaseService
         }
     }
 
-    public async Task InsertTransactionAsync(TransactionHistory transaction)
+    public async Task<double> GetUserAverageRatingAsync(string userId)
     {
         using (var connection = new SqlConnection(_connectionString))
         {
             await connection.OpenAsync();
-            using (var command = new SqlCommand("InsertTransaction", connection))
+            using (var command = new SqlCommand("GetUserRatings", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@ProductId", transaction.ProductId);
-                command.Parameters.AddWithValue("@BuyerId", transaction.BuyerId);
-                command.Parameters.AddWithValue("@SellerId", transaction.SellerId);
-                command.Parameters.AddWithValue("@DateCompleted", transaction.DateCompleted);
-                await command.ExecuteNonQueryAsync();
+                command.Parameters.AddWithValue("@UserId", userId);
+
+                var result = await command.ExecuteScalarAsync();
+                return (double)result;
             }
         }
     }
