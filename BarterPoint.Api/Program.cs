@@ -1,11 +1,6 @@
-using Microsoft.EntityFrameworkCore;
 using System.Data.SqlClient;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Register DbContext
-builder.Services.AddDbContext<BarterContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Register MemoryCache and Controllers
 builder.Services.AddMemoryCache();
