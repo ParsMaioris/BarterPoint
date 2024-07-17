@@ -21,7 +21,7 @@ const MyTransactionsScreen: React.FC = () =>
     const [currentCounterparty, setCurrentCounterparty] = useState('')
     const [currentTransaction, setCurrentTransaction] = useState<TransactionHistory | null>(null)
     const [rating, setRating] = useState(0)
-    const [counterpartyRatings, setCounterpartyRatings] = useState<{[key: string]: number}>({})
+    const [counterpartyRatings, setCounterpartyRatings] = useState<{[key: string]: number | null}>({})
 
     useEffect(() =>
     {
@@ -35,15 +35,21 @@ const MyTransactionsScreen: React.FC = () =>
     {
         const fetchRatings = async () =>
         {
-            const ratings: {[key: string]: number} = {}
+            const ratings: {[key: string]: number | null} = {}
 
             for (const transaction of userTransactions)
             {
                 const counterpartyId = transaction.sellerId === userId ? transaction.buyerId : transaction.sellerId
                 if (!ratings[counterpartyId])
                 {
-                    const ratingData = await getUserRating(counterpartyId)
-                    ratings[counterpartyId] = ratingData.averageRating
+                    try
+                    {
+                        const ratingData = await getUserRating(counterpartyId)
+                        ratings[counterpartyId] = ratingData.averageRating
+                    } catch (error)
+                    {
+                        ratings[counterpartyId] = null
+                    }
                 }
             }
 
@@ -65,14 +71,20 @@ const MyTransactionsScreen: React.FC = () =>
                 dateRated: new Date().toISOString()
             }
 
-            await addRating(ratingRequest)
+            try
+            {
+                await addRating(ratingRequest)
 
-            const updatedRating = await getUserRating(currentCounterparty)
-            setCounterpartyRatings((prevRatings) => ({
-                ...prevRatings,
-                [currentCounterparty]: updatedRating.averageRating
-            }))
-            setModalVisible(false)
+                const updatedRating = await getUserRating(currentCounterparty)
+                setCounterpartyRatings((prevRatings) => ({
+                    ...prevRatings,
+                    [currentCounterparty]: updatedRating.averageRating
+                }))
+                setModalVisible(false)
+            } catch (error)
+            {
+                console.error('Failed to add rating:', error)
+            }
         }
     }
 
@@ -107,6 +119,7 @@ const MyTransactionsScreen: React.FC = () =>
         const roleMessage = isSeller ? 'You were selling this product' : 'You were buying this product'
         const counterpartyId = isSeller ? item.buyerId : item.sellerId
         const counterpartyUsername = isSeller ? item.buyerUsername : item.sellerUsername
+        const counterpartyRating = counterpartyRatings[counterpartyId]
 
         return (
             <View style={styles.transactionItem}>
@@ -116,7 +129,11 @@ const MyTransactionsScreen: React.FC = () =>
                     <Text style={styles.label}>Product: <Text style={styles.text}>{item.productName}</Text></Text>
                     <Text style={styles.label}>Description: <Text style={styles.text}>{item.productDescription}</Text></Text>
                     <Text style={styles.label}>Counterparty: <Text style={styles.text}>{counterpartyUsername}</Text></Text>
-                    <Text style={styles.label}>Counterparty Rating: <Text style={styles.text}>{counterpartyRatings[counterpartyId]?.toFixed(2)}</Text></Text>
+                    {counterpartyRating !== null && counterpartyRating !== undefined ? (
+                        <Text style={styles.label}>Counterparty Rating: <Text style={styles.text}>{counterpartyRating.toFixed(2)}</Text></Text>
+                    ) : (
+                        <Text style={styles.label}>Counterparty Rating: <Text style={styles.text}>No rating yet</Text></Text>
+                    )}
                     <Text style={styles.label}>Date: <Text style={styles.text}>{new Date(item.dateCompleted).toLocaleDateString()}</Text></Text>
                     <TouchableOpacity
                         style={styles.minimalButton}
