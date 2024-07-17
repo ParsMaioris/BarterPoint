@@ -1,27 +1,19 @@
-using System.Data;
-using System.Data.SqlClient;
-
-public class TransactionRepository : ITransactionRepository
+public class TransactionRepository : BaseRepository, ITransactionRepository
 {
-    private readonly string _connectionString;
-
-    public TransactionRepository(IConfiguration configuration)
+    public TransactionRepository(DbConnectionFactoryDelegate dbConnectionFactory)
+        : base(dbConnectionFactory)
     {
-        _connectionString = configuration.GetConnectionString("DefaultConnection");
     }
 
     public async Task<List<GetAllTransactionsResult>> GetAllTransactionHistoryAsync()
     {
         var transactionHistories = new List<GetAllTransactionsResult>();
 
-        using (var conn = new SqlConnection(_connectionString))
+        using (var connection = await OpenConnectionAsync())
         {
-            await conn.OpenAsync();
-            using (var cmd = new SqlCommand("GetAllTransactionHistory", conn))
+            using (var command = CreateCommand(connection, "GetAllTransactionHistory"))
             {
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                using (var reader = await cmd.ExecuteReaderAsync())
+                using (var reader = await command.ExecuteReaderAsync())
                 {
                     while (await reader.ReadAsync())
                     {
@@ -37,13 +29,13 @@ public class TransactionRepository : ITransactionRepository
     public async Task<IEnumerable<GetUserTransactionsResult>> GetUserTransactionsAsync(string userId)
     {
         var transactions = new List<GetUserTransactionsResult>();
-        using (var connection = new SqlConnection(_connectionString))
+
+        using (var connection = await OpenConnectionAsync())
         {
-            await connection.OpenAsync();
-            using (var command = new SqlCommand("GetUserTransactions", connection))
+            using (var command = CreateCommand(connection, "GetUserTransactions"))
             {
-                command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@UserId", userId);
+
                 using (var reader = await command.ExecuteReaderAsync())
                 {
                     while (await reader.ReadAsync())
@@ -53,6 +45,7 @@ public class TransactionRepository : ITransactionRepository
                 }
             }
         }
+
         return transactions;
     }
 }

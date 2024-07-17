@@ -1,23 +1,16 @@
-using System.Data;
-using System.Data.SqlClient;
-
-public class RatingsRepository : IRatingsRepository
+public class RatingsRepository : BaseRepository, IRatingsRepository
 {
-    private readonly string _connectionString;
-
-    public RatingsRepository(IConfiguration configuration)
+    public RatingsRepository(DbConnectionFactoryDelegate dbConnectionFactory)
+        : base(dbConnectionFactory)
     {
-        _connectionString = configuration.GetConnectionString("DefaultConnection");
     }
 
     public async Task RateUserAsync(RateUserRequest rating)
     {
-        using (var connection = new SqlConnection(_connectionString))
+        using (var connection = await OpenConnectionAsync())
         {
-            await connection.OpenAsync();
-            using (var command = new SqlCommand("RateUser", connection))
+            using (var command = CreateCommand(connection, "RateUser"))
             {
-                command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@RaterId", rating.RaterId);
                 command.Parameters.AddWithValue("@RateeId", rating.RateeId);
                 command.Parameters.AddWithValue("@Rating", rating.Rating);
@@ -30,12 +23,10 @@ public class RatingsRepository : IRatingsRepository
 
     public async Task<double> GetUserAverageRatingAsync(string userId)
     {
-        using (var connection = new SqlConnection(_connectionString))
+        using (var connection = await OpenConnectionAsync())
         {
-            await connection.OpenAsync();
-            using (var command = new SqlCommand("GetUserRatings", connection))
+            using (var command = CreateCommand(connection, "GetUserRatings"))
             {
-                command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@UserId", userId);
 
                 var result = await command.ExecuteScalarAsync();

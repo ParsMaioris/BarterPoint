@@ -38,11 +38,11 @@ public class BidsController : ControllerBase
     }
 
     [HttpPost("approve/{bidId}")]
-    public IActionResult ApproveBid(int bidId)
+    public async Task<IActionResult> ApproveBid(int bidId)
     {
         try
         {
-            _bidService.ApproveBid(bidId);
+            await _bidService.ApproveBidAsync(bidId);
             return Ok(new { message = "Bid approved successfully." });
         }
         catch (Exception ex)

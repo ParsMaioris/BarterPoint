@@ -6,5 +6,5 @@ public interface IBidRepository
     Task<IEnumerable<BidResult>> GetAllBidsAsync();
     Task RemoveBidAsync(int bidId);
     Task<int> AddBidAsync(string product1Id, string product2Id);
-    void ApproveBid(int bidId);
+    Task ApproveBidAsync(int bidId);
 }

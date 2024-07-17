@@ -7,23 +7,23 @@ public class FavoritesService : IFavoritesService
         _favoritesRepository = favoritesRepository;
     }
 
-    public void AddFavorite(string userId, string productId)
+    public async Task AddFavoriteAsync(string userId, string productId)
     {
-        _favoritesRepository.AddFavorite(userId, productId);
+        await _favoritesRepository.AddFavoriteAsync(userId, productId);
     }
 
-    public List<FavoriteResult> GetUserFavorites(string userId)
+    public async Task<List<FavoriteResult>> GetUserFavoritesAsync(string userId)
     {
-        return _favoritesRepository.GetUserFavorites(userId);
+        return await _favoritesRepository.GetUserFavoritesAsync(userId);
     }
 
-    public void RemoveFavorite(string userId, string productId)
+    public async Task RemoveFavoriteAsync(string userId, string productId)
     {
-        _favoritesRepository.RemoveFavorite(userId, productId);
+        await _favoritesRepository.RemoveFavoriteAsync(userId, productId);
     }
 
-    public bool IsFavorite(string userId, string productId)
+    public async Task<bool> IsFavoriteAsync(string userId, string productId)
     {
-        return _favoritesRepository.IsFavorite(userId, productId);
+        return await _favoritesRepository.IsFavoriteAsync(userId, productId);
     }
 }

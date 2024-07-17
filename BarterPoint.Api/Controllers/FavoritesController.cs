@@ -12,30 +12,30 @@ public class FavoritesController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult AddFavorite([FromBody] AddFavoriteRequest request)
+    public async Task<IActionResult> AddFavorite([FromBody] AddFavoriteRequest request)
     {
-        _favoritesService.AddFavorite(request.UserId, request.ProductId);
+        await _favoritesService.AddFavoriteAsync(request.UserId, request.ProductId);
         return Ok();
     }
 
     [HttpGet("{userId}")]
-    public IActionResult GetUserFavorites(string userId)
+    public async Task<IActionResult> GetUserFavorites(string userId)
     {
-        var favorites = _favoritesService.GetUserFavorites(userId);
+        var favorites = await _favoritesService.GetUserFavoritesAsync(userId);
         return Ok(favorites);
     }
 
     [HttpDelete]
-    public IActionResult RemoveFavorite([FromBody] RemoveFavoriteRequest request)
+    public async Task<IActionResult> RemoveFavorite([FromBody] RemoveFavoriteRequest request)
     {
-        _favoritesService.RemoveFavorite(request.UserId, request.ProductId);
+        await _favoritesService.RemoveFavoriteAsync(request.UserId, request.ProductId);
         return Ok();
     }
 
     [HttpGet("isFavorite")]
-    public IActionResult IsFavorite([FromQuery] string userId, [FromQuery] string productId)
+    public async Task<IActionResult> IsFavorite([FromQuery] string userId, [FromQuery] string productId)
     {
-        var isFavorite = _favoritesService.IsFavorite(userId, productId);
+        var isFavorite = await _favoritesService.IsFavoriteAsync(userId, productId);
         return Ok(new { IsFavorite = isFavorite });
     }
 }

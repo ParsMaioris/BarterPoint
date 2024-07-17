@@ -1,30 +1,23 @@
-using System.Data;
-using System.Data.SqlClient;
-
-public class ProductRepository : IProductRepository
+public class ProductRepository : BaseRepository, IProductRepository
 {
-    private readonly string _connectionString;
-
-    public ProductRepository(IConfiguration configuration)
+    public ProductRepository(DbConnectionFactoryDelegate dbConnectionFactory)
+        : base(dbConnectionFactory)
     {
-        _connectionString = configuration.GetConnectionString("DefaultConnection");
     }
 
     public async Task<IEnumerable<ProductResult>> GetProductsByOwner(string ownerId)
     {
         var productList = new List<ProductResult>();
 
-        using (var connection = new SqlConnection(_connectionString))
+        using (var connection = await OpenConnectionAsync())
         {
-            using (var command = new SqlCommand("GetProductsByOwner", connection))
+            using (var command = CreateCommand(connection, "GetProductsByOwner"))
             {
-                command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@OwnerId", ownerId);
 
-                connection.Open();
                 using (var reader = await command.ExecuteReaderAsync())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         productList.Add(reader.MapTo<ProductResult>());
                     }
@@ -39,17 +32,15 @@ public class ProductRepository : IProductRepository
     {
         var productList = new List<ProductResult>();
 
-        using (var connection = new SqlConnection(_connectionString))
+        using (var connection = await OpenConnectionAsync())
         {
-            using (var command = new SqlCommand("GetProductsNotOwnedByUser", connection))
+            using (var command = CreateCommand(connection, "GetProductsNotOwnedByUser"))
             {
-                command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@OwnerId", ownerId);
 
-                connection.Open();
                 using (var reader = await command.ExecuteReaderAsync())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         productList.Add(reader.MapTo<ProductResult>());
                     }
@@ -62,11 +53,10 @@ public class ProductRepository : IProductRepository
 
     public async Task<string> AddProductAsync(AddProductRequest product)
     {
-        using (var connection = new SqlConnection(_connectionString))
+        using (var connection = await OpenConnectionAsync())
         {
-            using (var command = new SqlCommand("AddProduct", connection))
+            using (var command = CreateCommand(connection, "AddProduct"))
             {
-                command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@name", product.Name);
                 command.Parameters.AddWithValue("@image", product.Image);
                 command.Parameters.AddWithValue("@description", product.Description);
@@ -81,7 +71,6 @@ public class ProductRepository : IProductRepository
                 command.Parameters.AddWithValue("@dimensions_weight", product.DimensionsWeight);
                 command.Parameters.AddWithValue("@dateListed", product.DateListed);
 
-                connection.Open();
                 var result = await command.ExecuteScalarAsync();
                 return result.ToString();
             }
@@ -90,14 +79,11 @@ public class ProductRepository : IProductRepository
 
     public async Task RemoveProductAsync(string productId)
     {
-        using (var connection = new SqlConnection(_connectionString))
+        using (var connection = await OpenConnectionAsync())
         {
-            using (var command = new SqlCommand("RemoveProduct", connection))
+            using (var command = CreateCommand(connection, "RemoveProduct"))
             {
-                command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@id", productId);
-
-                connection.Open();
                 await command.ExecuteNonQueryAsync();
             }
         }

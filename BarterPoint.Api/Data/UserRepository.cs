@@ -1,24 +1,18 @@
-using System.Data;
-using System.Data.SqlClient;
-
-public class UserRepository : IUserRepository
+public class UserRepository : BaseRepository, IUserRepository
 {
-    private readonly string _connectionString;
-
-    public UserRepository(IConfiguration configuration)
+    public UserRepository(DbConnectionFactoryDelegate dbConnectionFactory)
+        : base(dbConnectionFactory)
     {
-        _connectionString = configuration.GetConnectionString("DefaultConnection");
     }
 
     public async Task<string> RegisterUserAsync(RegisterUserRequest request)
     {
         var userId = Guid.NewGuid();
 
-        using (var connection = new SqlConnection(_connectionString))
+        using (var connection = await OpenConnectionAsync())
         {
-            using (var command = new SqlCommand("RegisterUser", connection))
+            using (var command = CreateCommand(connection, "RegisterUser"))
             {
-                command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@id", userId);
                 command.Parameters.AddWithValue("@username", request.Username);
                 command.Parameters.AddWithValue("@password_hash", request.PasswordHash);
@@ -27,10 +21,9 @@ public class UserRepository : IUserRepository
                 command.Parameters.AddWithValue("@location", request.Location);
                 command.Parameters.AddWithValue("@dateJoined", request.DateJoined);
 
-                connection.Open();
                 using (var reader = await command.ExecuteReaderAsync())
                 {
-                    if (reader.Read())
+                    if (await reader.ReadAsync())
                     {
                         if (reader.FieldCount > 0)
                         {
@@ -49,18 +42,16 @@ public class UserRepository : IUserRepository
     {
         var result = new SignInResult();
 
-        using (var connection = new SqlConnection(_connectionString))
+        using (var connection = await OpenConnectionAsync())
         {
-            using (var command = new SqlCommand("SignInUser", connection))
+            using (var command = CreateCommand(connection, "SignInUser"))
             {
-                command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@username", request.Username);
                 command.Parameters.AddWithValue("@password_hash", request.PasswordHash);
 
-                connection.Open();
                 using (var reader = await command.ExecuteReaderAsync())
                 {
-                    if (reader.Read())
+                    if (await reader.ReadAsync())
                     {
                         if (reader.FieldCount > 0)
                         {

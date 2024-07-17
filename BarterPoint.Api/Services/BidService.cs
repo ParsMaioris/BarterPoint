@@ -34,8 +34,8 @@ public class BidService : IBidService
         await _bidRepository.UpdateBidStatusAsync(bidId, "Rejected", DateTime.UtcNow);
     }
 
-    public void ApproveBid(int bidId)
+    public async Task ApproveBidAsync(int bidId)
     {
-        _bidRepository.ApproveBid(bidId);
+        await _bidRepository.ApproveBidAsync(bidId);
     }
 }

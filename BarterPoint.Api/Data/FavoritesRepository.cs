@@ -1,41 +1,62 @@
-using System.Data.SqlClient;
-
-public class FavoritesRepository : IFavoritesRepository
+public class FavoritesRepository : BaseRepository, IFavoritesRepository
 {
-    private readonly DatabaseHelper _databaseHelper;
-
-    public FavoritesRepository(DatabaseHelper databaseHelper)
+    public FavoritesRepository(DbConnectionFactoryDelegate dbConnectionFactory)
+        : base(dbConnectionFactory)
     {
-        _databaseHelper = databaseHelper;
     }
 
-    public void AddFavorite(string userId, string productId)
+    public async Task AddFavoriteAsync(string userId, string productId)
     {
-        if (!IsFavorite(userId, productId))
+        if (!await IsFavoriteAsync(userId, productId))
         {
-            _databaseHelper.ExecuteNonQuery("AddUserFavorite",
-                new SqlParameter("@userId", userId),
-                new SqlParameter("@productId", productId));
+            using (var connection = await OpenConnectionAsync())
+            {
+                using (var command = CreateCommand(connection, "AddUserFavorite"))
+                {
+                    command.Parameters.AddWithValue("@userId", userId);
+                    command.Parameters.AddWithValue("@productId", productId);
+                    await ExecuteNonQueryAsync(command);
+                }
+            }
         }
     }
 
-    public List<FavoriteResult> GetUserFavorites(string userId)
+    public async Task<List<FavoriteResult>> GetUserFavoritesAsync(string userId)
     {
-        return _databaseHelper.ExecuteReader("GetUserFavorites", reader => reader.MapTo<FavoriteResult>(),
-            new SqlParameter("@userId", userId));
+        using (var connection = await OpenConnectionAsync())
+        {
+            using (var command = CreateCommand(connection, "GetUserFavorites"))
+            {
+                command.Parameters.AddWithValue("@userId", userId);
+                return await ExecuteReaderAsync(command, reader => reader.MapTo<FavoriteResult>());
+            }
+        }
     }
 
-    public void RemoveFavorite(string userId, string productId)
+    public async Task RemoveFavoriteAsync(string userId, string productId)
     {
-        _databaseHelper.ExecuteNonQuery("RemoveUserFavorite",
-            new SqlParameter("@userId", userId),
-            new SqlParameter("@productId", productId));
+        using (var connection = await OpenConnectionAsync())
+        {
+            using (var command = CreateCommand(connection, "RemoveUserFavorite"))
+            {
+                command.Parameters.AddWithValue("@userId", userId);
+                command.Parameters.AddWithValue("@productId", productId);
+                await ExecuteNonQueryAsync(command);
+            }
+        }
     }
 
-    public bool IsFavorite(string userId, string productId)
+    public async Task<bool> IsFavoriteAsync(string userId, string productId)
     {
-        return _databaseHelper.ExecuteScalar<int>("IsFavorite",
-            new SqlParameter("@userId", userId),
-            new SqlParameter("@productId", productId)) == 1;
+        using (var connection = await OpenConnectionAsync())
+        {
+            using (var command = CreateCommand(connection, "IsFavorite"))
+            {
+                command.Parameters.AddWithValue("@userId", userId);
+                command.Parameters.AddWithValue("@productId", productId);
+                var result = await ExecuteScalarAsync<int>(command);
+                return result == 1;
+            }
+        }
     }
 }
