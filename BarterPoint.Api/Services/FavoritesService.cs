@@ -1,41 +1,29 @@
-using System.Data.SqlClient;
-
 public class FavoritesService : IFavoritesService
 {
-    private readonly DatabaseHelper _databaseHelper;
+    private readonly IFavoritesRepository _favoritesRepository;
 
-    public FavoritesService(DatabaseHelper databaseHelper)
+    public FavoritesService(IFavoritesRepository favoritesRepository)
     {
-        _databaseHelper = databaseHelper;
+        _favoritesRepository = favoritesRepository;
     }
 
     public void AddFavorite(string userId, string productId)
     {
-        if (!IsFavorite(userId, productId))
-        {
-            _databaseHelper.ExecuteNonQuery("AddUserFavorite",
-                new SqlParameter("@userId", userId),
-                new SqlParameter("@productId", productId));
-        }
+        _favoritesRepository.AddFavorite(userId, productId);
     }
 
     public List<Favorite> GetUserFavorites(string userId)
     {
-        return _databaseHelper.ExecuteReader("GetUserFavorites", reader => reader.MapTo<Favorite>(),
-            new SqlParameter("@userId", userId));
+        return _favoritesRepository.GetUserFavorites(userId);
     }
 
     public void RemoveFavorite(string userId, string productId)
     {
-        _databaseHelper.ExecuteNonQuery("RemoveUserFavorite",
-            new SqlParameter("@userId", userId),
-            new SqlParameter("@productId", productId));
+        _favoritesRepository.RemoveFavorite(userId, productId);
     }
 
     public bool IsFavorite(string userId, string productId)
     {
-        return _databaseHelper.ExecuteScalar<int>("IsFavorite",
-            new SqlParameter("@userId", userId),
-            new SqlParameter("@productId", productId)) == 1;
+        return _favoritesRepository.IsFavorite(userId, productId);
     }
 }

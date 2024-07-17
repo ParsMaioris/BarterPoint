@@ -1,19 +1,19 @@
 public class TransactionService : ITransactionService
 {
-    private readonly IDatabaseService _databaseService;
+    private readonly ITransactionRepository _transactionRepository;
 
-    public TransactionService(IDatabaseService databaseService)
+    public TransactionService(ITransactionRepository transactionRepository)
     {
-        _databaseService = databaseService;
+        _transactionRepository = transactionRepository;
     }
 
     public Task<List<TransactionHistory>> GetAllTransactionsAsync()
     {
-        return _databaseService.GetAllTransactionHistoryAsync();
+        return _transactionRepository.GetAllTransactionHistoryAsync();
     }
 
     public Task<IEnumerable<UserTransactionDto>> GetUserTransactionsAsync(string userId)
     {
-        return _databaseService.GetUserTransactionsAsync(userId);
+        return _transactionRepository.GetUserTransactionsAsync(userId);
     }
 }

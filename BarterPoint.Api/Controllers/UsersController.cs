@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 [Route("api/[controller]")]
 public class UsersController : ControllerBase
 {
-    private readonly IDatabaseService _databaseService;
+    private readonly IUserService _userService;
 
-    public UsersController(IDatabaseService databaseService)
+    public UsersController(IUserService databaseService)
     {
-        _databaseService = databaseService;
+        _userService = databaseService;
     }
 
     [HttpPost("register")]
@@ -19,7 +19,7 @@ public class UsersController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        var result = await _databaseService.RegisterUserAsync(request);
+        var result = await _userService.RegisterUserAsync(request);
         if (result.Contains("Error"))
         {
             return StatusCode(StatusCodes.Status500InternalServerError, result);
@@ -36,7 +36,7 @@ public class UsersController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        var result = await _databaseService.SignInUserAsync(request);
+        var result = await _userService.SignInUserAsync(request);
         if (result.ErrorMessage != null)
         {
             return Unauthorized(result.ErrorMessage);

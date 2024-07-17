@@ -4,24 +4,24 @@ using Microsoft.AspNetCore.Mvc;
 [ApiController]
 public class RatingsController : ControllerBase
 {
-    private readonly IRatingService _ratingService;
+    private readonly IRatingsService _ratingsService;
 
-    public RatingsController(IRatingService ratingService)
+    public RatingsController(IRatingsService ratingService)
     {
-        _ratingService = ratingService;
+        _ratingsService = ratingService;
     }
 
     [HttpGet("user/{userId}")]
     public async Task<ActionResult<UserRating>> GetUserAverageRating(string userId)
     {
-        var rating = await _ratingService.GetUserAverageRating(userId);
+        var rating = await _ratingsService.GetUserAverageRating(userId);
         return Ok(rating);
     }
 
     [HttpPost]
     public async Task<ActionResult> AddRating([FromBody] RateUserRequest ratingRequest)
     {
-        await _ratingService.AddRating(ratingRequest);
+        await _ratingsService.AddRating(ratingRequest);
         return Ok();
     }
 }

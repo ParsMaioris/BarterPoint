@@ -1,16 +1,18 @@
 public class ProductService : IProductService
 {
-    private readonly IDatabaseService _databaseService;
+    private readonly IProductRepository _productRepository;
+    protected readonly ITransactionRepository _transactionRepository;
 
-    public ProductService(IDatabaseService databaseService)
+    public ProductService(IProductRepository productRepository, ITransactionRepository transactionRepository)
     {
-        _databaseService = databaseService;
+        _productRepository = productRepository;
+        _transactionRepository = transactionRepository;
     }
 
     public async Task<IEnumerable<ProductDTO>> GetAvailableProductsByOwnerAsync(string ownerId)
     {
-        var allProducts = await _databaseService.GetProductsByOwner(ownerId);
-        var allTransactionHistories = await _databaseService.GetAllTransactionHistoryAsync();
+        var allProducts = await _productRepository.GetProductsByOwner(ownerId);
+        var allTransactionHistories = await _transactionRepository.GetAllTransactionHistoryAsync();
 
         var productIdsInTransactions = allTransactionHistories
             .Select(t => t.ProductId)
@@ -26,8 +28,8 @@ public class ProductService : IProductService
 
     public async Task<IEnumerable<ProductDTO>> GetAvailableProductsNotOwnedByUserAsync(string ownerId)
     {
-        var allProducts = await _databaseService.GetProductsNotOwnedByUser(ownerId);
-        var allTransactionHistories = await _databaseService.GetAllTransactionHistoryAsync();
+        var allProducts = await _productRepository.GetProductsNotOwnedByUser(ownerId);
+        var allTransactionHistories = await _transactionRepository.GetAllTransactionHistoryAsync();
 
         var productIdsInTransactions = allTransactionHistories
             .Select(t => t.ProductId)
@@ -43,11 +45,11 @@ public class ProductService : IProductService
 
     public async Task<string> AddProductAsync(AddProductRequest product)
     {
-        return await _databaseService.AddProductAsync(product);
+        return await _productRepository.AddProductAsync(product);
     }
 
     public async Task RemoveProductAsync(string productId)
     {
-        await _databaseService.RemoveProductAsync(productId);
+        await _productRepository.RemoveProductAsync(productId);
     }
 }
