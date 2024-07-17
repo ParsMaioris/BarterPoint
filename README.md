@@ -12,6 +12,8 @@ BarterPoint is actively under development and primarily serves as a portfolio pi
 - **.NET Web API**: A backend service to handle user requests, authentication, and transactions.
 - **SQL Database**: A data storage and retrieval system to manage user data and bartering activities.
 
+For video demonstrations of these features, please refer to the [Usage section](#usage).
+
 ## Setup Options
 
 BarterPoint can be set up either in the cloud or locally:
