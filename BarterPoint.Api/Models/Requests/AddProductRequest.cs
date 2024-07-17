@@ -1,41 +1,41 @@
 public class AddProductRequest
 {
-    [DbColumn("name")]
+    [DbField("name")]
     public string Name { get; set; }
 
-    [DbColumn("image")]
+    [DbField("image")]
     public string Image { get; set; }
 
-    [DbColumn("description")]
+    [DbField("description")]
     public string Description { get; set; }
 
-    [DbColumn("tradeFor")]
+    [DbField("tradeFor")]
     public string TradeFor { get; set; }
 
-    [DbColumn("category")]
+    [DbField("category")]
     public string Category { get; set; }
 
-    [DbColumn("condition")]
+    [DbField("condition")]
     public string Condition { get; set; }
 
-    [DbColumn("location")]
+    [DbField("location")]
     public string Location { get; set; }
 
-    [DbColumn("ownerId")]
+    [DbField("ownerId")]
     public string OwnerId { get; set; }
 
-    [DbColumn("dimensions_width")]
+    [DbField("dimensions_width")]
     public float DimensionsWidth { get; set; }
 
-    [DbColumn("dimensions_height")]
+    [DbField("dimensions_height")]
     public float DimensionsHeight { get; set; }
 
-    [DbColumn("dimensions_depth")]
+    [DbField("dimensions_depth")]
     public float DimensionsDepth { get; set; }
 
-    [DbColumn("dimensions_weight")]
+    [DbField("dimensions_weight")]
     public float DimensionsWeight { get; set; }
 
-    [DbColumn("dateListed")]
+    [DbField("dateListed")]
     public DateTime DateListed { get; set; }
 }

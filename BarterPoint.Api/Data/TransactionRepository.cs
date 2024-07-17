@@ -25,14 +25,7 @@ public class TransactionRepository : ITransactionRepository
                 {
                     while (await reader.ReadAsync())
                     {
-                        transactionHistories.Add(new GetAllTransactionsResult
-                        {
-                            Id = reader.GetInt32(0),
-                            ProductId = reader.GetString(1),
-                            BuyerId = reader.GetString(2),
-                            SellerId = reader.GetString(3),
-                            DateCompleted = reader.GetDateTime(4)
-                        });
+                        transactionHistories.Add(reader.MapTo<GetAllTransactionsResult>());
                     }
                 }
             }
@@ -55,19 +48,7 @@ public class TransactionRepository : ITransactionRepository
                 {
                     while (await reader.ReadAsync())
                     {
-                        transactions.Add(new GetUserTransactionsResult
-                        {
-                            TransactionId = reader.GetInt32(0),
-                            ProductId = reader.GetString(1),
-                            ProductName = reader.GetString(2),
-                            ProductImage = reader.GetString(3),
-                            ProductDescription = reader.GetString(4),
-                            BuyerId = reader.GetString(5),
-                            BuyerUsername = reader.GetString(6),
-                            SellerId = reader.GetString(7),
-                            SellerUsername = reader.GetString(8),
-                            DateCompleted = reader.GetDateTime(9)
-                        });
+                        transactions.Add(reader.MapTo<GetUserTransactionsResult>());
                     }
                 }
             }

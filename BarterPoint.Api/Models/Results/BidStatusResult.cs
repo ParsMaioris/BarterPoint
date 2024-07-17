@@ -1,14 +1,14 @@
 public class BidStatusResult
 {
-    [DbColumn("id")]
+    [DbField("id")]
     public int Id { get; set; }
 
-    [DbColumn("bidId")]
+    [DbField("bidId")]
     public int BidId { get; set; }
 
-    [DbColumn("status")]
+    [DbField("status")]
     public string Status { get; set; }
 
-    [DbColumn("dateUpdated")]
+    [DbField("dateUpdated")]
     public DateTime DateUpdated { get; set; }
 }

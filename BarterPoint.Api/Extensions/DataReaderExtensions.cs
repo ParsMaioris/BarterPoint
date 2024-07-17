@@ -9,7 +9,7 @@ public static class DataReaderExtensions
 
         foreach (var property in properties)
         {
-            var attribute = property.GetCustomAttributes(typeof(DbColumnAttribute), false).FirstOrDefault() as DbColumnAttribute;
+            var attribute = property.GetCustomAttributes(typeof(DbFieldAttribute), false).FirstOrDefault() as DbFieldAttribute;
             if (attribute != null)
             {
                 var columnName = attribute.ColumnName;

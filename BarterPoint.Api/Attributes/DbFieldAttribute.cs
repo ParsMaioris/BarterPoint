@@ -1,9 +1,9 @@
 [AttributeUsage(AttributeTargets.Property)]
-public class DbColumnAttribute : Attribute
+public class DbFieldAttribute : Attribute
 {
     public string ColumnName { get; }
 
-    public DbColumnAttribute(string columnName)
+    public DbFieldAttribute(string columnName)
     {
         ColumnName = columnName;
     }

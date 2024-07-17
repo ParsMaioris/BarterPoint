@@ -1,17 +1,17 @@
 public class FavoriteResult
 {
-    [DbColumn("id")]
+    [DbField("id")]
     public int FavoritesId { get; set; }
 
-    [DbColumn("userId")]
+    [DbField("userId")]
     public string UserId { get; set; }
 
-    [DbColumn("productId")]
+    [DbField("productId")]
     public string ProductId { get; set; }
 
-    [DbColumn("dateAdded")]
+    [DbField("dateAdded")]
     public DateTime DateAdded { get; set; }
 
-    [DbColumn("name")]
+    [DbField("name")]
     public string ProductName { get; set; }
 }
