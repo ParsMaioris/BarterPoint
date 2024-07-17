@@ -4,7 +4,7 @@ BarterPoint is a minimum viable product (MVP) for a bartering app, designed to f
 
 ## Purpose and Context
 
-BarterPoint is actively under development and primarily serves as a portfolio piece. The main goal is to showcase my skills in full-stack development for job interviews, as employers often request GitHub repositories. There are no immediate plans to take this project beyond its current state. The ongoing updates are focused on refining and demonstrating capabilities rather than learning new technologies.
+BarterPoint is actively under development and primarily serves as a portfolio piece. The main goal is to showcase skills in full-stack development for job interviews, as employers often request GitHub repositories. There are no immediate plans to take this project beyond its current state. The ongoing updates are focused on refining and demonstrating capabilities rather than learning new technologies.
 
 ## Features
 
@@ -93,4 +93,29 @@ Contributions to BarterPoint are welcome. Suggestions or issues can be submitted
 
 ## License
 
-This project is licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License. See the [LICENSE](./LICENSE) file for more details.
+This project is licensed under the **Creative Commons Attribution 4.0 International (CC BY 4.0) License**. This license allows you to:
+
+- **Use**: The material can be used in any format or medium.
+- **Modify**: The material can be remixed, transformed, and built upon.
+- **Distribute**: The modified material can be distributed, even for commercial purposes.
+
+### Key Points
+
+1. **Attribution**:  
+   Proper credit should be given, including a link to the license and an indication if changes were made. This ensures future contributors and users can benefit from the original work and its comprehensive context.
+
+2. **Transparency**:  
+    All changes and contributions in the GitHub repository have time stamps and are publicly available, which promotes transparency and ease of verification.
+
+3. **Collaboration**:  
+   Maintaining a link to the original work facilitates collaboration and allows users to leverage the entire body of work for their purposes.
+
+### Benefits
+
+- **Review Full-Stack Development Skills**:  
+    This project is ideal for demonstrating and reviewing full-stack development skills, and it is useful for job interviews and professional portfolios.
+
+- **Community Enhancement**:  
+   Others are welcome to learn from, contribute to, and expand upon this work. This doesn't have to be a solo project; it's a place to review skills, and contributions can be highlighted during job interviews.
+
+For detailed information, please refer to the [LICENSE](./LICENSE) file.
