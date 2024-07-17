@@ -2,10 +2,6 @@
 
 BarterPoint is a minimum viable product (MVP) for a bartering app, designed to facilitate the exchange of goods between users. This project aims to provide a simple and effective platform for users to list, browse, and trade items with ease.
 
-## Purpose and Context
-
-BarterPoint is actively under development and primarily serves as a portfolio piece. The main goal is to showcase skills in full-stack development for job interviews, as employers often request GitHub repositories. There are no immediate plans to take this project beyond its current state. The ongoing updates are focused on refining and demonstrating capabilities rather than learning new technologies.
-
 ## Features
 
 - **React Native**: A mobile user interface that adapts well to various devices.
@@ -86,6 +82,10 @@ While BarterPoint is a functional MVP, several features and improvements are pla
 - **Queuing Mechanisms**: Explore the use of queuing for efficient handling of asynchronous tasks.
 - **Enhanced Security Measures**: Implement advanced authentication and authorization mechanisms.
 - **Geolocation Services**: Add location-based features to facilitate local trades.
+
+## Purpose and Context
+
+BarterPoint is actively under development and primarily serves as a portfolio piece. The main goal is to showcase skills in full-stack development for job interviews, as employers often request GitHub repositories. There are no immediate plans to take this project beyond its current state. The ongoing updates are focused on refining and demonstrating capabilities rather than learning new technologies.
 
 ## Contributing
 
