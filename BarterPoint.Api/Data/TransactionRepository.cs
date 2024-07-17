@@ -10,9 +10,9 @@ public class TransactionRepository : ITransactionRepository
         _connectionString = configuration.GetConnectionString("DefaultConnection");
     }
 
-    public async Task<List<TransactionHistory>> GetAllTransactionHistoryAsync()
+    public async Task<List<GetAllTransactionsResult>> GetAllTransactionHistoryAsync()
     {
-        var transactionHistories = new List<TransactionHistory>();
+        var transactionHistories = new List<GetAllTransactionsResult>();
 
         using (var conn = new SqlConnection(_connectionString))
         {
@@ -25,7 +25,7 @@ public class TransactionRepository : ITransactionRepository
                 {
                     while (await reader.ReadAsync())
                     {
-                        transactionHistories.Add(new TransactionHistory
+                        transactionHistories.Add(new GetAllTransactionsResult
                         {
                             Id = reader.GetInt32(0),
                             ProductId = reader.GetString(1),
@@ -41,9 +41,9 @@ public class TransactionRepository : ITransactionRepository
         return transactionHistories;
     }
 
-    public async Task<IEnumerable<UserTransactionDto>> GetUserTransactionsAsync(string userId)
+    public async Task<IEnumerable<GetUserTransactionsResult>> GetUserTransactionsAsync(string userId)
     {
-        var transactions = new List<UserTransactionDto>();
+        var transactions = new List<GetUserTransactionsResult>();
         using (var connection = new SqlConnection(_connectionString))
         {
             await connection.OpenAsync();
@@ -55,7 +55,7 @@ public class TransactionRepository : ITransactionRepository
                 {
                     while (await reader.ReadAsync())
                     {
-                        transactions.Add(new UserTransactionDto
+                        transactions.Add(new GetUserTransactionsResult
                         {
                             TransactionId = reader.GetInt32(0),
                             ProductId = reader.GetString(1),

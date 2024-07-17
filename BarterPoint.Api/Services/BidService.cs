@@ -1,18 +1,13 @@
-using System.Data.SqlClient;
-
 public class BidService : IBidService
 {
     private readonly IBidRepository _bidRepository;
-    private readonly DatabaseHelper _databaseHelper;
 
-
-    public BidService(IBidRepository bidRepository, DatabaseHelper databaseHelper)
+    public BidService(IBidRepository bidRepository)
     {
         _bidRepository = bidRepository;
-        _databaseHelper = databaseHelper;
     }
 
-    public async Task<IEnumerable<BidDTO>> GetBidsWithPendingStatusesAsync()
+    public async Task<IEnumerable<BidResult>> GetBidsWithPendingStatusesAsync()
     {
         var allBids = await _bidRepository.GetAllBidsAsync();
         var allStatuses = await _bidRepository.GetAllBidStatusesAsync();

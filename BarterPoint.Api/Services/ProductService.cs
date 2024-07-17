@@ -9,7 +9,7 @@ public class ProductService : IProductService
         _transactionRepository = transactionRepository;
     }
 
-    public async Task<IEnumerable<ProductDTO>> GetAvailableProductsByOwnerAsync(string ownerId)
+    public async Task<IEnumerable<ProductResult>> GetAvailableProductsByOwnerAsync(string ownerId)
     {
         var allProducts = await _productRepository.GetProductsByOwner(ownerId);
         var allTransactionHistories = await _transactionRepository.GetAllTransactionHistoryAsync();
@@ -26,7 +26,7 @@ public class ProductService : IProductService
         return availableProducts;
     }
 
-    public async Task<IEnumerable<ProductDTO>> GetAvailableProductsNotOwnedByUserAsync(string ownerId)
+    public async Task<IEnumerable<ProductResult>> GetAvailableProductsNotOwnedByUserAsync(string ownerId)
     {
         var allProducts = await _productRepository.GetProductsNotOwnedByUser(ownerId);
         var allTransactionHistories = await _transactionRepository.GetAllTransactionHistoryAsync();

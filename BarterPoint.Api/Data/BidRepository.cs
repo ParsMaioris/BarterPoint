@@ -46,9 +46,9 @@ public class BidRepository : IBidRepository
         }
     }
 
-    public async Task<IEnumerable<BidStatus>> GetAllBidStatusesAsync()
+    public async Task<IEnumerable<BidStatusResult>> GetAllBidStatusesAsync()
     {
-        var result = new List<BidStatus>();
+        var result = new List<BidStatusResult>();
 
         using (var connection = new SqlConnection(_connectionString))
         {
@@ -61,7 +61,7 @@ public class BidRepository : IBidRepository
                 {
                     while (await reader.ReadAsync())
                     {
-                        var bidStatus = reader.MapTo<BidStatus>();
+                        var bidStatus = reader.MapTo<BidStatusResult>();
                         result.Add(bidStatus);
                     }
                 }
@@ -71,9 +71,9 @@ public class BidRepository : IBidRepository
         return result;
     }
 
-    public async Task<IEnumerable<BidDTO>> GetAllBidsAsync()
+    public async Task<IEnumerable<BidResult>> GetAllBidsAsync()
     {
-        var bidList = new List<BidDTO>();
+        var bidList = new List<BidResult>();
 
         using (var connection = new SqlConnection(_connectionString))
         {
@@ -86,7 +86,7 @@ public class BidRepository : IBidRepository
                 {
                     while (reader.Read())
                     {
-                        bidList.Add(reader.MapTo<BidDTO>());
+                        bidList.Add(reader.MapTo<BidResult>());
                     }
                 }
             }

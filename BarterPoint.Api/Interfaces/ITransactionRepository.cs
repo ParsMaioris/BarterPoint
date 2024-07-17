@@ -1,5 +1,5 @@
 public interface ITransactionRepository
 {
-    Task<List<TransactionHistory>> GetAllTransactionHistoryAsync();
-    Task<IEnumerable<UserTransactionDto>> GetUserTransactionsAsync(string userId);
+    Task<List<GetAllTransactionsResult>> GetAllTransactionHistoryAsync();
+    Task<IEnumerable<GetUserTransactionsResult>> GetUserTransactionsAsync(string userId);
 }

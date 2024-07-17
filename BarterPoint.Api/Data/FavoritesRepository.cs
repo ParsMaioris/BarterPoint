@@ -19,9 +19,9 @@ public class FavoritesRepository : IFavoritesRepository
         }
     }
 
-    public List<Favorite> GetUserFavorites(string userId)
+    public List<FavoriteResult> GetUserFavorites(string userId)
     {
-        return _databaseHelper.ExecuteReader("GetUserFavorites", reader => reader.MapTo<Favorite>(),
+        return _databaseHelper.ExecuteReader("GetUserFavorites", reader => reader.MapTo<FavoriteResult>(),
             new SqlParameter("@userId", userId));
     }
 

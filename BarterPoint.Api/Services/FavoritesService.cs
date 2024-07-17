@@ -12,7 +12,7 @@ public class FavoritesService : IFavoritesService
         _favoritesRepository.AddFavorite(userId, productId);
     }
 
-    public List<Favorite> GetUserFavorites(string userId)
+    public List<FavoriteResult> GetUserFavorites(string userId)
     {
         return _favoritesRepository.GetUserFavorites(userId);
     }

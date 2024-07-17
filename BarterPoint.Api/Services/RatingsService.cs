@@ -7,10 +7,10 @@ public class RatingsService : IRatingsService
         _ratingsRepository = databaseService;
     }
 
-    public async Task<UserRating> GetUserAverageRating(string userId)
+    public async Task<UserRatingResult> GetUserAverageRating(string userId)
     {
         var averageRating = await _ratingsRepository.GetUserAverageRatingAsync(userId);
-        return new UserRating { AverageRating = averageRating };
+        return new UserRatingResult { AverageRating = averageRating };
     }
 
     public async Task AddRating(RateUserRequest ratingRequest)

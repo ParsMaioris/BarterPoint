@@ -10,9 +10,9 @@ public class ProductRepository : IProductRepository
         _connectionString = configuration.GetConnectionString("DefaultConnection");
     }
 
-    public async Task<IEnumerable<ProductDTO>> GetProductsByOwner(string ownerId)
+    public async Task<IEnumerable<ProductResult>> GetProductsByOwner(string ownerId)
     {
-        var productList = new List<ProductDTO>();
+        var productList = new List<ProductResult>();
 
         using (var connection = new SqlConnection(_connectionString))
         {
@@ -26,7 +26,7 @@ public class ProductRepository : IProductRepository
                 {
                     while (reader.Read())
                     {
-                        productList.Add(reader.MapTo<ProductDTO>());
+                        productList.Add(reader.MapTo<ProductResult>());
                     }
                 }
             }
@@ -35,9 +35,9 @@ public class ProductRepository : IProductRepository
         return productList;
     }
 
-    public async Task<IEnumerable<ProductDTO>> GetProductsNotOwnedByUser(string ownerId)
+    public async Task<IEnumerable<ProductResult>> GetProductsNotOwnedByUser(string ownerId)
     {
-        var productList = new List<ProductDTO>();
+        var productList = new List<ProductResult>();
 
         using (var connection = new SqlConnection(_connectionString))
         {
@@ -51,7 +51,7 @@ public class ProductRepository : IProductRepository
                 {
                     while (reader.Read())
                     {
-                        productList.Add(reader.MapTo<ProductDTO>());
+                        productList.Add(reader.MapTo<ProductResult>());
                     }
                 }
             }

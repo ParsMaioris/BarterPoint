@@ -12,7 +12,7 @@ public class BidsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<BidDTO>>> GetAllBids()
+    public async Task<ActionResult<IEnumerable<BidResult>>> GetAllBids()
     {
         var bids = await _bidService.GetBidsWithPendingStatusesAsync();
         return Ok(bids);

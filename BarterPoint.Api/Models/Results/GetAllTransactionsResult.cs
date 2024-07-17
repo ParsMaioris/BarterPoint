@@ -1,4 +1,4 @@
-public class TransactionHistory
+public class GetAllTransactionsResult
 {
     public int Id { get; set; }
     public string ProductId { get; set; }

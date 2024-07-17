@@ -7,12 +7,12 @@ public class TransactionService : ITransactionService
         _transactionRepository = transactionRepository;
     }
 
-    public Task<List<TransactionHistory>> GetAllTransactionsAsync()
+    public Task<List<GetAllTransactionsResult>> GetAllTransactionsAsync()
     {
         return _transactionRepository.GetAllTransactionHistoryAsync();
     }
 
-    public Task<IEnumerable<UserTransactionDto>> GetUserTransactionsAsync(string userId)
+    public Task<IEnumerable<GetUserTransactionsResult>> GetUserTransactionsAsync(string userId)
     {
         return _transactionRepository.GetUserTransactionsAsync(userId);
     }

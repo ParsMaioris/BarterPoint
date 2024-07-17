@@ -12,14 +12,14 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet("ByOwner/{ownerId}")]
-    public async Task<ActionResult<IEnumerable<ProductDTO>>> GetProductsByOwner(string ownerId)
+    public async Task<ActionResult<IEnumerable<ProductResult>>> GetProductsByOwner(string ownerId)
     {
         var products = await _productService.GetAvailableProductsByOwnerAsync(ownerId);
         return Ok(products);
     }
 
     [HttpGet("NotOwnedByUser/{ownerId}")]
-    public async Task<ActionResult<IEnumerable<ProductDTO>>> GetProductsNotOwnedByUser(string ownerId)
+    public async Task<ActionResult<IEnumerable<ProductResult>>> GetProductsNotOwnedByUser(string ownerId)
     {
         var products = await _productService.GetAvailableProductsNotOwnedByUserAsync(ownerId);
         return Ok(products);

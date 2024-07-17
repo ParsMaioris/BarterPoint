@@ -1,4 +1,4 @@
-public class ProductDTO
+public class ProductResult
 {
     [DbColumn("id")]
     public string Id { get; set; }

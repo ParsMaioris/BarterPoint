@@ -1,4 +1,4 @@
-public class UserTransactionDto
+public class GetUserTransactionsResult
 {
     public int TransactionId { get; set; }
     public string ProductId { get; set; }

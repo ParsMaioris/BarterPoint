@@ -12,7 +12,7 @@ public class RatingsController : ControllerBase
     }
 
     [HttpGet("user/{userId}")]
-    public async Task<ActionResult<UserRating>> GetUserAverageRating(string userId)
+    public async Task<ActionResult<UserRatingResult>> GetUserAverageRating(string userId)
     {
         var rating = await _ratingsService.GetUserAverageRating(userId);
         return Ok(rating);

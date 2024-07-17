@@ -1,4 +1,4 @@
-public class Favorite
+public class FavoriteResult
 {
     [DbColumn("id")]
     public int FavoritesId { get; set; }
