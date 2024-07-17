@@ -80,8 +80,8 @@ public class BidRepository : BaseRepository, IBidRepository
                 command.Parameters.AddWithValue("@product1Id", product1Id);
                 command.Parameters.AddWithValue("@product2Id", product2Id);
 
-                var result = await ExecuteScalarAsync<int>(command);
-                return result;
+                var result = await ExecuteScalarAsync<decimal>(command);
+                return Convert.ToInt32(result);
             }
         }
     }
