@@ -1,4 +1,4 @@
-using BarterPoint.Application;
+namespace BarterPoint.Application;
 
 public interface IProductService
 {
