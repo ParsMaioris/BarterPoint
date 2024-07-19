@@ -1,6 +1,5 @@
 namespace BarterPoint.Domain;
 
-public interface IUserRepository : IRepository<User, int, User>
+public interface IUserRepository : IRepository<User, string, User>
 {
-    User SignIn(string username, string password);
 }

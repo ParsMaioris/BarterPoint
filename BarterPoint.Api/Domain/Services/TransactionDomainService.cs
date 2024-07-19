@@ -14,4 +14,9 @@ public class TransactionDomainService
         var allTransactions = _transactionRepository.GetAll();
         return allTransactions.Where(t => t.BuyerId == userId || t.SellerId == userId);
     }
+
+    public IEnumerable<Transaction> GetAllTransactions()
+    {
+        return _transactionRepository.GetAll();
+    }
 }

@@ -1,6 +1,6 @@
-public class UserRepository : BaseRepository, IUserRepository
+public class UserRepositoryV2 : BaseRepository, IUserRepositoryV2
 {
-    public UserRepository(DbConnectionFactoryDelegate dbConnectionFactory)
+    public UserRepositoryV2(DbConnectionFactoryDelegate dbConnectionFactory)
         : base(dbConnectionFactory)
     {
     }

@@ -25,22 +25,25 @@ builder.Services.AddSingleton<DbConnectionFactoryDelegate>(provider =>
 builder.Services.AddScoped<IBidService, BidService>();
 builder.Services.AddScoped<IFavoritesService, FavoritesService>();
 builder.Services.AddScoped<IProductServiceV2, ProductServiceV2>();
-builder.Services.AddScoped<ITransactionService, TransactionService>();
+builder.Services.AddScoped<ITransactionServiceV2, TransactionServiceV2>();
 builder.Services.AddScoped<IRatingsService, RatingsService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ProductDomainService>();
 builder.Services.AddScoped<TransactionDomainService>();
+builder.Services.AddScoped<UserDomainService>();
+builder.Services.AddScoped<ITransactionService, TransactionService>();
 
 // Register Repositories
 builder.Services.AddScoped<ITransactionRepositoryV2, TransactionRepositoryV2>();
 builder.Services.AddScoped<IProductRepositoryV2, ProductRepositoryV2>();
 builder.Services.AddScoped<IBidRepository, BidRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserRepositoryV2, UserRepositoryV2>();
 builder.Services.AddScoped<IFavoritesRepository, FavoritesRepository>();
 builder.Services.AddScoped<IRatingsRepository, RatingsRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 

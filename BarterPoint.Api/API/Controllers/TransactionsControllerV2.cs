@@ -1,13 +1,12 @@
-using BarterPoint.Application;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("api/[controller]")]
-public class TransactionsController : ControllerBase
+public class TransactionsControllerV2 : ControllerBase
 {
-    private readonly ITransactionService _transactionService;
+    private readonly ITransactionServiceV2 _transactionService;
 
-    public TransactionsController(ITransactionService transactionService)
+    public TransactionsControllerV2(ITransactionServiceV2 transactionService)
     {
         _transactionService = transactionService;
     }

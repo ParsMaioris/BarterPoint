@@ -1,8 +1,8 @@
 public class UserService : IUserService
 {
-    private readonly IUserRepository _userRepository;
+    private readonly IUserRepositoryV2 _userRepository;
 
-    public UserService(IUserRepository userRepository)
+    public UserService(IUserRepositoryV2 userRepository)
     {
         _userRepository = userRepository;
     }

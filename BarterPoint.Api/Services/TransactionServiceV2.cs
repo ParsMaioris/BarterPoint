@@ -1,8 +1,8 @@
-public class TransactionService : ITransactionService
+public class TransactionServiceV2 : ITransactionServiceV2
 {
     private readonly ITransactionRepositoryV2 _transactionRepository;
 
-    public TransactionService(ITransactionRepositoryV2 transactionRepository)
+    public TransactionServiceV2(ITransactionRepositoryV2 transactionRepository)
     {
         _transactionRepository = transactionRepository;
     }
