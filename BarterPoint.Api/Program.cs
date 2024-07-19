@@ -21,6 +21,9 @@ builder.Services.AddSingleton<DbConnectionFactoryDelegate>(provider =>
     return () => new SqlConnection(connectionString);
 });
 
+// Register CacheSettings
+builder.Services.Configure<CacheSettings>(builder.Configuration.GetSection("CacheSettings"));
+
 // Register Services
 builder.Services.AddScoped<IBidService, BidService>();
 builder.Services.AddScoped<IFavoritesService, FavoritesService>();
@@ -33,6 +36,7 @@ builder.Services.AddScoped<ProductDomainService>();
 builder.Services.AddScoped<TransactionDomainService>();
 builder.Services.AddScoped<UserDomainService>();
 builder.Services.AddScoped<ITransactionService, TransactionService>();
+builder.Services.AddScoped<ProductCategoryDomainService>();
 
 // Register Repositories
 builder.Services.AddScoped<ITransactionRepositoryV2, TransactionRepositoryV2>();
@@ -44,6 +48,7 @@ builder.Services.AddScoped<IRatingsRepository, RatingsRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
 
 var app = builder.Build();
 

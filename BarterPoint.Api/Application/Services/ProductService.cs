@@ -6,11 +6,14 @@ public class ProductService : IProductService
 {
     private readonly ProductDomainService _productDomainService;
     private readonly TransactionDomainService _transactionDomainService;
+    private readonly ProductCategoryDomainService _productCategoryDomainService;
 
-    public ProductService(ProductDomainService productDomainService, TransactionDomainService transactionDomainService)
+    public ProductService(ProductDomainService productDomainService, TransactionDomainService transactionDomainService,
+        ProductCategoryDomainService productCategoryDomainService)
     {
         _productDomainService = productDomainService;
         _transactionDomainService = transactionDomainService;
+        _productCategoryDomainService = productCategoryDomainService;
     }
 
     public async Task<IEnumerable<ProductResult>> GetAvailableProductsByOwnerAsync(string ownerId)
@@ -70,7 +73,7 @@ public class ProductService : IProductService
             Image = product.Image,
             Description = product.Description,
             TradeFor = product.TradeFor,
-            CategoryId = product.CategoryId,
+            Category = _productCategoryDomainService.GetCategoryNameById(product.CategoryId),
             Condition = product.Condition,
             Location = product.Location,
             OwnerId = product.OwnerId,
