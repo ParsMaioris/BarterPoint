@@ -2,6 +2,7 @@
 using BarterPoint.Domain;
 
 namespace BarterPoint.Application;
+
 public class FavoriteService : IFavoriteService
 {
     private readonly FavoriteDomainService _favoriteDomainService;

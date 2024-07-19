@@ -1,4 +1,4 @@
-public class RateUserRequest
+public class RateUserRequestV2
 {
     public string RaterId { get; set; }
     public string RateeId { get; set; }

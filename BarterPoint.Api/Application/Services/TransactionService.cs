@@ -1,5 +1,7 @@
-using BarterPoint.Application;
+
 using BarterPoint.Domain;
+
+namespace BarterPoint.Application;
 
 public class TransactionService : ITransactionService
 {

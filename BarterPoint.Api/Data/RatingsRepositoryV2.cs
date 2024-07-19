@@ -1,11 +1,11 @@
-public class RatingsRepository : BaseRepository, IRatingsRepository
+public class RatingsRepositoryV2 : BaseRepository, IRatingsRepositoryV2
 {
-    public RatingsRepository(DbConnectionFactoryDelegate dbConnectionFactory)
+    public RatingsRepositoryV2(DbConnectionFactoryDelegate dbConnectionFactory)
         : base(dbConnectionFactory)
     {
     }
 
-    public async Task RateUserAsync(RateUserRequest rating)
+    public async Task RateUserAsync(RateUserRequestV2 rating)
     {
         using (var connection = await OpenConnectionAsync())
         {
