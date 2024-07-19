@@ -1,4 +1,4 @@
-public class FavoritesRepository : BaseRepository, IFavoritesRepository
+public class FavoritesRepository : BaseRepository, IFavoritesRepositoryV2
 {
     public FavoritesRepository(DbConnectionFactoryDelegate dbConnectionFactory)
         : base(dbConnectionFactory)
@@ -21,14 +21,14 @@ public class FavoritesRepository : BaseRepository, IFavoritesRepository
         }
     }
 
-    public async Task<List<FavoriteResult>> GetUserFavoritesAsync(string userId)
+    public async Task<List<FavoriteResultV2>> GetUserFavoritesAsync(string userId)
     {
         using (var connection = await OpenConnectionAsync())
         {
             using (var command = CreateCommand(connection, "GetUserFavorites"))
             {
                 command.Parameters.AddWithValue("@userId", userId);
-                return await ExecuteReaderAsync(command, reader => reader.MapTo<FavoriteResult>());
+                return await ExecuteReaderAsync(command, reader => reader.MapTo<FavoriteResultV2>());
             }
         }
     }

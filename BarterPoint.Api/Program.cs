@@ -26,7 +26,7 @@ builder.Services.Configure<CacheSettings>(builder.Configuration.GetSection("Cach
 
 // Register Services
 builder.Services.AddScoped<IBidServiceV2, BidServiceV2>();
-builder.Services.AddScoped<IFavoritesService, FavoritesService>();
+builder.Services.AddScoped<IFavoritesServiceV2, FavoritesServiceV2>();
 builder.Services.AddScoped<IProductServiceV2, ProductServiceV2>();
 builder.Services.AddScoped<ITransactionServiceV2, TransactionServiceV2>();
 builder.Services.AddScoped<IRatingsService, RatingsService>();
@@ -42,13 +42,15 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<BidDomainService>();
 builder.Services.AddScoped<BidStatusDomainService>();
 builder.Services.AddScoped<IBidService, BidService>();
+builder.Services.AddScoped<IFavoriteService, FavoriteService>();
+builder.Services.AddScoped<FavoriteDomainService>();
 
 // Register Repositories
 builder.Services.AddScoped<ITransactionRepositoryV2, TransactionRepositoryV2>();
 builder.Services.AddScoped<IProductRepositoryV2, ProductRepositoryV2>();
 builder.Services.AddScoped<IBidRepositoryV2, BidRepositoryV2>();
 builder.Services.AddScoped<IUserRepositoryV2, UserRepositoryV2>();
-builder.Services.AddScoped<IFavoritesRepository, FavoritesRepository>();
+builder.Services.AddScoped<IFavoritesRepositoryV2, FavoritesRepository>();
 builder.Services.AddScoped<IRatingsRepository, RatingsRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
@@ -56,6 +58,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
 builder.Services.AddScoped<IBidRepository, BidRepository>();
 builder.Services.AddScoped<IBidStatusRepository, BidStatusRepository>();
+builder.Services.AddScoped<IFavoriteRepository, FavoriteRepository>();
 
 var app = builder.Build();
 

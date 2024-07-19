@@ -1,4 +1,4 @@
-public class FavoriteResult
+public class FavoriteResultV2
 {
     [DbField("id")]
     public int FavoritesId { get; set; }

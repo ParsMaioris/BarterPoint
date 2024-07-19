@@ -1,3 +1,5 @@
+namespace BarterPoint.Application;
+
 public class AddFavoriteRequest
 {
     public string UserId { get; set; }

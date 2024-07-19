@@ -1,8 +1,8 @@
-public class FavoritesService : IFavoritesService
+public class FavoritesServiceV2 : IFavoritesServiceV2
 {
-    private readonly IFavoritesRepository _favoritesRepository;
+    private readonly IFavoritesRepositoryV2 _favoritesRepository;
 
-    public FavoritesService(IFavoritesRepository favoritesRepository)
+    public FavoritesServiceV2(IFavoritesRepositoryV2 favoritesRepository)
     {
         _favoritesRepository = favoritesRepository;
     }
@@ -12,7 +12,7 @@ public class FavoritesService : IFavoritesService
         await _favoritesRepository.AddFavoriteAsync(userId, productId);
     }
 
-    public async Task<List<FavoriteResult>> GetUserFavoritesAsync(string userId)
+    public async Task<List<FavoriteResultV2>> GetUserFavoritesAsync(string userId)
     {
         return await _favoritesRepository.GetUserFavoritesAsync(userId);
     }
