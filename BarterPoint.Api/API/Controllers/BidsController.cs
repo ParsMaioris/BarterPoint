@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using BarterPoint.Application;
+using Microsoft.AspNetCore.Mvc;
 
 [Route("api/[controller]")]
 [ApiController]

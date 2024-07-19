@@ -1,4 +1,4 @@
-public class BidStatusResult
+public class BidStatusResultV2
 {
     [DbField("id")]
     public int Id { get; set; }

@@ -1,13 +1,13 @@
-public class BidService : IBidService
+public class BidServiceV2 : IBidServiceV2
 {
-    private readonly IBidRepository _bidRepository;
+    private readonly IBidRepositoryV2 _bidRepository;
 
-    public BidService(IBidRepository bidRepository)
+    public BidServiceV2(IBidRepositoryV2 bidRepository)
     {
         _bidRepository = bidRepository;
     }
 
-    public async Task<IEnumerable<BidResult>> GetBidsWithPendingStatusesAsync()
+    public async Task<IEnumerable<BidResultV2>> GetBidsWithPendingStatusesAsync()
     {
         var allBids = await _bidRepository.GetAllBidsAsync();
         var allStatuses = await _bidRepository.GetAllBidStatusesAsync();

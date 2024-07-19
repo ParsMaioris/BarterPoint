@@ -1,3 +1,5 @@
+using BarterPoint.Application;
+
 namespace BarterPoint.Domain;
 
 public class TransactionDomainService
@@ -18,5 +20,10 @@ public class TransactionDomainService
     public IEnumerable<Transaction> GetAllTransactions()
     {
         return _transactionRepository.GetAll();
+    }
+
+    public void AddTransaction(AddTransactionRequest transactionRequest)
+    {
+        _transactionRepository.Add(transactionRequest);
     }
 }

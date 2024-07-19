@@ -1,8 +1,8 @@
 using System.Data.SqlClient;
 
-public class BidRepository : BaseRepository, IBidRepository
+public class BidRepositoryV2 : BaseRepository, IBidRepositoryV2
 {
-    public BidRepository(DbConnectionFactoryDelegate dbConnectionFactory)
+    public BidRepositoryV2(DbConnectionFactoryDelegate dbConnectionFactory)
         : base(dbConnectionFactory)
     {
     }
@@ -37,24 +37,24 @@ public class BidRepository : BaseRepository, IBidRepository
         }
     }
 
-    public async Task<IEnumerable<BidStatusResult>> GetAllBidStatusesAsync()
+    public async Task<IEnumerable<BidStatusResultV2>> GetAllBidStatusesAsync()
     {
         using (var connection = await OpenConnectionAsync())
         {
             using (var command = CreateCommand(connection, "GetAllBidStatuses"))
             {
-                return await ExecuteReaderAsync(command, reader => reader.MapTo<BidStatusResult>());
+                return await ExecuteReaderAsync(command, reader => reader.MapTo<BidStatusResultV2>());
             }
         }
     }
 
-    public async Task<IEnumerable<BidResult>> GetAllBidsAsync()
+    public async Task<IEnumerable<BidResultV2>> GetAllBidsAsync()
     {
         using (var connection = await OpenConnectionAsync())
         {
             using (var command = CreateCommand(connection, "GetAllBids"))
             {
-                return await ExecuteReaderAsync(command, reader => reader.MapTo<BidResult>());
+                return await ExecuteReaderAsync(command, reader => reader.MapTo<BidResultV2>());
             }
         }
     }
