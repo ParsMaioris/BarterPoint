@@ -2,31 +2,31 @@ using Microsoft.AspNetCore.Mvc;
 
 [Route("api/[controller]")]
 [ApiController]
-public class ProductsController : ControllerBase
+public class ProductsControllerV2 : ControllerBase
 {
-    private readonly IProductService _productService;
+    private readonly IProductServiceV2 _productService;
 
-    public ProductsController(IProductService productService)
+    public ProductsControllerV2(IProductServiceV2 productService)
     {
         _productService = productService;
     }
 
     [HttpGet("ByOwner/{ownerId}")]
-    public async Task<ActionResult<IEnumerable<ProductResult>>> GetProductsByOwner(string ownerId)
+    public async Task<ActionResult<IEnumerable<ProductResultV2>>> GetProductsByOwner(string ownerId)
     {
         var products = await _productService.GetAvailableProductsByOwnerAsync(ownerId);
         return Ok(products);
     }
 
     [HttpGet("NotOwnedByUser/{ownerId}")]
-    public async Task<ActionResult<IEnumerable<ProductResult>>> GetProductsNotOwnedByUser(string ownerId)
+    public async Task<ActionResult<IEnumerable<ProductResultV2>>> GetProductsNotOwnedByUser(string ownerId)
     {
         var products = await _productService.GetAvailableProductsNotOwnedByUserAsync(ownerId);
         return Ok(products);
     }
 
     [HttpPost]
-    public async Task<ActionResult<string>> AddProduct([FromBody] AddProductRequest product)
+    public async Task<ActionResult<string>> AddProduct([FromBody] AddProductRequestV2 product)
     {
         if (product == null)
         {

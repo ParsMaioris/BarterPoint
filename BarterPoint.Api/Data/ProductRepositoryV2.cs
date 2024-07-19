@@ -1,13 +1,13 @@
-public class ProductRepository : BaseRepository, IProductRepository
+public class ProductRepositoryV2 : BaseRepository, IProductRepositoryV2
 {
-    public ProductRepository(DbConnectionFactoryDelegate dbConnectionFactory)
+    public ProductRepositoryV2(DbConnectionFactoryDelegate dbConnectionFactory)
         : base(dbConnectionFactory)
     {
     }
 
-    public async Task<IEnumerable<ProductResult>> GetProductsByOwner(string ownerId)
+    public async Task<IEnumerable<ProductResultV2>> GetProductsByOwner(string ownerId)
     {
-        var productList = new List<ProductResult>();
+        var productList = new List<ProductResultV2>();
 
         using (var connection = await OpenConnectionAsync())
         {
@@ -19,7 +19,7 @@ public class ProductRepository : BaseRepository, IProductRepository
                 {
                     while (await reader.ReadAsync())
                     {
-                        productList.Add(reader.MapTo<ProductResult>());
+                        productList.Add(reader.MapTo<ProductResultV2>());
                     }
                 }
             }
@@ -28,9 +28,9 @@ public class ProductRepository : BaseRepository, IProductRepository
         return productList;
     }
 
-    public async Task<IEnumerable<ProductResult>> GetProductsNotOwnedByUser(string ownerId)
+    public async Task<IEnumerable<ProductResultV2>> GetProductsNotOwnedByUser(string ownerId)
     {
-        var productList = new List<ProductResult>();
+        var productList = new List<ProductResultV2>();
 
         using (var connection = await OpenConnectionAsync())
         {
@@ -42,7 +42,7 @@ public class ProductRepository : BaseRepository, IProductRepository
                 {
                     while (await reader.ReadAsync())
                     {
-                        productList.Add(reader.MapTo<ProductResult>());
+                        productList.Add(reader.MapTo<ProductResultV2>());
                     }
                 }
             }
@@ -51,7 +51,7 @@ public class ProductRepository : BaseRepository, IProductRepository
         return productList;
     }
 
-    public async Task<string> AddProductAsync(AddProductRequest product)
+    public async Task<string> AddProductAsync(AddProductRequestV2 product)
     {
         using (var connection = await OpenConnectionAsync())
         {

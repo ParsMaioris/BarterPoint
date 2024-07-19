@@ -1,8 +1,5 @@
-public class ProductResult
+public class AddProductRequestV2
 {
-    [DbField("id")]
-    public string Id { get; set; }
-
     [DbField("name")]
     public string Name { get; set; }
 

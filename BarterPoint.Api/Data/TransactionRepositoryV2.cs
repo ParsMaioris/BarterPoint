@@ -1,6 +1,6 @@
-public class TransactionRepository : BaseRepository, ITransactionRepository
+public class TransactionRepositoryV2 : BaseRepository, ITransactionRepositoryV2
 {
-    public TransactionRepository(DbConnectionFactoryDelegate dbConnectionFactory)
+    public TransactionRepositoryV2(DbConnectionFactoryDelegate dbConnectionFactory)
         : base(dbConnectionFactory)
     {
     }

@@ -1,4 +1,7 @@
 using System.Data.SqlClient;
+using BarterPoint.Application;
+using BarterPoint.Domain;
+using BarterPoint.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,18 +24,23 @@ builder.Services.AddSingleton<DbConnectionFactoryDelegate>(provider =>
 // Register Services
 builder.Services.AddScoped<IBidService, BidService>();
 builder.Services.AddScoped<IFavoritesService, FavoritesService>();
-builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IProductServiceV2, ProductServiceV2>();
 builder.Services.AddScoped<ITransactionService, TransactionService>();
 builder.Services.AddScoped<IRatingsService, RatingsService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ProductDomainService>();
+builder.Services.AddScoped<TransactionDomainService>();
 
 // Register Repositories
-builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<ITransactionRepositoryV2, TransactionRepositoryV2>();
+builder.Services.AddScoped<IProductRepositoryV2, ProductRepositoryV2>();
 builder.Services.AddScoped<IBidRepository, BidRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IFavoritesRepository, FavoritesRepository>();
 builder.Services.AddScoped<IRatingsRepository, RatingsRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 
 var app = builder.Build();
 

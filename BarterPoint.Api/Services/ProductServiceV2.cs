@@ -1,15 +1,15 @@
-public class ProductService : IProductService
+public class ProductServiceV2 : IProductServiceV2
 {
-    private readonly IProductRepository _productRepository;
-    protected readonly ITransactionRepository _transactionRepository;
+    private readonly IProductRepositoryV2 _productRepository;
+    protected readonly ITransactionRepositoryV2 _transactionRepository;
 
-    public ProductService(IProductRepository productRepository, ITransactionRepository transactionRepository)
+    public ProductServiceV2(IProductRepositoryV2 productRepository, ITransactionRepositoryV2 transactionRepository)
     {
         _productRepository = productRepository;
         _transactionRepository = transactionRepository;
     }
 
-    public async Task<IEnumerable<ProductResult>> GetAvailableProductsByOwnerAsync(string ownerId)
+    public async Task<IEnumerable<ProductResultV2>> GetAvailableProductsByOwnerAsync(string ownerId)
     {
         var allProducts = await _productRepository.GetProductsByOwner(ownerId);
         var allTransactionHistories = await _transactionRepository.GetAllTransactionHistoryAsync();
@@ -26,7 +26,7 @@ public class ProductService : IProductService
         return availableProducts;
     }
 
-    public async Task<IEnumerable<ProductResult>> GetAvailableProductsNotOwnedByUserAsync(string ownerId)
+    public async Task<IEnumerable<ProductResultV2>> GetAvailableProductsNotOwnedByUserAsync(string ownerId)
     {
         var allProducts = await _productRepository.GetProductsNotOwnedByUser(ownerId);
         var allTransactionHistories = await _transactionRepository.GetAllTransactionHistoryAsync();
@@ -43,7 +43,7 @@ public class ProductService : IProductService
         return availableProducts;
     }
 
-    public async Task<string> AddProductAsync(AddProductRequest product)
+    public async Task<string> AddProductAsync(AddProductRequestV2 product)
     {
         return await _productRepository.AddProductAsync(product);
     }
