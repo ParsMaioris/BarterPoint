@@ -30,13 +30,15 @@ builder.Services.AddScoped<IFavoritesService, FavoritesService>();
 builder.Services.AddScoped<IProductServiceV2, ProductServiceV2>();
 builder.Services.AddScoped<ITransactionServiceV2, TransactionServiceV2>();
 builder.Services.AddScoped<IRatingsService, RatingsService>();
-builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserServiceV2, UserServiceV2>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ProductDomainService>();
 builder.Services.AddScoped<TransactionDomainService>();
 builder.Services.AddScoped<UserDomainService>();
 builder.Services.AddScoped<ITransactionService, TransactionService>();
 builder.Services.AddScoped<ProductCategoryDomainService>();
+builder.Services.AddScoped<UserDomainService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 // Register Repositories
 builder.Services.AddScoped<ITransactionRepositoryV2, TransactionRepositoryV2>();

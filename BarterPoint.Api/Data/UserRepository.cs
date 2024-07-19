@@ -5,7 +5,7 @@ public class UserRepositoryV2 : BaseRepository, IUserRepositoryV2
     {
     }
 
-    public async Task<string> RegisterUserAsync(RegisterUserRequest request)
+    public async Task<string> RegisterUserAsync(RegisterUserRequestV2 request)
     {
         var userId = Guid.NewGuid();
 
@@ -38,7 +38,7 @@ public class UserRepositoryV2 : BaseRepository, IUserRepositoryV2
         return "Unknown error occurred during registration.";
     }
 
-    public async Task<SignInResult> SignInUserAsync(SignInRequest request)
+    public async Task<SignInResult> SignInUserAsync(SignInRequestV2 request)
     {
         var result = new SignInResult();
 

@@ -1,19 +1,18 @@
-using BarterPoint.Application;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("api/[controller]")]
-public class UsersController : ControllerBase
+public class UsersControllerV2 : ControllerBase
 {
-    private readonly IUserService _userService;
+    private readonly IUserServiceV2 _userService;
 
-    public UsersController(IUserService userService)
+    public UsersControllerV2(IUserServiceV2 databaseService)
     {
-        _userService = userService;
+        _userService = databaseService;
     }
 
     [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] RegisterUserRequest request)
+    public async Task<IActionResult> Register([FromBody] RegisterUserRequestV2 request)
     {
         if (!ModelState.IsValid)
         {
@@ -30,7 +29,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpPost("signin")]
-    public async Task<IActionResult> SignIn([FromBody] SignInRequest request)
+    public async Task<IActionResult> SignIn([FromBody] SignInRequestV2 request)
     {
         if (!ModelState.IsValid)
         {
