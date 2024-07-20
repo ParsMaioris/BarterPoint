@@ -4,20 +4,10 @@ using BarterPoint.Domain;
 
 namespace BarterPoint.Infrastructure;
 
-public class BidRepository : IBidRepository
+public class BidRepository : BaseRepository, IBidRepository
 {
-    private readonly DbConnectionFactoryDelegate _dbConnectionFactory;
-
-    public BidRepository(DbConnectionFactoryDelegate dbConnectionFactory)
+    public BidRepository(DbConnectionFactoryDelegate dbConnectionFactory) : base(dbConnectionFactory)
     {
-        _dbConnectionFactory = dbConnectionFactory;
-    }
-
-    private SqlConnection OpenConnection()
-    {
-        var connection = (SqlConnection)_dbConnectionFactory();
-        connection.Open();
-        return connection;
     }
 
     public IEnumerable<Bid> GetAll()
@@ -56,14 +46,9 @@ public class BidRepository : IBidRepository
         using (var command = CreateCommand(connection, "AddBid"))
         {
             AddBidParameters(command, bid);
-            var result = ExecuteScalarAsync(command);
+            var result = ExecuteScalarAsync(command).Result;
             return Convert.ToInt32(result);
         }
-    }
-
-    private object ExecuteScalarAsync(SqlCommand command)
-    {
-        return command.ExecuteScalarAsync().Result;
     }
 
     public void Update(Bid bid)
@@ -71,7 +56,7 @@ public class BidRepository : IBidRepository
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "UpdateBid"))
         {
-            AddBidParameters(command, bid);
+            UpdateBidParameters(command, bid);
             ExecuteNonQueryAsync(command).Wait();
         }
     }
@@ -81,7 +66,7 @@ public class BidRepository : IBidRepository
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "RemoveBid"))
         {
-            command.Parameters.AddWithValue("@BidId", id);
+            command.Parameters.AddWithValue("@Id", id);
             ExecuteNonQueryAsync(command).Wait();
         }
     }
@@ -92,30 +77,11 @@ public class BidRepository : IBidRepository
         command.Parameters.AddWithValue("@Product2Id", bid.Product2Id);
     }
 
-    private async Task ExecuteNonQueryAsync(SqlCommand command)
+    private void UpdateBidParameters(SqlCommand command, Bid bid)
     {
-        await command.ExecuteNonQueryAsync();
-    }
-
-    private async Task<List<T>> ExecuteReaderAsync<T>(SqlCommand command, Func<IDataReader, T> map)
-    {
-        var results = new List<T>();
-        using (var reader = await command.ExecuteReaderAsync())
-        {
-            while (await reader.ReadAsync())
-            {
-                results.Add(map(reader));
-            }
-        }
-        return results;
-    }
-
-    private SqlCommand CreateCommand(SqlConnection connection, string storedProcedure)
-    {
-        var command = connection.CreateCommand();
-        command.CommandType = CommandType.StoredProcedure;
-        command.CommandText = storedProcedure;
-        return command;
+        command.Parameters.AddWithValue("@Id", bid.Id);
+        command.Parameters.AddWithValue("@Product1Id", bid.Product1Id);
+        command.Parameters.AddWithValue("@Product2Id", bid.Product2Id);
     }
 
     private Bid MapBid(IDataRecord record)

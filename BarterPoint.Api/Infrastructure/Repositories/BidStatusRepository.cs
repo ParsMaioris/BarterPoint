@@ -4,20 +4,10 @@ using BarterPoint.Domain;
 
 namespace BarterPoint.Infrastructure;
 
-public class BidStatusRepository : IBidStatusRepository
+public class BidStatusRepository : BaseRepository, IBidStatusRepository
 {
-    private readonly DbConnectionFactoryDelegate _dbConnectionFactory;
-
-    public BidStatusRepository(DbConnectionFactoryDelegate dbConnectionFactory)
+    public BidStatusRepository(DbConnectionFactoryDelegate dbConnectionFactory) : base(dbConnectionFactory)
     {
-        _dbConnectionFactory = dbConnectionFactory;
-    }
-
-    private SqlConnection OpenConnection()
-    {
-        var connection = (SqlConnection)_dbConnectionFactory();
-        connection.Open();
-        return connection;
     }
 
     public IEnumerable<BidStatus> GetAll()
@@ -82,32 +72,6 @@ public class BidStatusRepository : IBidStatusRepository
         command.Parameters.AddWithValue("@Id", bidStatus.Id);
         command.Parameters.AddWithValue("@Status", bidStatus.Status);
         command.Parameters.AddWithValue("@DateUpdated", bidStatus.DateUpdated);
-    }
-
-    private async Task ExecuteNonQueryAsync(SqlCommand command)
-    {
-        await command.ExecuteNonQueryAsync();
-    }
-
-    private async Task<List<T>> ExecuteReaderAsync<T>(SqlCommand command, Func<IDataReader, T> map)
-    {
-        var results = new List<T>();
-        using (var reader = await command.ExecuteReaderAsync())
-        {
-            while (await reader.ReadAsync())
-            {
-                results.Add(map(reader));
-            }
-        }
-        return results;
-    }
-
-    private SqlCommand CreateCommand(SqlConnection connection, string storedProcedure)
-    {
-        var command = connection.CreateCommand();
-        command.CommandType = CommandType.StoredProcedure;
-        command.CommandText = storedProcedure;
-        return command;
     }
 
     private BidStatus MapBidStatus(IDataRecord record)

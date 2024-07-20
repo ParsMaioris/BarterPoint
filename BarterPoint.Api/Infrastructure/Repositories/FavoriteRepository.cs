@@ -4,20 +4,10 @@ using BarterPoint.Domain;
 
 namespace BarterPoint.Infrastructure;
 
-public class FavoriteRepository : IFavoriteRepository
+public class FavoriteRepository : BaseRepository, IFavoriteRepository
 {
-    private readonly DbConnectionFactoryDelegate _dbConnectionFactory;
-
-    public FavoriteRepository(DbConnectionFactoryDelegate dbConnectionFactory)
+    public FavoriteRepository(DbConnectionFactoryDelegate dbConnectionFactory) : base(dbConnectionFactory)
     {
-        _dbConnectionFactory = dbConnectionFactory;
-    }
-
-    private SqlConnection OpenConnection()
-    {
-        var connection = (SqlConnection)_dbConnectionFactory();
-        connection.Open();
-        return connection;
     }
 
     public IEnumerable<Favorite> GetAll()
@@ -94,31 +84,5 @@ public class FavoriteRepository : IFavoriteRepository
             productId: record.GetString(record.GetOrdinal("productId")),
             dateAdded: record.GetDateTime(record.GetOrdinal("dateAdded"))
         );
-    }
-
-    private async Task ExecuteNonQueryAsync(SqlCommand command)
-    {
-        await command.ExecuteNonQueryAsync();
-    }
-
-    private async Task<List<T>> ExecuteReaderAsync<T>(SqlCommand command, Func<IDataReader, T> map)
-    {
-        var results = new List<T>();
-        using (var reader = await command.ExecuteReaderAsync())
-        {
-            while (await reader.ReadAsync())
-            {
-                results.Add(map(reader));
-            }
-        }
-        return results;
-    }
-
-    private SqlCommand CreateCommand(SqlConnection connection, string storedProcedure)
-    {
-        var command = connection.CreateCommand();
-        command.CommandType = CommandType.StoredProcedure;
-        command.CommandText = storedProcedure;
-        return command;
     }
 }

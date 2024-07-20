@@ -4,20 +4,11 @@ using BarterPoint.Domain;
 
 namespace BarterPoint.Infrastructure;
 
-public class ProductRepository : IProductRepository
+public class ProductRepository : BaseRepository, IProductRepository
 {
-    private readonly DbConnectionFactoryDelegate _dbConnectionFactory;
-
     public ProductRepository(DbConnectionFactoryDelegate dbConnectionFactory)
+        : base(dbConnectionFactory)
     {
-        _dbConnectionFactory = dbConnectionFactory;
-    }
-
-    private SqlConnection OpenConnection()
-    {
-        var connection = (SqlConnection)_dbConnectionFactory();
-        connection.Open();
-        return connection;
     }
 
     public IEnumerable<Product> GetAll()
@@ -86,32 +77,6 @@ public class ProductRepository : IProductRepository
         command.Parameters.AddWithValue("@DimensionsDepth", product.DimensionsDepth);
         command.Parameters.AddWithValue("@DimensionsWeight", product.DimensionsWeight);
         command.Parameters.AddWithValue("@DateListed", product.DateListed);
-    }
-
-    private async Task ExecuteNonQueryAsync(SqlCommand command)
-    {
-        await command.ExecuteNonQueryAsync();
-    }
-
-    private async Task<List<T>> ExecuteReaderAsync<T>(SqlCommand command, Func<IDataReader, T> map)
-    {
-        var results = new List<T>();
-        using (var reader = await command.ExecuteReaderAsync())
-        {
-            while (await reader.ReadAsync())
-            {
-                results.Add(map(reader));
-            }
-        }
-        return results;
-    }
-
-    private SqlCommand CreateCommand(SqlConnection connection, string storedProcedure)
-    {
-        var command = connection.CreateCommand();
-        command.CommandType = CommandType.StoredProcedure;
-        command.CommandText = storedProcedure;
-        return command;
     }
 
     private Product MapProduct(IDataRecord record)

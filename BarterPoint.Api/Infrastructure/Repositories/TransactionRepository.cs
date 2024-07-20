@@ -1,24 +1,15 @@
-using System.Data;
 using System.Data.SqlClient;
 using BarterPoint.Domain;
 using BarterPoint.Application;
+using System.Data;
 
 namespace BarterPoint.Infrastructure;
 
-public class TransactionRepository : ITransactionRepository
+public class TransactionRepository : BaseRepository, ITransactionRepository
 {
-    private readonly DbConnectionFactoryDelegate _dbConnectionFactory;
-
     public TransactionRepository(DbConnectionFactoryDelegate dbConnectionFactory)
+        : base(dbConnectionFactory)
     {
-        _dbConnectionFactory = dbConnectionFactory;
-    }
-
-    private SqlConnection OpenConnection()
-    {
-        var connection = (SqlConnection)_dbConnectionFactory();
-        connection.Open();
-        return connection;
     }
 
     public IEnumerable<Transaction> GetAll()
@@ -47,7 +38,7 @@ public class TransactionRepository : ITransactionRepository
         using (var command = CreateCommand(connection, "AddTransaction"))
         {
             AddTransactionParameters(command, request);
-            var newId = ExecuteScalarAsync<decimal>(command).Result;
+            ExecuteScalarAsync(command).Wait();
         }
     }
 
@@ -57,7 +48,7 @@ public class TransactionRepository : ITransactionRepository
         using (var command = CreateCommand(connection, "UpdateTransaction"))
         {
             command.Parameters.AddWithValue("@Id", transaction.Id);
-            AddTransactionParameters(command, transaction);
+            UpdateTransactionParameters(command, transaction);
             ExecuteNonQueryAsync(command).Wait();
         }
     }
@@ -80,44 +71,13 @@ public class TransactionRepository : ITransactionRepository
         command.Parameters.AddWithValue("@DateCompleted", request.DateCompleted);
     }
 
-    private void AddTransactionParameters(SqlCommand command, Transaction transaction)
+    private void UpdateTransactionParameters(SqlCommand command, Transaction transaction)
     {
+        command.Parameters.AddWithValue("@Id", transaction.Id);
         command.Parameters.AddWithValue("@ProductId", transaction.ProductId);
         command.Parameters.AddWithValue("@BuyerId", transaction.BuyerId);
         command.Parameters.AddWithValue("@SellerId", transaction.SellerId);
         command.Parameters.AddWithValue("@DateCompleted", transaction.DateCompleted);
-    }
-
-    private async Task ExecuteNonQueryAsync(SqlCommand command)
-    {
-        await command.ExecuteNonQueryAsync();
-    }
-
-    private async Task<T> ExecuteScalarAsync<T>(SqlCommand command)
-    {
-        var result = await command.ExecuteScalarAsync();
-        return (T)result;
-    }
-
-    private async Task<List<T>> ExecuteReaderAsync<T>(SqlCommand command, Func<IDataReader, T> map)
-    {
-        var results = new List<T>();
-        using (var reader = await command.ExecuteReaderAsync())
-        {
-            while (await reader.ReadAsync())
-            {
-                results.Add(map(reader));
-            }
-        }
-        return results;
-    }
-
-    private SqlCommand CreateCommand(SqlConnection connection, string storedProcedure)
-    {
-        var command = connection.CreateCommand();
-        command.CommandType = CommandType.StoredProcedure;
-        command.CommandText = storedProcedure;
-        return command;
     }
 
     private Transaction MapTransaction(IDataRecord record)

@@ -4,20 +4,11 @@ using BarterPoint.Domain;
 
 namespace BarterPoint.Infrastructure;
 
-public class UserRepository : IUserRepository
+public class UserRepository : BaseRepository, IUserRepository
 {
-    private readonly DbConnectionFactoryDelegate _dbConnectionFactory;
-
     public UserRepository(DbConnectionFactoryDelegate dbConnectionFactory)
+        : base(dbConnectionFactory)
     {
-        _dbConnectionFactory = dbConnectionFactory;
-    }
-
-    private SqlConnection OpenConnection()
-    {
-        var connection = (SqlConnection)_dbConnectionFactory();
-        connection.Open();
-        return connection;
     }
 
     public IEnumerable<User> GetAll()
@@ -45,7 +36,7 @@ public class UserRepository : IUserRepository
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "AddUser"))
         {
-            AddUserParameters(command, user);
+            UserParameters(command, user);
             ExecuteNonQueryAsync(command).Wait();
         }
     }
@@ -55,7 +46,7 @@ public class UserRepository : IUserRepository
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "UpdateUser"))
         {
-            AddUserParameters(command, user);
+            UserParameters(command, user);
             ExecuteNonQueryAsync(command).Wait();
         }
     }
@@ -70,7 +61,7 @@ public class UserRepository : IUserRepository
         }
     }
 
-    private void AddUserParameters(SqlCommand command, User user)
+    private void UserParameters(SqlCommand command, User user)
     {
         command.Parameters.AddWithValue("@Id", user.Id);
         command.Parameters.AddWithValue("@Username", user.Username);
@@ -79,32 +70,6 @@ public class UserRepository : IUserRepository
         command.Parameters.AddWithValue("@Name", user.Name);
         command.Parameters.AddWithValue("@Location", user.Location);
         command.Parameters.AddWithValue("@DateJoined", user.DateJoined);
-    }
-
-    private async Task ExecuteNonQueryAsync(SqlCommand command)
-    {
-        await command.ExecuteNonQueryAsync();
-    }
-
-    private async Task<List<T>> ExecuteReaderAsync<T>(SqlCommand command, Func<IDataReader, T> map)
-    {
-        var results = new List<T>();
-        using (var reader = await command.ExecuteReaderAsync())
-        {
-            while (await reader.ReadAsync())
-            {
-                results.Add(map(reader));
-            }
-        }
-        return results;
-    }
-
-    private SqlCommand CreateCommand(SqlConnection connection, string storedProcedure)
-    {
-        var command = connection.CreateCommand();
-        command.CommandType = CommandType.StoredProcedure;
-        command.CommandText = storedProcedure;
-        return command;
     }
 
     private User MapUser(IDataRecord record)
