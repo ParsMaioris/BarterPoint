@@ -45,7 +45,7 @@ const MyTransactionsScreen: React.FC = () =>
                     try
                     {
                         const ratingData = await getUserRating(counterpartyId)
-                        ratings[counterpartyId] = ratingData.averageRating
+                        ratings[counterpartyId] = ratingData.averageRating || null
                     } catch (error)
                     {
                         ratings[counterpartyId] = null

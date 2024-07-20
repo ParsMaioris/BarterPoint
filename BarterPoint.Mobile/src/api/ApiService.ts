@@ -265,8 +265,9 @@ export const getUserRating = async (userId: string): Promise<UserRating> =>
 {
     try
     {
-        const response = await axios.get<UserRating>(`${BASE_URL}/ratings/user/${userId}`)
-        return response.data
+        const response = await axios.get<number>(`${BASE_URL}/ratings/user/${userId}`)
+        const result: UserRating = {averageRating: response.data}
+        return result
     } catch (error)
     {
         throw new Error('Failed to fetch user rating')
