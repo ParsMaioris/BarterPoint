@@ -47,7 +47,7 @@ public class TransactionRepository : ITransactionRepository
         using (var command = CreateCommand(connection, "AddTransaction"))
         {
             AddTransactionParameters(command, request);
-            var newId = ExecuteScalarAsync<int>(command).Result;
+            var newId = ExecuteScalarAsync<decimal>(command).Result;
         }
     }
 

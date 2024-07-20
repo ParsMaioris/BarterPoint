@@ -34,7 +34,7 @@ public class BidRepository : IBidRepository
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "GetBidById"))
         {
-            command.Parameters.AddWithValue("@BidId", id);
+            command.Parameters.AddWithValue("@Id", id);
             var bids = ExecuteReaderAsync(command, MapBid).Result;
             return bids.FirstOrDefault();
         }

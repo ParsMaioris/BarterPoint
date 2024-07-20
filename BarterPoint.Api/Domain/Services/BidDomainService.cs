@@ -35,7 +35,7 @@ public class BidDomainService
         var bids = _bidRepository.GetAll();
         foreach (var bid in bids)
         {
-            if ((bid.Product1Id == product1Id || bid.Product2Id == product2Id) && bid.Id != approvedBidId)
+            if ((bid.Product1Id == product1Id || bid.Product2Id == product2Id || bid.Product1Id == product2Id || bid.Product2Id == product1Id) && bid.Id != approvedBidId)
             {
                 _bidStatusRepository.Update(new BidStatus(0, bid.Id, "Rejected", DateTime.UtcNow));
             }
