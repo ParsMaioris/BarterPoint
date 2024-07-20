@@ -65,24 +65,10 @@ public class BidService : IBidService
                     _bidStatusDomainService.UpdateBidStatus(bid.Id, "Approved", DateTime.UtcNow);
                     _bidDomainService.RejectOtherBids(bid.Product1Id, bid.Product2Id, bidId);
 
-                    var addTransactionRequest1 = new AddTransactionRequest
-                    {
-                        ProductId = bid.Product1Id,
-                        BuyerId = product2.OwnerId,
-                        SellerId = product1.OwnerId,
-                        DateCompleted = DateTime.UtcNow
-                    };
+                    var addTransactionRequest1 = CreateAddTransactionRequest(bid.Product1Id, product2.OwnerId, product1.OwnerId);
+                    var addTransactionRequest2 = CreateAddTransactionRequest(bid.Product2Id, product1.OwnerId, product2.OwnerId);
 
                     _transactionDomainService.AddTransaction(addTransactionRequest1);
-
-                    var addTransactionRequest2 = new AddTransactionRequest
-                    {
-                        ProductId = bid.Product2Id,
-                        BuyerId = product1.OwnerId,
-                        SellerId = product2.OwnerId,
-                        DateCompleted = DateTime.UtcNow
-                    };
-
                     _transactionDomainService.AddTransaction(addTransactionRequest2);
 
                     transaction.Commit();
@@ -94,6 +80,17 @@ public class BidService : IBidService
                 }
             }
         }
+    }
+
+    private AddTransactionRequest CreateAddTransactionRequest(string productId, string buyerId, string sellerId)
+    {
+        return new AddTransactionRequest
+        {
+            ProductId = productId,
+            BuyerId = buyerId,
+            SellerId = sellerId,
+            DateCompleted = DateTime.UtcNow
+        };
     }
 
     public async Task UpdateBidStatusToRejectedAsync(int bidId)
