@@ -6,7 +6,7 @@ public class AddProductRequest
     public string Image { get; set; }
     public string Description { get; set; }
     public string TradeFor { get; set; }
-    public int CategoryId { get; set; }
+    public int Category { get; set; }
     public string Condition { get; set; }
     public string Location { get; set; }
     public string OwnerId { get; set; }

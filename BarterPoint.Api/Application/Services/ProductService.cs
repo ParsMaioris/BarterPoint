@@ -44,7 +44,7 @@ public class ProductService : IProductService
             image: request.Image,
             description: request.Description,
             tradeFor: request.TradeFor,
-            categoryId: request.CategoryId,
+            categoryId: request.Category,
             condition: request.Condition,
             location: request.Location,
             ownerId: request.OwnerId,

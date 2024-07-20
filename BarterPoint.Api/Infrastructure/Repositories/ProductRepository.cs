@@ -78,6 +78,7 @@ public class ProductRepository : IProductRepository
         command.Parameters.AddWithValue("@Description", product.Description ?? (object)DBNull.Value);
         command.Parameters.AddWithValue("@TradeFor", product.TradeFor ?? (object)DBNull.Value);
         command.Parameters.AddWithValue("@CategoryId", product.CategoryId);
+        command.Parameters.AddWithValue("@OwnerId", product.OwnerId);
         command.Parameters.AddWithValue("@Condition", product.Condition);
         command.Parameters.AddWithValue("@Location", product.Location ?? (object)DBNull.Value);
         command.Parameters.AddWithValue("@DimensionsWidth", product.DimensionsWidth);
