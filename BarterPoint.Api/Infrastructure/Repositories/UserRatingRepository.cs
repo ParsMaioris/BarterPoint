@@ -11,64 +11,64 @@ public class UserRatingRepository : BaseRepository, IUserRatingRepository
     {
     }
 
-    public IEnumerable<UserRating> GetAll()
+    public async Task<IEnumerable<UserRating>> GetAllAsync()
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "GetAllUserRatings"))
         {
-            return ExecuteReaderAsync(command, MapUserRating).Result;
+            return await ExecuteReaderAsync(command, MapUserRating);
         }
     }
 
-    public UserRating GetById(int id)
+    public async Task<UserRating> GetByIdAsync(int id)
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "GetUserRatingById"))
         {
             command.Parameters.AddWithValue("@Id", id);
-            var ratings = ExecuteReaderAsync(command, MapUserRating).Result;
+            var ratings = await ExecuteReaderAsync(command, MapUserRating);
             return ratings.FirstOrDefault();
         }
     }
 
-    public void Add(UserRating rating)
+    public async Task AddAsync(UserRating rating)
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "AddUserRating"))
         {
             AddRatingParameters(command, rating);
-            ExecuteNonQueryAsync(command).Wait();
+            await ExecuteNonQueryAsync(command);
         }
     }
 
-    public void Update(UserRating rating)
+    public async Task UpdateAsync(UserRating rating)
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "UpdateUserRating"))
         {
             UpdateRatingParameters(command, rating);
-            ExecuteNonQueryAsync(command).Wait();
+            await ExecuteNonQueryAsync(command);
         }
     }
 
-    public void Delete(int id)
+    public async Task DeleteAsync(int id)
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "DeleteUserRating"))
         {
             command.Parameters.AddWithValue("@Id", id);
-            ExecuteNonQueryAsync(command).Wait();
+            await ExecuteNonQueryAsync(command);
         }
     }
 
-    public double GetUserAverageRating(string userId)
+    public async Task<double> GetUserAverageRatingAsync(string userId)
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "GetUserRatings"))
         {
             command.Parameters.AddWithValue("@UserId", userId);
-            var rating = ExecuteReaderAsync(command, r => r.GetDouble(0)).Result.Single();
-            return rating;
+            var rating = await ExecuteReaderAsync(command, r => r.GetDouble(0));
+            return rating.Single();
         }
     }
 

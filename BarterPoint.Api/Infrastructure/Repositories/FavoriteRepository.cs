@@ -10,53 +10,53 @@ public class FavoriteRepository : BaseRepository, IFavoriteRepository
     {
     }
 
-    public IEnumerable<Favorite> GetAll()
+    public async Task<IEnumerable<Favorite>> GetAllAsync()
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "GetAllFavorites"))
         {
-            return ExecuteReaderAsync(command, MapFavorite).Result;
+            return await ExecuteReaderAsync(command, MapFavorite);
         }
     }
 
-    public Favorite GetById(int id)
+    public async Task<Favorite> GetByIdAsync(int id)
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "GetFavoriteById"))
         {
             command.Parameters.AddWithValue("@Id", id);
-            var favorites = ExecuteReaderAsync(command, MapFavorite).Result;
+            var favorites = await ExecuteReaderAsync(command, MapFavorite);
             return favorites.FirstOrDefault();
         }
     }
 
-    public void Add(Favorite favorite)
+    public async Task AddAsync(Favorite favorite)
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "AddFavorite"))
         {
             AddFavoriteParameters(command, favorite);
-            ExecuteNonQueryAsync(command).Wait();
+            await ExecuteNonQueryAsync(command);
         }
     }
 
-    public void Update(Favorite favorite)
+    public async Task UpdateAsync(Favorite favorite)
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "UpdateFavorite"))
         {
             UpdateFavoriteParameters(command, favorite);
-            ExecuteNonQueryAsync(command).Wait();
+            await ExecuteNonQueryAsync(command);
         }
     }
 
-    public void Delete(int id)
+    public async Task DeleteAsync(int id)
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "DeleteFavorite"))
         {
             command.Parameters.AddWithValue("@Id", id);
-            ExecuteNonQueryAsync(command).Wait();
+            await ExecuteNonQueryAsync(command);
         }
     }
 

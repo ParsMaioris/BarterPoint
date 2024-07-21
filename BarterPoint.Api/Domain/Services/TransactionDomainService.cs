@@ -11,19 +11,19 @@ public class TransactionDomainService
         _transactionRepository = transactionRepository;
     }
 
-    public IEnumerable<Transaction> GetTransactionsByUserId(string userId)
+    public async Task<IEnumerable<Transaction>> GetTransactionsByUserIdAsync(string userId)
     {
-        var allTransactions = _transactionRepository.GetAll();
+        var allTransactions = await _transactionRepository.GetAllAsync();
         return allTransactions.Where(t => t.BuyerId == userId || t.SellerId == userId);
     }
 
-    public IEnumerable<Transaction> GetAllTransactions()
+    public async Task<IEnumerable<Transaction>> GetAllTransactionsAsync()
     {
-        return _transactionRepository.GetAll();
+        return await _transactionRepository.GetAllAsync();
     }
 
-    public void AddTransaction(AddTransactionRequest transactionRequest)
+    public async Task AddTransactionAsync(AddTransactionRequest transactionRequest)
     {
-        _transactionRepository.Add(transactionRequest);
+        await _transactionRepository.AddAsync(transactionRequest);
     }
 }

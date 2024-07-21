@@ -11,14 +11,14 @@ public class UserRatingService : IUserRatingService
         _ratingDomainService = ratingDomainService;
     }
 
-    public async Task AddRating(RateUserRequest request)
+    public async Task AddRatingAsync(RateUserRequest request)
     {
         var rating = new UserRating(0, request.RaterId, request.RateeId, request.Rating, request.Review, request.DateRated);
-        await Task.Run(() => _ratingDomainService.AddRating(rating));
+        await _ratingDomainService.AddRatingAsync(rating);
     }
 
-    public async Task<double> GetUserAverageRating(string userId)
+    public async Task<double> GetUserAverageRatingAsync(string userId)
     {
-        return await Task.Run(() => _ratingDomainService.GetUserAverageRating(userId));
+        return await _ratingDomainService.GetUserAverageRatingAsync(userId);
     }
 }

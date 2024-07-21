@@ -2,6 +2,6 @@ namespace BarterPoint.Domain;
 
 public interface IProductCategoryRepository
 {
-    IEnumerable<ProductCategory> GetAll();
-    string GetCategoryNameById(int id);
+    Task<IEnumerable<ProductCategory>> GetAllAsync();
+    Task<string> GetCategoryNameByIdAsync(int id);
 }

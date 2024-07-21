@@ -2,9 +2,9 @@ namespace BarterPoint.Domain;
 
 public interface IRepository<T, TId, TEntity> where T : class
 {
-    IEnumerable<T> GetAll();
-    T GetById(TId id);
-    void Add(TEntity entity);
-    void Update(T entity);
-    void Delete(TId id);
+    Task<IEnumerable<T>> GetAllAsync();
+    Task<T> GetByIdAsync(TId id);
+    Task AddAsync(TEntity entity);
+    Task UpdateAsync(T entity);
+    Task DeleteAsync(TId id);
 }

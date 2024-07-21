@@ -1,4 +1,3 @@
-
 using BarterPoint.Domain;
 
 namespace BarterPoint.Application;
@@ -18,20 +17,20 @@ public class TransactionService : ITransactionService
 
     public async Task<IEnumerable<TransactionDto>> GetAllTransactionsAsync()
     {
-        var transactions = await Task.Run(() => _transactionDomainService.GetAllTransactions());
+        var transactions = await _transactionDomainService.GetAllTransactionsAsync();
         return transactions.Select(MapToTransactionDto);
     }
 
     public async Task<IEnumerable<UserTransactionDto>> GetUserTransactionsAsync(string userId)
     {
-        var transactions = await Task.Run(() => _transactionDomainService.GetTransactionsByUserId(userId));
+        var transactions = await _transactionDomainService.GetTransactionsByUserIdAsync(userId);
         var userTransactions = new List<UserTransactionDto>();
 
         foreach (var transaction in transactions)
         {
-            var product = await Task.Run(() => _productDomainService.GetProductById(transaction.ProductId));
-            var buyer = await Task.Run(() => _userDomainService.GetUserById(transaction.BuyerId));
-            var seller = await Task.Run(() => _userDomainService.GetUserById(transaction.SellerId));
+            var product = await _productDomainService.GetProductByIdAsync(transaction.ProductId);
+            var buyer = await _userDomainService.GetUserByIdAsync(transaction.BuyerId);
+            var seller = await _userDomainService.GetUserByIdAsync(transaction.SellerId);
 
             userTransactions.Add(new UserTransactionDto
             {

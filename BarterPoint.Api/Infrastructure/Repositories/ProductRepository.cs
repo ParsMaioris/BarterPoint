@@ -11,53 +11,53 @@ public class ProductRepository : BaseRepository, IProductRepository
     {
     }
 
-    public IEnumerable<Product> GetAll()
+    public async Task<IEnumerable<Product>> GetAllAsync()
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "GetAllProducts"))
         {
-            return ExecuteReaderAsync(command, MapProduct).Result;
+            return await ExecuteReaderAsync(command, MapProduct);
         }
     }
 
-    public Product GetById(string id)
+    public async Task<Product> GetByIdAsync(string id)
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "GetProductById"))
         {
             command.Parameters.AddWithValue("@ProductId", id);
-            var products = ExecuteReaderAsync(command, MapProduct).Result;
+            var products = await ExecuteReaderAsync(command, MapProduct);
             return products.FirstOrDefault();
         }
     }
 
-    public void Add(Product product)
+    public async Task AddAsync(Product product)
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "AddProduct"))
         {
             AddProductParameters(command, product);
-            ExecuteNonQueryAsync(command).Wait();
+            await ExecuteNonQueryAsync(command);
         }
     }
 
-    public void Update(Product product)
+    public async Task UpdateAsync(Product product)
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "UpdateProduct"))
         {
             AddProductParameters(command, product);
-            ExecuteNonQueryAsync(command).Wait();
+            await ExecuteNonQueryAsync(command);
         }
     }
 
-    public void Delete(string id)
+    public async Task DeleteAsync(string id)
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "DeleteProduct"))
         {
             command.Parameters.AddWithValue("@Id", id);
-            ExecuteNonQueryAsync(command).Wait();
+            await ExecuteNonQueryAsync(command);
         }
     }
 

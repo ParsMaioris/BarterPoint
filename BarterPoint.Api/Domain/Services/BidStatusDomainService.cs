@@ -9,29 +9,29 @@ public class BidStatusDomainService
         _bidStatusRepository = bidStatusRepository;
     }
 
-    public IEnumerable<BidStatus> GetAllBidStatuses()
+    public async Task<IEnumerable<BidStatus>> GetAllBidStatusesAsync()
     {
-        return _bidStatusRepository.GetAll();
+        return await _bidStatusRepository.GetAllAsync();
     }
 
-    public BidStatus GetBidStatusById(int bidStatusId)
+    public async Task<BidStatus> GetBidStatusByIdAsync(int bidStatusId)
     {
-        return _bidStatusRepository.GetById(bidStatusId);
+        return await _bidStatusRepository.GetByIdAsync(bidStatusId);
     }
 
-    public void AddBidStatus(int bidId, string status, DateTime dateUpdated)
+    public async Task AddBidStatusAsync(int bidId, string status, DateTime dateUpdated)
     {
         var bidStatus = new BidStatus(0, bidId, status, dateUpdated);
-        _bidStatusRepository.Add(bidStatus);
+        await _bidStatusRepository.AddAsync(bidStatus);
     }
 
-    public void UpdateBidStatus(int bidId, string status, DateTime dateUpdated)
+    public async Task UpdateBidStatusAsync(int bidId, string status, DateTime dateUpdated)
     {
-        var bidStatus = _bidStatusRepository.GetAll().FirstOrDefault(bs => bs.BidId == bidId);
+        var bidStatus = (await _bidStatusRepository.GetAllAsync()).FirstOrDefault(bs => bs.BidId == bidId);
         if (bidStatus != null)
         {
             bidStatus = new BidStatus(bidStatus.Id, bidStatus.BidId, status, dateUpdated);
-            _bidStatusRepository.Update(bidStatus);
+            await _bidStatusRepository.UpdateAsync(bidStatus);
         }
         else
         {
@@ -39,8 +39,8 @@ public class BidStatusDomainService
         }
     }
 
-    public IEnumerable<BidStatus> GetBidStatuses()
+    public async Task<IEnumerable<BidStatus>> GetBidStatusesAsync()
     {
-        return _bidStatusRepository.GetAll();
+        return await _bidStatusRepository.GetAllAsync();
     }
 }

@@ -15,15 +15,15 @@ public class ProductDomainServiceTests
     }
 
     [Fact]
-    public void GetProductsByOwner_ShouldReturnOnlyProductsOwnedBySpecifiedOwner()
+    public async Task GetProductsByOwnerAsync_ShouldReturnOnlyProductsOwnedBySpecifiedOwner()
     {
         // Arrange
         var ownerId = "owner123";
         var products = CreateSampleProducts();
-        _productRepositoryMock.Setup(repo => repo.GetAll()).Returns(products);
+        _productRepositoryMock.Setup(repo => repo.GetAllAsync()).ReturnsAsync(products);
 
         // Act
-        var result = _productDomainService.GetProductsByOwner(ownerId);
+        var result = await _productDomainService.GetProductsByOwnerAsync(ownerId);
 
         // Assert
         Assert.Equal(2, result.Count());
@@ -31,15 +31,15 @@ public class ProductDomainServiceTests
     }
 
     [Fact]
-    public void GetProductsNotOwnedByUser_ShouldReturnOnlyProductsNotOwnedBySpecifiedOwner()
+    public async Task GetProductsNotOwnedByUserAsync_ShouldReturnOnlyProductsNotOwnedBySpecifiedOwner()
     {
         // Arrange
         var ownerId = "owner123";
         var products = CreateSampleProducts();
-        _productRepositoryMock.Setup(repo => repo.GetAll()).Returns(products);
+        _productRepositoryMock.Setup(repo => repo.GetAllAsync()).ReturnsAsync(products);
 
         // Act
-        var result = _productDomainService.GetProductsNotOwnedByUser(ownerId);
+        var result = await _productDomainService.GetProductsNotOwnedByUserAsync(ownerId);
 
         // Assert
         Assert.Single(result);
@@ -47,15 +47,15 @@ public class ProductDomainServiceTests
     }
 
     [Fact]
-    public void GetProductById_ShouldReturnProductWithSpecifiedId()
+    public async Task GetProductByIdAsync_ShouldReturnProductWithSpecifiedId()
     {
         // Arrange
         var productId = "1";
         var product = CreateSampleProduct(productId);
-        _productRepositoryMock.Setup(repo => repo.GetById(productId)).Returns(product);
+        _productRepositoryMock.Setup(repo => repo.GetByIdAsync(productId)).ReturnsAsync(product);
 
         // Act
-        var result = _productDomainService.GetProductById(productId);
+        var result = await _productDomainService.GetProductByIdAsync(productId);
 
         // Assert
         Assert.NotNull(result);
@@ -65,11 +65,11 @@ public class ProductDomainServiceTests
     private IEnumerable<Product> CreateSampleProducts()
     {
         return new List<Product>
-            {
-                new Product("1", "Product1", null, null, null, 1, "New", null, "owner123", 0, 0, 0, 0, DateTime.UtcNow),
-                new Product("2", "Product2", null, null, null, 2, "Used", null, "anotherOwner", 0, 0, 0, 0, DateTime.UtcNow),
-                new Product("3", "Product3", null, null, null, 3, "Refurbished", null, "owner123", 0, 0, 0, 0, DateTime.UtcNow)
-            };
+        {
+            new Product("1", "Product1", null, null, null, 1, "New", null, "owner123", 0, 0, 0, 0, DateTime.UtcNow),
+            new Product("2", "Product2", null, null, null, 2, "Used", null, "anotherOwner", 0, 0, 0, 0, DateTime.UtcNow),
+            new Product("3", "Product3", null, null, null, 3, "Refurbished", null, "owner123", 0, 0, 0, 0, DateTime.UtcNow)
+        };
     }
 
     private Product CreateSampleProduct(string productId)

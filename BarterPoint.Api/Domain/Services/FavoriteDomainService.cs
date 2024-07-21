@@ -9,25 +9,25 @@ public class FavoriteDomainService
         _favoriteRepository = favoriteRepository;
     }
 
-    public void AddFavorite(Favorite favorite)
+    public async Task AddFavoriteAsync(Favorite favorite)
     {
-        _favoriteRepository.Add(favorite);
+        await _favoriteRepository.AddAsync(favorite);
     }
 
-    public void RemoveFavorite(int id)
+    public async Task RemoveFavoriteAsync(int id)
     {
-        _favoriteRepository.Delete(id);
+        await _favoriteRepository.DeleteAsync(id);
     }
 
-    public IEnumerable<Favorite> GetUserFavorites(string userId)
+    public async Task<IEnumerable<Favorite>> GetUserFavoritesAsync(string userId)
     {
-        var allFavorites = _favoriteRepository.GetAll();
+        var allFavorites = await _favoriteRepository.GetAllAsync();
         return allFavorites.Where(f => f.UserId == userId);
     }
 
-    public Favorite GetFavoriteByUserAndProduct(string userId, string productId)
+    public async Task<Favorite> GetFavoriteByUserAndProductAsync(string userId, string productId)
     {
-        var allFavorites = _favoriteRepository.GetAll();
+        var allFavorites = await _favoriteRepository.GetAllAsync();
         return allFavorites.FirstOrDefault(f => f.UserId == userId && f.ProductId == productId);
     }
 }

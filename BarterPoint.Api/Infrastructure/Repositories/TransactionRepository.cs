@@ -12,54 +12,54 @@ public class TransactionRepository : BaseRepository, ITransactionRepository
     {
     }
 
-    public IEnumerable<Transaction> GetAll()
+    public async Task<IEnumerable<Transaction>> GetAllAsync()
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "GetAllTransactions"))
         {
-            return ExecuteReaderAsync(command, MapTransaction).Result;
+            return await ExecuteReaderAsync(command, MapTransaction);
         }
     }
 
-    public Transaction GetById(int id)
+    public async Task<Transaction> GetByIdAsync(int id)
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "GetTransactionById"))
         {
             command.Parameters.AddWithValue("@Id", id);
-            var transactions = ExecuteReaderAsync(command, MapTransaction).Result;
+            var transactions = await ExecuteReaderAsync(command, MapTransaction);
             return transactions.FirstOrDefault();
         }
     }
 
-    public void Add(AddTransactionRequest request)
+    public async Task AddAsync(AddTransactionRequest request)
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "AddTransaction"))
         {
             AddTransactionParameters(command, request);
-            ExecuteScalarAsync(command).Wait();
+            await ExecuteScalarAsync(command);
         }
     }
 
-    public void Update(Transaction transaction)
+    public async Task UpdateAsync(Transaction transaction)
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "UpdateTransaction"))
         {
             command.Parameters.AddWithValue("@Id", transaction.Id);
             UpdateTransactionParameters(command, transaction);
-            ExecuteNonQueryAsync(command).Wait();
+            await ExecuteNonQueryAsync(command);
         }
     }
 
-    public void Delete(int id)
+    public async Task DeleteAsync(int id)
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "DeleteTransaction"))
         {
             command.Parameters.AddWithValue("@Id", id);
-            ExecuteNonQueryAsync(command).Wait();
+            await ExecuteNonQueryAsync(command);
         }
     }
 

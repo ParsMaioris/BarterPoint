@@ -11,53 +11,53 @@ public class UserRepository : BaseRepository, IUserRepository
     {
     }
 
-    public IEnumerable<User> GetAll()
+    public async Task<IEnumerable<User>> GetAllAsync()
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "GetAllUsers"))
         {
-            return ExecuteReaderAsync(command, MapUser).Result;
+            return await ExecuteReaderAsync(command, MapUser);
         }
     }
 
-    public User GetById(string id)
+    public async Task<User> GetByIdAsync(string id)
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "GetUserById"))
         {
             command.Parameters.AddWithValue("@Id", id);
-            var users = ExecuteReaderAsync(command, MapUser).Result;
+            var users = await ExecuteReaderAsync(command, MapUser);
             return users.FirstOrDefault();
         }
     }
 
-    public void Add(User user)
+    public async Task AddAsync(User user)
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "AddUser"))
         {
             UserParameters(command, user);
-            ExecuteNonQueryAsync(command).Wait();
+            await ExecuteNonQueryAsync(command);
         }
     }
 
-    public void Update(User user)
+    public async Task UpdateAsync(User user)
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "UpdateUser"))
         {
             UserParameters(command, user);
-            ExecuteNonQueryAsync(command).Wait();
+            await ExecuteNonQueryAsync(command);
         }
     }
 
-    public void Delete(string id)
+    public async Task DeleteAsync(string id)
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "DeleteUser"))
         {
             command.Parameters.AddWithValue("@Id", id);
-            ExecuteNonQueryAsync(command).Wait();
+            await ExecuteNonQueryAsync(command);
         }
     }
 

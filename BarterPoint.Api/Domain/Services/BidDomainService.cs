@@ -11,39 +11,39 @@ public class BidDomainService
         _bidStatusRepository = bidStatusRepository;
     }
 
-    public IEnumerable<Bid> GetBidsWithPendingStatuses()
+    public async Task<IEnumerable<Bid>> GetBidsWithPendingStatusesAsync()
     {
-        var bids = _bidRepository.GetAll();
-        var bidStatuses = _bidStatusRepository.GetAll();
+        var bids = await _bidRepository.GetAllAsync();
+        var bidStatuses = await _bidStatusRepository.GetAllAsync();
 
         return bids.Where(bid => bidStatuses.Any(status => status.BidId == bid.Id && status.Status == "Pending"));
     }
 
-    public int AddBidandReturnId(string product1Id, string product2Id)
+    public async Task<int> AddBidAndReturnIdAsync(string product1Id, string product2Id)
     {
         var bid = new Bid(0, product1Id, product2Id);
-        return _bidRepository.AddAndReturnId(bid);
+        return await _bidRepository.AddAndReturnIdAsync(bid);
     }
 
-    public Bid GetBidById(int bidId)
+    public async Task<Bid> GetBidByIdAsync(int bidId)
     {
-        return _bidRepository.GetById(bidId);
+        return await _bidRepository.GetByIdAsync(bidId);
     }
 
-    public void RejectOtherBids(string product1Id, string product2Id, int approvedBidId)
+    public async Task RejectOtherBidsAsync(string product1Id, string product2Id, int approvedBidId)
     {
-        var bids = _bidRepository.GetAll();
+        var bids = await _bidRepository.GetAllAsync();
         foreach (var bid in bids)
         {
             if ((bid.Product1Id == product1Id || bid.Product2Id == product2Id || bid.Product1Id == product2Id || bid.Product2Id == product1Id) && bid.Id != approvedBidId)
             {
-                _bidStatusRepository.Update(new BidStatus(0, bid.Id, "Rejected", DateTime.UtcNow));
+                await _bidStatusRepository.UpdateAsync(new BidStatus(0, bid.Id, "Rejected", DateTime.UtcNow));
             }
         }
     }
 
-    public void UpdateBidStatusToRejected(int bidStatusId)
+    public async Task UpdateBidStatusToRejectedAsync(int bidStatusId)
     {
-        _bidStatusRepository.Update(new BidStatus(bidStatusId, 0, "Rejected", DateTime.UtcNow));
+        await _bidStatusRepository.UpdateAsync(new BidStatus(bidStatusId, 0, "Rejected", DateTime.UtcNow));
     }
 }

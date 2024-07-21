@@ -15,14 +15,14 @@ public class RatingsController : ControllerBase
     [HttpGet("user/{userId}")]
     public async Task<ActionResult<double>> GetUserAverageRating(string userId)
     {
-        var rating = await _ratingService.GetUserAverageRating(userId);
+        var rating = await _ratingService.GetUserAverageRatingAsync(userId);
         return Ok(rating);
     }
 
     [HttpPost]
     public async Task<IActionResult> AddRating([FromBody] RateUserRequest ratingRequest)
     {
-        await _ratingService.AddRating(ratingRequest);
+        await _ratingService.AddRatingAsync(ratingRequest);
         return Ok();
     }
 }

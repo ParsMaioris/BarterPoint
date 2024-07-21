@@ -1,4 +1,3 @@
-
 using System.Data.SqlClient;
 using BarterPoint.Domain;
 
@@ -28,14 +27,15 @@ public class BidService : IBidService
 
     public async Task<IEnumerable<BidResult>> GetBidsWithPendingStatusesAsync()
     {
-        var bids = await Task.Run(() => _bidDomainService.GetBidsWithPendingStatuses());
-        return bids.Select(MapToBidResult);
+        var bids = await _bidDomainService.GetBidsWithPendingStatusesAsync();
+        var bidResults = await Task.WhenAll(bids.Select(MapToBidResultAsync));
+        return bidResults;
     }
 
     public async Task<int> AddBidAsync(string product1Id, string product2Id)
     {
-        var bidId = await Task.Run(() => _bidDomainService.AddBidandReturnId(product1Id, product2Id));
-        _bidStatusDomainService.AddBidStatus(bidId, "Pending", DateTime.UtcNow);
+        var bidId = await _bidDomainService.AddBidAndReturnIdAsync(product1Id, product2Id);
+        await _bidStatusDomainService.AddBidStatusAsync(bidId, "Pending", DateTime.UtcNow);
         return bidId;
     }
 
@@ -48,28 +48,28 @@ public class BidService : IBidService
             {
                 try
                 {
-                    var bid = _bidDomainService.GetBidById(bidId);
+                    var bid = await _bidDomainService.GetBidByIdAsync(bidId);
                     if (bid == null)
                     {
                         throw new Exception("Invalid bid ID");
                     }
 
-                    var product1 = _productDomainService.GetProductById(bid.Product1Id);
-                    var product2 = _productDomainService.GetProductById(bid.Product2Id);
+                    var product1 = await _productDomainService.GetProductByIdAsync(bid.Product1Id);
+                    var product2 = await _productDomainService.GetProductByIdAsync(bid.Product2Id);
 
                     if (product1 == null || product2 == null)
                     {
                         throw new Exception("Invalid product ID in bid");
                     }
 
-                    _bidStatusDomainService.UpdateBidStatus(bid.Id, "Approved", DateTime.UtcNow);
-                    _bidDomainService.RejectOtherBids(bid.Product1Id, bid.Product2Id, bidId);
+                    await _bidStatusDomainService.UpdateBidStatusAsync(bid.Id, "Approved", DateTime.UtcNow);
+                    await _bidDomainService.RejectOtherBidsAsync(bid.Product1Id, bid.Product2Id, bidId);
 
                     var addTransactionRequest1 = CreateAddTransactionRequest(bid.Product1Id, product2.OwnerId, product1.OwnerId);
                     var addTransactionRequest2 = CreateAddTransactionRequest(bid.Product2Id, product1.OwnerId, product2.OwnerId);
 
-                    _transactionDomainService.AddTransaction(addTransactionRequest1);
-                    _transactionDomainService.AddTransaction(addTransactionRequest2);
+                    await _transactionDomainService.AddTransactionAsync(addTransactionRequest1);
+                    await _transactionDomainService.AddTransactionAsync(addTransactionRequest2);
 
                     transaction.Commit();
                 }
@@ -95,12 +95,12 @@ public class BidService : IBidService
 
     public async Task UpdateBidStatusToRejectedAsync(int bidId)
     {
-        var bidStatusId = _bidStatusDomainService.GetAllBidStatuses().
-            FirstOrDefault(bs => bs.BidId == bidId)?.Id;
+        var bidStatusId = (await _bidStatusDomainService.GetAllBidStatusesAsync())
+            .FirstOrDefault(bs => bs.BidId == bidId)?.Id;
 
         if (bidStatusId.HasValue)
         {
-            await Task.Run(() => _bidDomainService.UpdateBidStatusToRejected(bidStatusId.Value));
+            await _bidDomainService.UpdateBidStatusToRejectedAsync(bidStatusId.Value);
         }
         else
         {
@@ -108,10 +108,10 @@ public class BidService : IBidService
         }
     }
 
-    private BidResult MapToBidResult(Bid bid)
+    private async Task<BidResult> MapToBidResultAsync(Bid bid)
     {
-        var product1 = _productDomainService.GetProductById(bid.Product1Id);
-        var product2 = _productDomainService.GetProductById(bid.Product2Id);
+        var product1 = await _productDomainService.GetProductByIdAsync(bid.Product1Id);
+        var product2 = await _productDomainService.GetProductByIdAsync(bid.Product2Id);
 
         return new BidResult
         {

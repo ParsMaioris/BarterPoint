@@ -9,39 +9,42 @@ public class UserDomainService
         _userRepository = userRepository;
     }
 
-    public User GetUserById(string userId)
+    public async Task<User> GetUserByIdAsync(string userId)
     {
-        return _userRepository.GetById(userId);
+        return await _userRepository.GetByIdAsync(userId);
     }
 
-    public string RegisterUser(User user)
+    public async Task<string> RegisterUserAsync(User user)
     {
-        if (FindByUsername(user.Username) != null)
+        if (await FindByUsernameAsync(user.Username) != null)
         {
             return "Error: Username already exists";
         }
 
-        if (FindByEmail(user.Email) != null)
+        if (await FindByEmailAsync(user.Email) != null)
         {
             return "Error: Email already exists";
         }
 
-        _userRepository.Add(user);
+        await _userRepository.AddAsync(user);
         return "User registered successfully";
     }
 
-    public User FindUserByUsernameAndPassword(string username, string passwordHash)
+    public async Task<User> FindUserByUsernameAndPasswordAsync(string username, string passwordHash)
     {
-        return _userRepository.GetAll().FirstOrDefault(u => u.Username == username && u.PasswordHash == passwordHash);
+        var users = await _userRepository.GetAllAsync();
+        return users.FirstOrDefault(u => u.Username == username && u.PasswordHash == passwordHash);
     }
 
-    public User FindByUsername(string username)
+    public async Task<User> FindByUsernameAsync(string username)
     {
-        return _userRepository.GetAll().FirstOrDefault(u => u.Username == username);
+        var users = await _userRepository.GetAllAsync();
+        return users.FirstOrDefault(u => u.Username == username);
     }
 
-    public User FindByEmail(string email)
+    public async Task<User> FindByEmailAsync(string email)
     {
-        return _userRepository.GetAll().FirstOrDefault(u => u.Email == email);
+        var users = await _userRepository.GetAllAsync();
+        return users.FirstOrDefault(u => u.Email == email);
     }
 }

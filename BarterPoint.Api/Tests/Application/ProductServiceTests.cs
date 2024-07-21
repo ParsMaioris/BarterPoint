@@ -38,9 +38,9 @@ public class ProductServiceTests
         var products = CreateSampleProducts(ownerId);
         var transactions = CreateSampleTransactions();
 
-        _mockProductRepository.Setup(repo => repo.GetAll()).Returns(products);
-        _mockTransactionRepository.Setup(repo => repo.GetAll()).Returns(transactions);
-        _mockProductCategoryRepository.Setup(repo => repo.GetCategoryNameById(It.IsAny<int>())).Returns((int id) => $"Category{id}");
+        _mockProductRepository.Setup(repo => repo.GetAllAsync()).ReturnsAsync(products);
+        _mockTransactionRepository.Setup(repo => repo.GetAllAsync()).ReturnsAsync(transactions);
+        _mockProductCategoryRepository.Setup(repo => repo.GetCategoryNameByIdAsync(It.IsAny<int>())).ReturnsAsync((int id) => $"Category{id}");
 
         // Act
         var result = await _productService.GetAvailableProductsByOwnerAsync(ownerId);
@@ -59,9 +59,9 @@ public class ProductServiceTests
         var products = CreateSampleProducts(ownerId);
         var transactions = CreateSampleTransactions();
 
-        _mockProductRepository.Setup(repo => repo.GetAll()).Returns(products);
-        _mockTransactionRepository.Setup(repo => repo.GetAll()).Returns(transactions);
-        _mockProductCategoryRepository.Setup(repo => repo.GetCategoryNameById(It.IsAny<int>())).Returns((int id) => $"Category{id}");
+        _mockProductRepository.Setup(repo => repo.GetAllAsync()).ReturnsAsync(products);
+        _mockTransactionRepository.Setup(repo => repo.GetAllAsync()).ReturnsAsync(transactions);
+        _mockProductCategoryRepository.Setup(repo => repo.GetCategoryNameByIdAsync(It.IsAny<int>())).ReturnsAsync((int id) => $"Category{id}");
 
         // Act
         var result = await _productService.GetAvailableProductsNotOwnedByUserAsync(ownerId);

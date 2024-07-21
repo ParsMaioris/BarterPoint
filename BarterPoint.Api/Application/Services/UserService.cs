@@ -24,12 +24,12 @@ public class UserService : IUserService
             dateJoined: DateTime.UtcNow
         );
 
-        return await Task.Run(() => _userDomainService.RegisterUser(user));
+        return await _userDomainService.RegisterUserAsync(user);
     }
 
     public async Task<SignInResult> SignInUserAsync(SignInRequest request)
     {
-        var user = await Task.Run(() => _userDomainService.FindUserByUsernameAndPassword(request.Username, request.PasswordHash));
+        var user = await _userDomainService.FindUserByUsernameAndPasswordAsync(request.Username, request.PasswordHash);
 
         if (user == null)
         {

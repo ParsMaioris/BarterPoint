@@ -10,64 +10,64 @@ public class BidRepository : BaseRepository, IBidRepository
     {
     }
 
-    public IEnumerable<Bid> GetAll()
+    public async Task<IEnumerable<Bid>> GetAllAsync()
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "GetAllBids"))
         {
-            return ExecuteReaderAsync(command, MapBid).Result;
+            return await ExecuteReaderAsync(command, MapBid);
         }
     }
 
-    public Bid GetById(int id)
+    public async Task<Bid> GetByIdAsync(int id)
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "GetBidById"))
         {
             command.Parameters.AddWithValue("@Id", id);
-            var bids = ExecuteReaderAsync(command, MapBid).Result;
+            var bids = await ExecuteReaderAsync(command, MapBid);
             return bids.FirstOrDefault();
         }
     }
 
-    public void Add(Bid bid)
+    public async Task AddAsync(Bid bid)
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "AddBid"))
         {
             AddBidParameters(command, bid);
-            ExecuteNonQueryAsync(command).Wait();
+            await ExecuteNonQueryAsync(command);
         }
     }
 
-    public int AddAndReturnId(Bid bid)
+    public async Task<int> AddAndReturnIdAsync(Bid bid)
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "AddBid"))
         {
             AddBidParameters(command, bid);
-            var result = ExecuteScalarAsync(command).Result;
+            var result = await ExecuteScalarAsync(command);
             return Convert.ToInt32(result);
         }
     }
 
-    public void Update(Bid bid)
+    public async Task UpdateAsync(Bid bid)
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "UpdateBid"))
         {
             UpdateBidParameters(command, bid);
-            ExecuteNonQueryAsync(command).Wait();
+            await ExecuteNonQueryAsync(command);
         }
     }
 
-    public void Delete(int id)
+    public async Task DeleteAsync(int id)
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "RemoveBid"))
         {
             command.Parameters.AddWithValue("@Id", id);
-            ExecuteNonQueryAsync(command).Wait();
+            await ExecuteNonQueryAsync(command);
         }
     }
 

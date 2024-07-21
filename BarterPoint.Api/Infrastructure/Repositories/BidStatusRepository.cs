@@ -10,53 +10,53 @@ public class BidStatusRepository : BaseRepository, IBidStatusRepository
     {
     }
 
-    public IEnumerable<BidStatus> GetAll()
+    public async Task<IEnumerable<BidStatus>> GetAllAsync()
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "GetAllBidStatuses"))
         {
-            return ExecuteReaderAsync(command, MapBidStatus).Result;
+            return await ExecuteReaderAsync(command, MapBidStatus);
         }
     }
 
-    public BidStatus GetById(int id)
+    public async Task<BidStatus> GetByIdAsync(int id)
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "GetBidStatusById"))
         {
             command.Parameters.AddWithValue("@Id", id);
-            var statuses = ExecuteReaderAsync(command, MapBidStatus).Result;
+            var statuses = await ExecuteReaderAsync(command, MapBidStatus);
             return statuses.FirstOrDefault();
         }
     }
 
-    public void Add(BidStatus bidStatus)
+    public async Task AddAsync(BidStatus bidStatus)
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "AddBidStatus"))
         {
             AddBidStatusParameters(command, bidStatus);
-            ExecuteNonQueryAsync(command).Wait();
+            await ExecuteNonQueryAsync(command);
         }
     }
 
-    public void Update(BidStatus bidStatus)
+    public async Task UpdateAsync(BidStatus bidStatus)
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "UpdateBidStatus"))
         {
             UpdateBidStatusParameters(command, bidStatus);
-            ExecuteNonQueryAsync(command).Wait();
+            await ExecuteNonQueryAsync(command);
         }
     }
 
-    public void Delete(int id)
+    public async Task DeleteAsync(int id)
     {
         using (var connection = OpenConnection())
         using (var command = CreateCommand(connection, "RemoveBidStatus"))
         {
             command.Parameters.AddWithValue("@BidStatusId", id);
-            ExecuteNonQueryAsync(command).Wait();
+            await ExecuteNonQueryAsync(command);
         }
     }
 

@@ -9,34 +9,34 @@ public class UserRatingDomainService
         _ratingRepository = ratingRepository;
     }
 
-    public void AddRating(UserRating rating)
+    public async Task AddRatingAsync(UserRating rating)
     {
-        _ratingRepository.Add(rating);
+        await _ratingRepository.AddAsync(rating);
     }
 
-    public IEnumerable<UserRating> GetAllRatings()
+    public async Task<IEnumerable<UserRating>> GetAllRatingsAsync()
     {
-        return _ratingRepository.GetAll();
+        return await _ratingRepository.GetAllAsync();
     }
 
-    public UserRating GetRatingById(int id)
+    public async Task<UserRating> GetRatingByIdAsync(int id)
     {
-        return _ratingRepository.GetById(id);
+        return await _ratingRepository.GetByIdAsync(id);
     }
 
-    public void UpdateRating(UserRating rating)
+    public async Task UpdateRatingAsync(UserRating rating)
     {
-        _ratingRepository.Update(rating);
+        await _ratingRepository.UpdateAsync(rating);
     }
 
-    public void DeleteRating(int id)
+    public async Task DeleteRatingAsync(int id)
     {
-        _ratingRepository.Delete(id);
+        await _ratingRepository.DeleteAsync(id);
     }
 
-    public double GetUserAverageRating(string userId)
+    public async Task<double> GetUserAverageRatingAsync(string userId)
     {
-        var userRatings = _ratingRepository.GetAll().Where(r => r.RateeId == userId);
+        var userRatings = (await _ratingRepository.GetAllAsync()).Where(r => r.RateeId == userId);
         if (!userRatings.Any())
         {
             return 0;

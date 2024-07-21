@@ -9,38 +9,40 @@ public class ProductDomainService
         _productRepository = productRepository;
     }
 
-    public IEnumerable<Product> GetProductsByOwner(string ownerId)
+    public async Task<IEnumerable<Product>> GetProductsByOwnerAsync(string ownerId)
     {
-        return _productRepository.GetAll().Where(p => p.OwnerId == ownerId);
+        var products = await _productRepository.GetAllAsync();
+        return products.Where(p => p.OwnerId == ownerId);
     }
 
-    public IEnumerable<Product> GetProductsNotOwnedByUser(string ownerId)
+    public async Task<IEnumerable<Product>> GetProductsNotOwnedByUserAsync(string ownerId)
     {
-        return _productRepository.GetAll().Where(p => p.OwnerId != ownerId);
+        var products = await _productRepository.GetAllAsync();
+        return products.Where(p => p.OwnerId != ownerId);
     }
 
-    public IEnumerable<Product> GetAllProducts()
+    public async Task<IEnumerable<Product>> GetAllProductsAsync()
     {
-        return _productRepository.GetAll();
+        return await _productRepository.GetAllAsync();
     }
 
-    public Product GetProductById(string productId)
+    public async Task<Product> GetProductByIdAsync(string productId)
     {
-        return _productRepository.GetById(productId);
+        return await _productRepository.GetByIdAsync(productId);
     }
 
-    public void AddProduct(Product product)
+    public async Task AddProductAsync(Product product)
     {
-        _productRepository.Add(product);
+        await _productRepository.AddAsync(product);
     }
 
-    public void UpdateProduct(Product product)
+    public async Task UpdateProductAsync(Product product)
     {
-        _productRepository.Update(product);
+        await _productRepository.UpdateAsync(product);
     }
 
-    public void DeleteProduct(string productId)
+    public async Task DeleteProductAsync(string productId)
     {
-        _productRepository.Delete(productId);
+        await _productRepository.DeleteAsync(productId);
     }
 }

@@ -9,8 +9,8 @@ public class ProductCategoryDomainService
         _productCategoryRepository = productCategoryRepository;
     }
 
-    public string GetCategoryNameById(int categoryId)
+    public async Task<string> GetCategoryNameByIdAsync(int categoryId)
     {
-        return _productCategoryRepository.GetCategoryNameById(categoryId);
+        return await _productCategoryRepository.GetCategoryNameByIdAsync(categoryId);
     }
 }
