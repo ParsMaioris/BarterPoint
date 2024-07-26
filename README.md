@@ -85,7 +85,7 @@ While BarterPoint is a functional MVP, several features and improvements are pla
 
 ## Purpose and Context
 
-BarterPoint is actively under development and primarily serves as a portfolio piece. The main goal is to showcase skills in full-stack development for job interviews, as employers often request GitHub repositories. There are no immediate plans to take this project beyond its current state. The ongoing updates are focused on refining and demonstrating capabilities rather than learning new technologies.
+BarterPoint is actively under development and primarily serves as a portfolio piece. The project is primarily used by the author as a tool to introduce some of his colleagues and friends to the .NET, React Native, and SQL ecosystem. The focus is to highlight how these technologies interact. There are no immediate plans to take this project beyond its current state.
 
 ## Contributing
 
